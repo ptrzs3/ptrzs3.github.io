@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ptrzs</title>
-    <link>http://www.example.com/</link>
-    <description>Recent content on ptrzs</description>
+    <title>发疯空间</title>
+    <link>https://ptrzs3.github.io/</link>
+    <description>Recent content on 发疯空间</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>http://www.example.com/about/</link>
+      <link>https://ptrzs3.github.io/about/</link>
       <pubDate>Fri, 13 Oct 2023 20:57:50 +0800</pubDate>
       
-      <guid>http://www.example.com/about/</guid>
+      <guid>https://ptrzs3.github.io/about/</guid>
       <description>关爱穷逼，人人有责Link to heading扶贫扫码，一生平安Link to heading</description>
     </item>
     
     <item>
       <title>Hadoop集群搭建</title>
-      <link>http://www.example.com/posts/hadoop/</link>
+      <link>https://ptrzs3.github.io/posts/hadoop/</link>
       <pubDate>Fri, 13 Oct 2023 20:56:12 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/hadoop/</guid>
+      <guid>https://ptrzs3.github.io/posts/hadoop/</guid>
       <description>Hadoop配置方案Link to headingMarkdownLink to heading什么是MarkdownLink to heading​	Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
 ​	由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，目前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、CSDN、简书等，甚至还能被用来撰写电子书。
 为什么使用MarkdownLink to heading专注于内容而不是形式 纯文本格式，兼容性强 格式转换方便 Markdown语法示例Link to heading直接插入图片（建议使用图床上传）
@@ -35,10 +35,10 @@ fn main() { println!(&amp;#34;Hello, world!&amp;#34;); } #include &amp;lt;stdio.
     
     <item>
       <title>Rust命令行解析程序：Clap</title>
-      <link>http://www.example.com/posts/clap/</link>
+      <link>https://ptrzs3.github.io/posts/clap/</link>
       <pubDate>Fri, 13 Oct 2023 20:54:44 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/clap/</guid>
+      <guid>https://ptrzs3.github.io/posts/clap/</guid>
       <description>Rust命令行解析程序：ClapLink to heading基于Clap 4.4.6
 参考资料：Clap官方手册
 Chapter 1Link to heading配置解析器Link to heading使用Command结构体的new方法构建解析器：
@@ -48,10 +48,10 @@ arg.exe --two foo --one bar：两个参数分别对应foo和bar arg.exe -h 或 a
     
     <item>
       <title>VSCode配置C&#43;&#43;开发环境（MSVC）</title>
-      <link>http://www.example.com/posts/vscode/</link>
+      <link>https://ptrzs3.github.io/posts/vscode/</link>
       <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/vscode/</guid>
+      <guid>https://ptrzs3.github.io/posts/vscode/</guid>
       <description>前置知识Link to heading这些内容如果感兴趣可以看一下，不看也不妨碍配置环境，因为我会一步步教你配置。（但我希望你还是看一下，毕竟我写了好久🤣）
 C/C++编译器有哪些Link to heading注意我们说的是编译器，而不是集成开发环境（IDE，Integrated Development Environment）。我们平常用的Codeblocks，Visual Studio Code，Dev C++等软件都是开发环境，而不是编译器。
 常用的C/C++编译器（更确切地说是编译器套件）有：GCC、MinGW、MSVC等。不同的编译器附有不同的库文件，如果某段代码只用了标准库，那么这段代码很可能用任意C/C++编译器都可以编译通过；而如果某段代码用了特定编译器独有的库文件，那这段代码很可能只能用特定编译器才能编译通过，甚至对该编译器的版本也有要求。
@@ -72,10 +72,10 @@ Path环境变量Link to heading​	Path是个很重要的环境变量，他里
     
     <item>
       <title>Git基础</title>
-      <link>http://www.example.com/posts/git/</link>
+      <link>https://ptrzs3.github.io/posts/git/</link>
       <pubDate>Fri, 13 Oct 2023 20:52:20 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/git/</guid>
+      <guid>https://ptrzs3.github.io/posts/git/</guid>
       <description>GitLink to headingGit的配置信息Link to heading使用git config命令对Git做一些配置。
 Git的配置文件等级Link to headingGit的配置文件有三个，分别对应不同的影响等级：
 Linux下

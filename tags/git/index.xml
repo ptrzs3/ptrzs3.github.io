@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>git on ptrzs</title>
-    <link>http://www.example.com/tags/git/</link>
-    <description>Recent content in git on ptrzs</description>
+    <title>git on 发疯空间</title>
+    <link>https://ptrzs3.github.io/tags/git/</link>
+    <description>Recent content in git on 发疯空间</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 20:52:20 +0800</lastBuildDate><atom:link href="http://www.example.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 20:52:20 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Git基础</title>
-      <link>http://www.example.com/posts/git/</link>
+      <link>https://ptrzs3.github.io/posts/git/</link>
       <pubDate>Fri, 13 Oct 2023 20:52:20 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/git/</guid>
+      <guid>https://ptrzs3.github.io/posts/git/</guid>
       <description>GitLink to headingGit的配置信息Link to heading使用git config命令对Git做一些配置。
 Git的配置文件等级Link to headingGit的配置文件有三个，分别对应不同的影响等级：
 Linux下

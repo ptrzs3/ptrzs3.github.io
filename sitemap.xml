@@ -2,59 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.example.com/about/</loc>
+    <loc>https://ptrzs3.github.io/about/</loc>
     <lastmod>2023-10-13T20:57:50+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/authors/</loc>
+    <loc>https://ptrzs3.github.io/authors/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/hadoop/</loc>
+    <loc>https://ptrzs3.github.io/tags/hadoop/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/hadoop/</loc>
+    <loc>https://ptrzs3.github.io/posts/hadoop/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/</loc>
+    <loc>https://ptrzs3.github.io/posts/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/authors/ptrzs/</loc>
+    <loc>https://ptrzs3.github.io/authors/ptrzs/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/</loc>
+    <loc>https://ptrzs3.github.io/tags/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/</loc>
+    <loc>https://ptrzs3.github.io/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/clap/</loc>
+    <loc>https://ptrzs3.github.io/tags/clap/</loc>
     <lastmod>2023-10-13T20:54:44+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/rust/</loc>
+    <loc>https://ptrzs3.github.io/tags/rust/</loc>
     <lastmod>2023-10-13T20:54:44+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/clap/</loc>
+    <loc>https://ptrzs3.github.io/posts/clap/</loc>
     <lastmod>2023-10-13T20:54:44+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/c&#43;&#43;/</loc>
+    <loc>https://ptrzs3.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2023-10-13T20:53:22+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/msvc/</loc>
+    <loc>https://ptrzs3.github.io/tags/msvc/</loc>
     <lastmod>2023-10-13T20:53:22+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/vscode/</loc>
+    <loc>https://ptrzs3.github.io/tags/vscode/</loc>
     <lastmod>2023-10-13T20:53:22+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/vscode/</loc>
+    <loc>https://ptrzs3.github.io/posts/vscode/</loc>
     <lastmod>2023-10-13T20:53:22+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/tags/git/</loc>
+    <loc>https://ptrzs3.github.io/tags/git/</loc>
     <lastmod>2023-10-13T20:52:20+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/posts/git/</loc>
+    <loc>https://ptrzs3.github.io/posts/git/</loc>
     <lastmod>2023-10-13T20:52:20+08:00</lastmod>
   </url><url>
-    <loc>http://www.example.com/categories/</loc>
+    <loc>https://ptrzs3.github.io/categories/</loc>
   </url><url>
-    <loc>http://www.example.com/series/</loc>
+    <loc>https://ptrzs3.github.io/series/</loc>
   </url>
 </urlset>

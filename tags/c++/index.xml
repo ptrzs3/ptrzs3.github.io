@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>c&#43;&#43; on ptrzs</title>
-    <link>http://www.example.com/tags/c&#43;&#43;/</link>
-    <description>Recent content in c&#43;&#43; on ptrzs</description>
+    <title>c&#43;&#43; on 发疯空间</title>
+    <link>https://ptrzs3.github.io/tags/c&#43;&#43;/</link>
+    <description>Recent content in c&#43;&#43; on 发疯空间</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 20:53:22 +0800</lastBuildDate><atom:link href="http://www.example.com/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 20:53:22 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VSCode配置C&#43;&#43;开发环境（MSVC）</title>
-      <link>http://www.example.com/posts/vscode/</link>
+      <link>https://ptrzs3.github.io/posts/vscode/</link>
       <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/vscode/</guid>
+      <guid>https://ptrzs3.github.io/posts/vscode/</guid>
       <description>前置知识Link to heading这些内容如果感兴趣可以看一下，不看也不妨碍配置环境，因为我会一步步教你配置。（但我希望你还是看一下，毕竟我写了好久🤣）
 C/C++编译器有哪些Link to heading注意我们说的是编译器，而不是集成开发环境（IDE，Integrated Development Environment）。我们平常用的Codeblocks，Visual Studio Code，Dev C++等软件都是开发环境，而不是编译器。
 常用的C/C++编译器（更确切地说是编译器套件）有：GCC、MinGW、MSVC等。不同的编译器附有不同的库文件，如果某段代码只用了标准库，那么这段代码很可能用任意C/C++编译器都可以编译通过；而如果某段代码用了特定编译器独有的库文件，那这段代码很可能只能用特定编译器才能编译通过，甚至对该编译器的版本也有要求。

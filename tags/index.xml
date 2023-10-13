@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on ptrzs</title>
-    <link>http://www.example.com/tags/</link>
-    <description>Recent content in Tags on ptrzs</description>
+    <title>Tags on 发疯空间</title>
+    <link>https://ptrzs3.github.io/tags/</link>
+    <description>Recent content in Tags on 发疯空间</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="http://www.example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hadoop</title>
-      <link>http://www.example.com/tags/hadoop/</link>
+      <link>https://ptrzs3.github.io/tags/hadoop/</link>
       <pubDate>Fri, 13 Oct 2023 20:56:12 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/hadoop/</guid>
+      <guid>https://ptrzs3.github.io/tags/hadoop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>clap</title>
-      <link>http://www.example.com/tags/clap/</link>
+      <link>https://ptrzs3.github.io/tags/clap/</link>
       <pubDate>Fri, 13 Oct 2023 20:54:44 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/clap/</guid>
+      <guid>https://ptrzs3.github.io/tags/clap/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rust</title>
-      <link>http://www.example.com/tags/rust/</link>
+      <link>https://ptrzs3.github.io/tags/rust/</link>
       <pubDate>Fri, 13 Oct 2023 20:54:44 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/rust/</guid>
+      <guid>https://ptrzs3.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
     <item>
       <title>c&#43;&#43;</title>
-      <link>http://www.example.com/tags/c&#43;&#43;/</link>
+      <link>https://ptrzs3.github.io/tags/c&#43;&#43;/</link>
       <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/c&#43;&#43;/</guid>
+      <guid>https://ptrzs3.github.io/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
       <title>MSVC</title>
-      <link>http://www.example.com/tags/msvc/</link>
+      <link>https://ptrzs3.github.io/tags/msvc/</link>
       <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/msvc/</guid>
+      <guid>https://ptrzs3.github.io/tags/msvc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vscode</title>
-      <link>http://www.example.com/tags/vscode/</link>
+      <link>https://ptrzs3.github.io/tags/vscode/</link>
       <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/vscode/</guid>
+      <guid>https://ptrzs3.github.io/tags/vscode/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>http://www.example.com/tags/git/</link>
+      <link>https://ptrzs3.github.io/tags/git/</link>
       <pubDate>Fri, 13 Oct 2023 20:52:20 +0800</pubDate>
       
-      <guid>http://www.example.com/tags/git/</guid>
+      <guid>https://ptrzs3.github.io/tags/git/</guid>
       <description></description>
     </item>
     
