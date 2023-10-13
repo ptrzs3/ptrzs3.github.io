@@ -2,21 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://www.example.com/posts/fir/</loc>
-    <lastmod>2023-10-13T18:19:17+08:00</lastmod>
-  </url><url>
-    <loc>http://www.example.com/posts/</loc>
-    <lastmod>2023-10-13T18:19:17+08:00</lastmod>
-  </url><url>
-    <loc>http://www.example.com/</loc>
-    <lastmod>2023-10-13T18:19:17+08:00</lastmod>
+    <loc>http://www.example.com/about/</loc>
+    <lastmod>2023-10-13T20:57:50+08:00</lastmod>
   </url><url>
     <loc>http://www.example.com/authors/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/hadoop/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/posts/hadoop/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/posts/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/authors/ptrzs/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/</loc>
+    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/clap/</loc>
+    <lastmod>2023-10-13T20:54:44+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/rust/</loc>
+    <lastmod>2023-10-13T20:54:44+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/posts/clap/</loc>
+    <lastmod>2023-10-13T20:54:44+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/c&#43;&#43;/</loc>
+    <lastmod>2023-10-13T20:53:22+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/msvc/</loc>
+    <lastmod>2023-10-13T20:53:22+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/vscode/</loc>
+    <lastmod>2023-10-13T20:53:22+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/posts/vscode/</loc>
+    <lastmod>2023-10-13T20:53:22+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/tags/git/</loc>
+    <lastmod>2023-10-13T20:52:20+08:00</lastmod>
+  </url><url>
+    <loc>http://www.example.com/posts/git/</loc>
+    <lastmod>2023-10-13T20:52:20+08:00</lastmod>
   </url><url>
     <loc>http://www.example.com/categories/</loc>
   </url><url>
     <loc>http://www.example.com/series/</loc>
-  </url><url>
-    <loc>http://www.example.com/tags/</loc>
   </url>
 </urlset>

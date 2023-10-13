@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Hadoop集群搭建 · ptrzs
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="三台虚拟机从零开始搭建Hadoop集群">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hadoop集群搭建"/>
+<meta name="twitter:description" content="三台虚拟机从零开始搭建Hadoop集群"/>
+
+<meta property="og:title" content="Hadoop集群搭建" />
+<meta property="og:description" content="三台虚拟机从零开始搭建Hadoop集群" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://www.example.com/posts/hadoop/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-13T20:56:12+08:00" />
+<meta property="article:modified_time" content="2023-10-13T20:56:12+08:00" />
+
+
+
+
+<link rel="canonical" href="http://www.example.com/posts/hadoop/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      ptrzs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://www.example.com/posts/hadoop/">
+              Hadoop集群搭建
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-10-13T20:56:12&#43;08:00">
+                October 13, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/hadoop/">hadoop</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="hadoop配置方案">
+  Hadoop配置方案
+  <a class="heading-link" href="#hadoop%e9%85%8d%e7%bd%ae%e6%96%b9%e6%a1%88">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<h2 id="markdown">
+  Markdown
+  <a class="heading-link" href="#markdown">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="什么是markdown">
+  什么是Markdown
+  <a class="heading-link" href="#%e4%bb%80%e4%b9%88%e6%98%afmarkdown">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		<a href="https://zh.wikipedia.org/wiki/Markdown"  class="external-link" target="_blank" rel="noopener">Markdown</a>是一种轻量级标记语言，创始人为约翰·格鲁伯。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。</p>
+<p>​		由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，目前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、CSDN、简书等，甚至还能被用来撰写电子书。</p>
+<h3 id="为什么使用markdown">
+  为什么使用Markdown
+  <a class="heading-link" href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bd%bf%e7%94%a8markdown">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>专注于内容而不是形式</li>
+<li>纯文本格式，兼容性强</li>
+<li>格式转换方便</li>
+</ul>
+<h3 id="markdown语法示例">
+  Markdown语法示例
+  <a class="heading-link" href="#markdown%e8%af%ad%e6%b3%95%e7%a4%ba%e4%be%8b">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>
+<p>直接插入图片（建议使用图床上传）</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20231012163700192.png" alt="image-20231012163700192"></p>
+</li>
+<li>
+<p>插入代码块</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">main</span>()<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>println!(<span style="color:#a5d6ff">&#34;Hello, world!&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">#include</span> <span style="color:#8b949e;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#8b949e;font-weight:bold;font-style:italic">
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic"></span><span style="color:#ff7b72">int</span> <span style="color:#d2a8ff;font-weight:bold">main</span>(<span style="color:#ff7b72">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#d2a8ff;font-weight:bold">printf</span>(<span style="color:#a5d6ff">&#34;Hello, World!&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p>插入数学公式
+$$
+f(x_1,x_2,\ldots,x_n) = \left({1 \over x_1}\right)^2+\left({1 \over x_2}\right)^2+\cdots+\left({1 \over x_n}\right)^2
+$$</p>
+</li>
+</ul>
+<h2 id="图床">
+  图床
+  <a class="heading-link" href="#%e5%9b%be%e5%ba%8a">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>​		在Markdown文档中插入图片，其实存储在文档中的是图片的路径，而不是图片本身。所以如果只将Markdown文件本身分享出去而没有打包本地图片的话，文档中的图片就无法显示。因此有一种通用的做法是将图片上传到公网，在Markdown中插入图片时使用公网路径，这样只要有网络连接，Markdown中的图片都可以显示。这个存储图片的地址就是图床。一般来说上传到图床的图片不应该是私密信息，因为图床是公开访问权限的。为了使用方便，有软件比如PicGo实现了将本地图片添加到Markdown文档后，自动将图片上传到图床，并将图片路径替换为网络路径。</p>
+<p>​		网络上有公益图床，即免费使用（但可能会对上传和下载流量做出限制）的图床。这种图床一般速率较慢，且有闭站的风险，因此建议使用比如腾讯云、阿里云等有保障的厂商提供的图床服务。</p>
+<h2 id="安装虚拟机">
+  安装虚拟机
+  <a class="heading-link" href="#%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>略</p>
+<h2 id="虚拟机配置">
+  虚拟机配置
+  <a class="heading-link" href="#%e8%99%9a%e6%8b%9f%e6%9c%ba%e9%85%8d%e7%bd%ae">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>​		为实现分布式计算，需要所有计算节点的网络彼此可连通；为避免不可预见的问题，相关安装包均使用相同版本。</p>
+<h3 id="主机名设置">
+  主机名设置
+  <a class="heading-link" href="#%e4%b8%bb%e6%9c%ba%e5%90%8d%e8%ae%be%e7%bd%ae">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		设置易读的主机名，便于区分计算节点。</p>
+<ol>
+<li>
+<p>操作系统文件需要管理员root权限，切换为root:</p>
+<p><code>su root</code></p>
+</li>
+<li>
+<p>使用gedit编辑器编辑用户名，三台虚拟机的主机名设置为Cent1、Cent2、Cent3</p>
+<p><code>gedit /etc/hostname</code></p>
+</li>
+<li>
+<p>编辑后保存并退出gedit编辑器，回到终端。重启虚拟机后，主机名即永久修改</p>
+</li>
+<li>
+<p>执行<code>hostname</code>检测主机名是否修改成功</p>
+</li>
+</ol>
+<h3 id="网络设置">
+  网络设置
+  <a class="heading-link" href="#%e7%bd%91%e7%bb%9c%e8%ae%be%e7%bd%ae">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>
+<p>关闭物理机防火墙，并将其连接至同一局域网</p>
+</li>
+<li>
+<p>将虚拟机网络设置改为桥接模式</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20231012165539945.png" alt=""></p>
+</li>
+<li>
+<p>关闭虚拟机防火墙</p>
+<p><code>systemctl stop firewalled.service</code></p>
+</li>
+<li>
+<p>配置三台虚拟机的ip地址，确保虚拟机与主机处于同一网段</p>
+</li>
+<li>
+<p>执行<code>ping</code>命令检查三台虚拟机连通性</p>
+</li>
+</ol>
+<h3 id="设置免密登录">
+  设置免密登录
+  <a class="heading-link" href="#%e8%ae%be%e7%bd%ae%e5%85%8d%e5%af%86%e7%99%bb%e5%bd%95">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		免密登录是指两台计算机之间通过SSH协议连接时不需要用户名和密码。SSH是一种在不安全网络上提供安全远程登陆及其他安全网络服务的协议。在默认状态下，SSH连接是需要密码验证的，但是可以通过修改系统认证，使系统通信免除密码输入和SSH认证。</p>
+<ol>
+<li>
+<p>确保ssh服务处于运行状态</p>
+<p><code>service sshd status</code></p>
+</li>
+<li>
+<p>使用RSA加密算法生成公钥和私钥（默认配置）</p>
+<p><code>ssh-keygen -t rsa</code></p>
+</li>
+<li>
+<p>将生成的公钥发送到另外两台虚拟机下</p>
+<p><code>ssh-copy-id &lt;ip&gt;</code></p>
+</li>
+</ol>
+<h3 id="配置java环境">
+  配置Java环境
+  <a class="heading-link" href="#%e9%85%8d%e7%bd%aejava%e7%8e%af%e5%a2%83">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>
+<p>解压JDK包</p>
+<p><code>cd /usr/local</code></p>
+<p><code>tar -zxvf jdk-8u171-linux-x64.tar.gz</code></p>
+</li>
+<li>
+<p>配置环境变量(root)</p>
+<p><code>vim /root/.bash_profile </code></p>
+<p>在文档末尾追加以下内容：</p>
+<p><code>export JAVA_HOME=/usr/java/jdk1.8.0_171/</code>
+<code>export PATH=$JAVA_HOME/bin:$PATH</code></p>
+<p>保存并退出</p>
+</li>
+<li>
+<p>使<code>.bash_profile</code>生效</p>
+<p><code>source /root/.bash_profile</code></p>
+</li>
+<li>
+<p>验证Java版本号</p>
+<p>使用<code>java -version</code>命令查看Java版本号，输出<code>java version &quot;1.8.0_171&quot;</code>即配置成功</p>
+</li>
+</ol>
+<h3 id="安装及配置hadoop">
+  安装及配置Hadoop
+  <a class="heading-link" href="#%e5%ae%89%e8%a3%85%e5%8f%8a%e9%85%8d%e7%bd%aehadoop">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p><img src="https://hadoop.apache.org/hadoop-logo.jpg" alt="hadoop-logo"></p>
+<p>Hadoop版本号为3.1.0</p>
+<ol>
+<li>
+<p>解压Hadoop包</p>
+<p><code>cd /usr/local</code></p>
+<p><code>tar -zxvf hadoop-3.1.0.tar.gz </code></p>
+</li>
+<li>
+<p>配置Hadoop环境变量</p>
+<p><code>vim /usr/local/hadoop-3.1.0/etc/hadoop/hadoop-env.sh</code></p>
+<p>在文件末尾追加以下内容：</p>
+<p><code>export JAVA_HOME=/usr/local/jdk.1.8.0_171/</code></p>
+</li>
+<li>
+<p>配置yarn环境变量</p>
+<p><code>vim /usr/local/hadoop-3.1.0/etc/hadoop/yarn-env.sh</code></p>
+<p>在文件末尾追加以下内容：</p>
+<p><code>export JAVA_HOME=/usr/local/jdk.1.8.0_171/</code></p>
+</li>
+</ol>
+<h1 id="附录">
+  附录
+  <a class="heading-link" href="#%e9%99%84%e5%bd%95">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<h2 id="ssh">
+  SSH
+  <a class="heading-link" href="#ssh">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>​		SSH 叫安全外壳协议（Secure Shell），是一种加密的网络传输协议，可在不安全的网络中网络服务提供安全的传输环境。它通过在网络中创建安全隧道来实现 SSH 客户端和服务器之间的连接。最早的时候，互联网通信都是明文通信，一旦被截获，内容就会被暴露。1995年，芬兰学者 Tatu Ylonen 设计了 SSH 协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广，目前已经成为所有操作系统的标准配置。</p>
+<h3 id="ssh的工作过程httpsinfosupporthuaweicominfo-finderencyclopediazhsshhtml">
+  <a href="https://info.support.huawei.com/info-finder/encyclopedia/zh/SSH.html"  class="external-link" target="_blank" rel="noopener">SSH的工作过程</a>
+  <a class="heading-link" href="#ssh%e7%9a%84%e5%b7%a5%e4%bd%9c%e8%bf%87%e7%a8%8bhttpsinfosupporthuaweicominfo-finderencyclopediazhsshhtml">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p><img src="https://download.huawei.com/mdl/image/download?uuid=f6f0f3e9e0cb4ae79e9da078da96fb12" alt="SSH工作流程"></p>
+<ol>
+<li>
+<p>连接建立：SSH客户端向SSH服务器建立TCP连接，发送连接请求</p>
+</li>
+<li>
+<p>版本协商：客户端和服务器协商使用的SSH版本号</p>
+</li>
+<li>
+<p>算法协商：确定用于产生会话密钥的密钥交换算法、用于数据信息加密的对称加密算法、用于数字签名和认证的公钥算法等</p>
+</li>
+<li>
+<p>密钥交换：双方通过密钥交换算法动态生成会话密钥和会话ID，前者用于数据的加密，后者用于唯一标识该SSH连接。为保证会话密钥的安全性，密钥并不是一方生成后发送给另一方，而是通过数学算法本地生成。</p>
+<p><img src="https://download.huawei.com/mdl/image/download?uuid=644396500e9549d19821793de2c1617a" alt="SSH密钥交换"></p>
+</li>
+<li>
+<p>用户认证</p>
+<ul>
+<li>
+<p>口令认证：客户端请求建立SSH连接，服务器将本机公钥发送给客户端，客户端通过此公钥加密口令并发送给服务器，服务器使用私钥解密后验证口令是否正确。若攻击者截获客户端的SSH连接请求，并发送自己的公钥给客户端，则可以截获服务器的登录口令，这种攻击称为“中间人攻击”。</p>
+<p><img src="https://download.huawei.com/mdl/image/download?uuid=9b5ca3e252304bb8ab110a6a1e4c5ad4" alt="SSH密码认证登录流程"></p>
+</li>
+<li>
+<p>密钥认证：服务器需事先保存有客户端的公钥。服务器收到客户端的连接请求，使用已保存的客户端的公钥加密一个随机内容发送给客户端，客户端使用私钥解密并将内容返回，服务器验证内容正确则建立SSH连接。</p>
+<p><img src="https://download.huawei.com/mdl/image/download?uuid=33900275558042adadc3b9edb05b7837" alt="SSH密钥认证登录流程"></p>
+</li>
+</ul>
+</li>
+<li>
+<p>会话请求：客户端向服务器发送会话请求，请求服务器提供某种类型的服务</p>
+</li>
+<li>
+<p>会话交互：会话建立后，SSH服务器端和客户端在该会话上进行数据信息的交互，双方发送的数据均使用会话密钥进行加解密</p>
+</li>
+</ol>
+<h2 id="加密算法">
+  加密算法
+  <a class="heading-link" href="#%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>​		加密算法可分为对称和非对称加密。</p>
+<h3 id="对称加密密钥加密">
+  对称加密（密钥加密）
+  <a class="heading-link" href="#%e5%af%b9%e7%a7%b0%e5%8a%a0%e5%af%86%e5%af%86%e9%92%a5%e5%8a%a0%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		对称加密指加密解密使用的是同一套密钥。Client端（客户端）把密钥加密后发送给Server端（服务器端），Server（服务器端）用同一套密钥解密。（所谓对称，就是采用这种加密方法的双方使用方式用同样的密钥进行加密和解密。密钥是控制加密及解密过程的指令。算法是一组规则，规定如何进行加密和解密。）对称加密的加密强度比较高，很难破解。由于其速度快，对称性加密通常在消息发送方需要加密大量数据时使用。对称式的加密方法如果用于通过网络传输加密文件，那么不管使用任何方法将密钥告诉对方，都有可能被窃听为了解决对称加密的漏洞，于是就产生了非对称加密。</p>
+<h3 id="非对称加密公钥加密">
+  非对称加密（公钥加密）
+  <a class="heading-link" href="#%e9%9d%9e%e5%af%b9%e7%a7%b0%e5%8a%a0%e5%af%86%e5%85%ac%e9%92%a5%e5%8a%a0%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		非对称加密加密和解密过程中分别使用不同的密钥，这两个密钥是公开密钥（public key，简称公钥）和私有密钥（private key，简称私钥）。想要能正常完成加密解密过程，就必需配对使用。而在使用过程中，“公钥”是公开的，“私钥”则必须由发送人保密，同时只能由持有人所有。非对称式的加密方法则具有一定的优越性，因为它包含有两个密钥，且仅有其中的“公钥”是可以被公开的，公钥加密后的密文接收方只需要使用自己已持有的私钥进行解密，这样就可以很好的避免密钥在传输过程中产生的安全问题。</p>
+<h3 id="典型的加密算法">
+  典型的加密算法
+  <a class="heading-link" href="#%e5%85%b8%e5%9e%8b%e7%9a%84%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>非对称加密算法：<a href="https://baike.baidu.com/item/RSA%E7%AE%97%E6%B3%95/263310?fr=ge_ala"  class="external-link" target="_blank" rel="noopener">RSA</a>、<a href="https://baike.baidu.com/item/DSA%E7%AE%97%E6%B3%95/10856660?fr=ge_ala"  class="external-link" target="_blank" rel="noopener">DSA</a></li>
+<li>对称加密算法：<a href="https://baike.baidu.com/item/%E9%AB%98%E7%BA%A7%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86/468774?fromtitle=aes%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95&amp;fromid=3233272&amp;fr=aladdin"  class="external-link" target="_blank" rel="noopener">AES</a>、<a href="https://baike.baidu.com/item/DES/210508?fr=ge_ala"  class="external-link" target="_blank" rel="noopener">DES</a></li>
+</ul>
+<h2 id="常用的linux命令">
+  常用的Linux命令
+  <a class="heading-link" href="#%e5%b8%b8%e7%94%a8%e7%9a%84linux%e5%91%bd%e4%bb%a4">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li>
+<p><code>ls [option]</code>：查看目录下的非隐藏文件</p>
+</li>
+<li>
+<p><code>cd &lt;abs dir name&gt;</code> ：切换目录</p>
+</li>
+<li>
+<p><code>mkdir &lt;dir name&gt;</code>：创建文件夹</p>
+</li>
+<li>
+<p><code>touch &lt;file name&gt;</code>：创建文件</p>
+</li>
+<li>
+<p><code>rm [option] &lt;file name&gt;</code>：删除文件</p>
+</li>
+<li>
+<p><code>cp &lt;src&gt; &lt;dest&gt;</code>：拷贝文件</p>
+</li>
+<li>
+<p><code>mv &lt;src&gt; &lt;dest&gt;</code>：移动文件</p>
+</li>
+<li>
+<p><code>su &lt;username&gt;</code>：切换用户</p>
+</li>
+</ul>
+<h2 id="vim编辑器及其用法">
+  Vim编辑器及其用法
+  <a class="heading-link" href="#vim%e7%bc%96%e8%be%91%e5%99%a8%e5%8f%8a%e5%85%b6%e7%94%a8%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>​		基本上vi可以分为三种状态，分别是命令模式（command mode）、插入模式（Insert mode）和底行模式（last line mode），各模式的功能区分如下：</p>
+<ul>
+<li>
+<h3 id="命令行模式command-mode">
+  命令行模式（command mode）
+  <a class="heading-link" href="#%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%a8%a1%e5%bc%8fcommand-mode">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>控制屏幕光标的移动，字符、字或行的删除，查找，移动复制某区段及进入Insert mode下，或者到 last line mode。
+命令行模式下的常用命令：</p>
+<ul>
+<li>
+<p>控制光标移动：↑，↓，j</p>
+</li>
+<li>
+<p>删除当前行：dd</p>
+</li>
+<li>
+<p>查找：/ <!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>进入编辑模式：i o a</p>
+</li>
+<li>
+<p>进入底行模式：:</p>
+</li>
+</ul>
+</li>
+<li>
+<h3 id="编辑模式insert-mode">
+  编辑模式（Insert mode）
+  <a class="heading-link" href="#%e7%bc%96%e8%be%91%e6%a8%a1%e5%bc%8finsert-mode">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>只有在Insert mode下，才可以做文字输入，按「ESC」键可回到命令行模式。</p>
+</li>
+<li>
+<h3 id="底行模式last-line-mode">
+  底行模式（last line mode）
+  <a class="heading-link" href="#%e5%ba%95%e8%a1%8c%e6%a8%a1%e5%bc%8flast-line-mode">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>将文件保存或退出vim，也可以设置编辑环境，如寻找字符串、列出行号……等。</p>
+<p>底行模式下常用命令：</p>
+<ul>
+<li>
+<p>退出编辑：:q</p>
+</li>
+<li>
+<p>强制退出：:q!</p>
+</li>
+<li>
+<p>保存并退出：:wq</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script>
+  window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
+</script>
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2023
+     ptrzs 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on ptrzs</title>
+    <link>http://www.example.com/tags/git/</link>
+    <description>Recent content in git on ptrzs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Oct 2023 20:52:20 +0800</lastBuildDate><atom:link href="http://www.example.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git基础</title>
+      <link>http://www.example.com/posts/git/</link>
+      <pubDate>Fri, 13 Oct 2023 20:52:20 +0800</pubDate>
+      
+      <guid>http://www.example.com/posts/git/</guid>
+      <description>GitLink to headingGit的配置信息Link to heading使用git config命令对Git做一些配置。
+Git的配置文件等级Link to headingGit的配置文件有三个，分别对应不同的影响等级：
+Linux下
+/etc/gitconfig：包含系统上每个用户及他们仓库的通用配置，使用git config --system更改
+~/.gitconfig 或 ~/.config/git/config：针对当前用户的配置文件，使用git config --global修改
+.git/config：针对当前仓库的配置文件，使用git config修改
+Windows下
+$Git/etc/gitconfig $HOME/.gitconfig .git/config 读取配置时优先读取当前仓库的配置，如果没有就往上找
+修改Git配置Link to heading修改全局配置：git config --global user.name &amp;quot;zhangsan&amp;quot; 查看当前的Git配置Link to headinggit config --list
+Git基础Link to heading初始化Git仓库Link to heading将当前目录初始化为Git仓库：git init
+如果当前目录中已经有一些文件存在，使用git add &amp;lt;filename&amp;gt;来跟踪某个文件即将其提交到暂存区，或者git add .跟踪当前目录所有文件并提交到暂存区
+克隆已有的仓库Link to heading克隆github上某个仓库：git clone &amp;lt;url&amp;gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rust on ptrzs</title>
+    <link>http://www.example.com/tags/rust/</link>
+    <description>Recent content in Rust on ptrzs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Oct 2023 20:54:44 +0800</lastBuildDate><atom:link href="http://www.example.com/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust命令行解析程序：Clap</title>
+      <link>http://www.example.com/posts/clap/</link>
+      <pubDate>Fri, 13 Oct 2023 20:54:44 +0800</pubDate>
+      
+      <guid>http://www.example.com/posts/clap/</guid>
+      <description>Rust命令行解析程序：ClapLink to heading基于Clap 4.4.6
+参考资料：Clap官方手册
+Chapter 1Link to heading配置解析器Link to heading使用Command结构体的new方法构建解析器：
+// arg.exe use clap::{arg, Command}; fn main() { // 只要调用clap解析命令行参数，--help和--version会自动添加到命令行参数列表中 // 使用arg!宏定义了两个命令行参数：two, one let matches = Command::new(&amp;#34;MyApp&amp;#34;) .version(&amp;#34;1.0&amp;#34;) .author(&amp;#34;Kevin K. &amp;lt;kbknapp@gmail.com&amp;gt;&amp;#34;) .about(&amp;#34;Does awesome things&amp;#34;) .arg(arg!(--two &amp;lt;VALUE&amp;gt;).required(true)) .arg(arg!(--one &amp;lt;VALUE&amp;gt;).required(true)) .get_matches(); println!( &amp;#34;two: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;two&amp;#34;).expect(&amp;#34;required&amp;#34;) ); println!( &amp;#34;one: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;one&amp;#34;).expect(&amp;#34;required&amp;#34;) ); } 用法：
+arg.exe --two foo --one bar：两个参数分别对应foo和bar arg.exe -h 或 arg.exe --help：输出帮助信息 arg.exe -v 或 arg.</description>
+    </item>
+    
+  </channel>
+</rss>

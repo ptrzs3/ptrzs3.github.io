@@ -6,14 +6,78 @@
     <description>Recent content in Posts on ptrzs</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 18:19:17 +0800</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>fir</title>
-      <link>http://www.example.com/posts/fir/</link>
-      <pubDate>Fri, 13 Oct 2023 18:19:17 +0800</pubDate>
+      <title>Hadoop集群搭建</title>
+      <link>http://www.example.com/posts/hadoop/</link>
+      <pubDate>Fri, 13 Oct 2023 20:56:12 +0800</pubDate>
       
-      <guid>http://www.example.com/posts/fir/</guid>
-      <description>Hello</description>
+      <guid>http://www.example.com/posts/hadoop/</guid>
+      <description>Hadoop配置方案Link to headingMarkdownLink to heading什么是MarkdownLink to heading​	Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
+​	由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，目前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、CSDN、简书等，甚至还能被用来撰写电子书。
+为什么使用MarkdownLink to heading专注于内容而不是形式 纯文本格式，兼容性强 格式转换方便 Markdown语法示例Link to heading直接插入图片（建议使用图床上传）
+插入代码块
+fn main() { println!(&amp;#34;Hello, world!&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; int main(void) { printf(&amp;#34;Hello, World!&amp;#34;); return 0; } 插入数学公式 $$ f(x_1,x_2,\ldots,x_n) = \left({1 \over x_1}\right)^2+\left({1 \over x_2}\right)^2+\cdots+\left({1 \over x_n}\right)^2 $$
+图床Link to heading​	在Markdown文档中插入图片，其实存储在文档中的是图片的路径，而不是图片本身。所以如果只将Markdown文件本身分享出去而没有打包本地图片的话，文档中的图片就无法显示。因此有一种通用的做法是将图片上传到公网，在Markdown中插入图片时使用公网路径，这样只要有网络连接，Markdown中的图片都可以显示。这个存储图片的地址就是图床。一般来说上传到图床的图片不应该是私密信息，因为图床是公开访问权限的。为了使用方便，有软件比如PicGo实现了将本地图片添加到Markdown文档后，自动将图片上传到图床，并将图片路径替换为网络路径。
+​	网络上有公益图床，即免费使用（但可能会对上传和下载流量做出限制）的图床。这种图床一般速率较慢，且有闭站的风险，因此建议使用比如腾讯云、阿里云等有保障的厂商提供的图床服务。
+安装虚拟机Link to heading略</description>
+    </item>
+    
+    <item>
+      <title>Rust命令行解析程序：Clap</title>
+      <link>http://www.example.com/posts/clap/</link>
+      <pubDate>Fri, 13 Oct 2023 20:54:44 +0800</pubDate>
+      
+      <guid>http://www.example.com/posts/clap/</guid>
+      <description>Rust命令行解析程序：ClapLink to heading基于Clap 4.4.6
+参考资料：Clap官方手册
+Chapter 1Link to heading配置解析器Link to heading使用Command结构体的new方法构建解析器：
+// arg.exe use clap::{arg, Command}; fn main() { // 只要调用clap解析命令行参数，--help和--version会自动添加到命令行参数列表中 // 使用arg!宏定义了两个命令行参数：two, one let matches = Command::new(&amp;#34;MyApp&amp;#34;) .version(&amp;#34;1.0&amp;#34;) .author(&amp;#34;Kevin K. &amp;lt;kbknapp@gmail.com&amp;gt;&amp;#34;) .about(&amp;#34;Does awesome things&amp;#34;) .arg(arg!(--two &amp;lt;VALUE&amp;gt;).required(true)) .arg(arg!(--one &amp;lt;VALUE&amp;gt;).required(true)) .get_matches(); println!( &amp;#34;two: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;two&amp;#34;).expect(&amp;#34;required&amp;#34;) ); println!( &amp;#34;one: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;one&amp;#34;).expect(&amp;#34;required&amp;#34;) ); } 用法：
+arg.exe --two foo --one bar：两个参数分别对应foo和bar arg.exe -h 或 arg.exe --help：输出帮助信息 arg.exe -v 或 arg.</description>
+    </item>
+    
+    <item>
+      <title>VSCode配置C&#43;&#43;开发环境（MSVC）</title>
+      <link>http://www.example.com/posts/vscode/</link>
+      <pubDate>Fri, 13 Oct 2023 20:53:22 +0800</pubDate>
+      
+      <guid>http://www.example.com/posts/vscode/</guid>
+      <description>前置知识Link to heading这些内容如果感兴趣可以看一下，不看也不妨碍配置环境，因为我会一步步教你配置。（但我希望你还是看一下，毕竟我写了好久🤣）
+C/C++编译器有哪些Link to heading注意我们说的是编译器，而不是集成开发环境（IDE，Integrated Development Environment）。我们平常用的Codeblocks，Visual Studio Code，Dev C++等软件都是开发环境，而不是编译器。
+常用的C/C++编译器（更确切地说是编译器套件）有：GCC、MinGW、MSVC等。不同的编译器附有不同的库文件，如果某段代码只用了标准库，那么这段代码很可能用任意C/C++编译器都可以编译通过；而如果某段代码用了特定编译器独有的库文件，那这段代码很可能只能用特定编译器才能编译通过，甚至对该编译器的版本也有要求。
+Windows系统的环境变量Link to heading什么是环境变量Link to heading​	环境变量是在操作系统中一个具有特定名字的对象，它包含了一个或者多个应用程序所将使用到的信息（不好理解）。
+​	按照下面的方式查看Windows 10的环境变量
+​	可以看到环境变量分为两部分：用户变量和系统变量
+用户变量：只对当前用户生效，优先级高于系统变量 系统变量：对所有用户生效 ​	你也可以将环境变量理解为一个指针。我们在环境变量中定义一个名为“JAVA_HOME”的变量，它指向jdk的安装目录。在某段代码中你可能经常使用jdk作为参数，但如果jdk的安装目录变了，怎么办？你在程序中如果直接使用jdk的绝对路径，那你就从代码中找出来一个个地改吧；而如果你在程序中使用JAVA_HOME这个环境变量，当jdk的安装目录发生变化时，你只要改一下JAVA_HOME的内容即可，而你的代码无需任何修改，因为你的代码使用的是JAVA_HOME，而不是jdk的绝对路径。
+​	想象这样一个场景：你编写了一个个性化的计算器软件，软件的路径为：D:\softwares\myself\calc.exe
+​	当你每次启动时，要么用文件管理器找到这个软件双击运行，要么通过命令行D:\softwares\myself\calc.exe执行。诚然，这两种方式耗费精力都差不多，因为calc.exe并没有位于很深层的目录下。那如果calc.exe位于第10层，甚至第100层目录呢，是不是每次打开这个软件很费劲？因为你要么需要打开100层文件夹，要么在命令行输入calc.exe的路径，都是很费劲的方法（当然你可以创建快捷方式，但我们先不考虑这种方法）。
+​	这时候，你就可以把calc.exe所在的目录添加到用户变量的Path变量下（你也可以添加到系统变量的Path下，这样就对所有用户生效了），这样每次执行calc.exe都不需要在命令行中输入那么一长串路径，而只需要输入calc.exe或者calc即可。
+Path环境变量Link to heading​	Path是个很重要的环境变量，他里面存储的一般是一系列可执行文件的目录。
+​	下图所示是系统变量中的Path存储的内容，每一行代表一个目录，许多目录都是以“bin”（binary的缩写）结尾，代表该目录下存储了一些二进制的可执行文件。执行这些目录下的可执行文件不需要加一长串的路径，只需要在命令行输入可执行文件的名称即可。
+其他环境变量Link to heading​	比如我们前面提到的“JAVA_HOME”环境变量，这其实就是一个普通的环境变量。你可以随便定义自己的环境变量，比如isjks：wwoqsi。你可以在命令行中执行echo %isjks%，会输出wwoqsi。当然这个并没有任何意义，我只是告诉你你可以随便定义自己的环境变量，无论这个变量有没有什么用。
+​	在上面一张图中，我们发现有些被百分号“%”包裹起来的东西，这些被包裹起来的，其实是已经定义的环境变量。比如SystemRoot的内容就是“C:\WINDOWS”。有些环境变量并没有在环境变量列表中被列出来，因此无法直接看到它的值。如果你对任何环境变量感兴趣，可以在命令行中执行echo %&amp;lt;ENV_VAR&amp;gt;%来查看它代表的内容。
+安装Visual Studio CodeLink to heading​	这个没有难度，自己安装即可。vscode安装完成后会把自己加到环境变量，提示需要重启一下电脑。
+安装VIsual Studio及相关附件Link to heading​	在这里下载installer，选择社区版即可。</description>
+    </item>
+    
+    <item>
+      <title>Git基础</title>
+      <link>http://www.example.com/posts/git/</link>
+      <pubDate>Fri, 13 Oct 2023 20:52:20 +0800</pubDate>
+      
+      <guid>http://www.example.com/posts/git/</guid>
+      <description>GitLink to headingGit的配置信息Link to heading使用git config命令对Git做一些配置。
+Git的配置文件等级Link to headingGit的配置文件有三个，分别对应不同的影响等级：
+Linux下
+/etc/gitconfig：包含系统上每个用户及他们仓库的通用配置，使用git config --system更改
+~/.gitconfig 或 ~/.config/git/config：针对当前用户的配置文件，使用git config --global修改
+.git/config：针对当前仓库的配置文件，使用git config修改
+Windows下
+$Git/etc/gitconfig $HOME/.gitconfig .git/config 读取配置时优先读取当前仓库的配置，如果没有就往上找
+修改Git配置Link to heading修改全局配置：git config --global user.name &amp;quot;zhangsan&amp;quot; 查看当前的Git配置Link to headinggit config --list
+Git基础Link to heading初始化Git仓库Link to heading将当前目录初始化为Git仓库：git init
+如果当前目录中已经有一些文件存在，使用git add &amp;lt;filename&amp;gt;来跟踪某个文件即将其提交到暂存区，或者git add .跟踪当前目录所有文件并提交到暂存区
+克隆已有的仓库Link to heading克隆github上某个仓库：git clone &amp;lt;url&amp;gt;</description>
     </item>
     
   </channel>
