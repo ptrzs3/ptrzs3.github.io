@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ptrzs on Zhangsan&#39;s blog</title>
+    <title>ptrzs on Galaxy</title>
     <link>https://ptrzs3.github.io/authors/ptrzs/</link>
-    <description>Recent content in ptrzs on Zhangsan&#39;s blog</description>
+    <description>Recent content in ptrzs on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Oct 2023 20:56:12 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Oct 2023 12:18:46 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fancy</title>
+      <link>https://ptrzs3.github.io/disco/fancy/</link>
+      <pubDate>Sat, 14 Oct 2023 12:18:46 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/disco/fancy/</guid>
+      <description>欢迎光临人来人往的银河迪厅
+这里没有悲伤 只有我和你
+光影游过你侧脸 轮廓太美丽
+无限延伸的夜里 别再垂头丧气</description>
+    </item>
+    
     <item>
       <title>Hadoop集群搭建</title>
       <link>https://ptrzs3.github.io/posts/hadoop/</link>
