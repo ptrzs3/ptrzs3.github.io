@@ -6,7 +6,19 @@
     <description>Recent content on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 14 Oct 2023 12:18:46 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Oct 2023 21:28:06 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust里的小东西</title>
+      <link>https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/</link>
+      <pubDate>Wed, 18 Oct 2023 21:28:06 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/</guid>
+      <description>Rust中常用的小东西Link to headingResultLink to heading在不同的模块中有不同的Result定义，但都是std::result::Result的包装。
+std::result::ResultLink to headingpub enum Result&amp;lt;T, E&amp;gt; { Ok(T), Err(E), } std::io::ResultLink to headingpub type Result&amp;lt;T&amp;gt; = Result&amp;lt;T, Error&amp;gt;; 其中Error：
+pub struct Error { repr: Repr, } std::fmt::ResultLink to headingpub type Result = Result&amp;lt;(), Error&amp;gt;; 其中Error：
+pub struct Error; std::thread::ResultLink to headingpub type Result&amp;lt;T&amp;gt; = Result&amp;lt;T, Box&amp;lt;dyn Any + Send + &amp;#39;static&amp;gt;&amp;gt;; ErrorLink to headingstd::error::ErrorLink to headingpub trait Error: Debug + Display { fn source(&amp;amp;self) -&amp;gt; Option&amp;lt;&amp;amp;(dyn Error + &amp;#39;static)&amp;gt; { .</description>
+    </item>
+    
     <item>
       <title>Fancy</title>
       <link>https://ptrzs3.github.io/disco/fancy/</link>

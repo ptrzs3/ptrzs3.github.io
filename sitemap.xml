@@ -3,18 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ptrzs3.github.io/authors/</loc>
-    <lastmod>2023-10-14T12:18:46+08:00</lastmod>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/iterator/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/posts/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/authors/ptrzs/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/result/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/rust/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/</loc>
+    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/disco/</loc>
     <lastmod>2023-10-14T12:18:46+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/disco/fancy/</loc>
-    <lastmod>2023-10-14T12:18:46+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/</loc>
-    <lastmod>2023-10-14T12:18:46+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/authors/ptrzs/</loc>
     <lastmod>2023-10-14T12:18:46+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/about/</loc>
@@ -26,16 +47,7 @@
     <loc>https://ptrzs3.github.io/posts/hadoop/</loc>
     <lastmod>2023-10-13T20:56:12+08:00</lastmod>
   </url><url>
-    <loc>https://ptrzs3.github.io/posts/</loc>
-    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/tags/</loc>
-    <lastmod>2023-10-13T20:56:12+08:00</lastmod>
-  </url><url>
     <loc>https://ptrzs3.github.io/tags/clap/</loc>
-    <lastmod>2023-10-13T20:54:44+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/tags/rust/</loc>
     <lastmod>2023-10-13T20:54:44+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/posts/clap/</loc>

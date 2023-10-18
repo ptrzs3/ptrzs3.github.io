@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Rust里的小东西 · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="Rust中常用的小东西Link to headingResultLink to heading在不同的模块中有不同的Result定义，但都是std::result::Result的包装。
+std::result::ResultLink to headingpub enum Result&lt;T, E&gt; { Ok(T), Err(E), } std::io::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Error&gt;; 其中Error：
+pub struct Error { repr: Repr, } std::fmt::ResultLink to headingpub type Result = Result&lt;(), Error&gt;; 其中Error：
+pub struct Error; std::thread::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Box&lt;dyn Any &#43; Send &#43; &#39;static&gt;&gt;; ErrorLink to headingstd::error::ErrorLink to headingpub trait Error: Debug &#43; Display { fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error &#43; &#39;static)&gt; { .">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rust里的小东西"/>
+<meta name="twitter:description" content="Rust中常用的小东西Link to headingResultLink to heading在不同的模块中有不同的Result定义，但都是std::result::Result的包装。
+std::result::ResultLink to headingpub enum Result&lt;T, E&gt; { Ok(T), Err(E), } std::io::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Error&gt;; 其中Error：
+pub struct Error { repr: Repr, } std::fmt::ResultLink to headingpub type Result = Result&lt;(), Error&gt;; 其中Error：
+pub struct Error; std::thread::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Box&lt;dyn Any &#43; Send &#43; &#39;static&gt;&gt;; ErrorLink to headingstd::error::ErrorLink to headingpub trait Error: Debug &#43; Display { fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error &#43; &#39;static)&gt; { ."/>
+
+<meta property="og:title" content="Rust里的小东西" />
+<meta property="og:description" content="Rust中常用的小东西Link to headingResultLink to heading在不同的模块中有不同的Result定义，但都是std::result::Result的包装。
+std::result::ResultLink to headingpub enum Result&lt;T, E&gt; { Ok(T), Err(E), } std::io::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Error&gt;; 其中Error：
+pub struct Error { repr: Repr, } std::fmt::ResultLink to headingpub type Result = Result&lt;(), Error&gt;; 其中Error：
+pub struct Error; std::thread::ResultLink to headingpub type Result&lt;T&gt; = Result&lt;T, Box&lt;dyn Any &#43; Send &#43; &#39;static&gt;&gt;; ErrorLink to headingstd::error::ErrorLink to headingpub trait Error: Debug &#43; Display { fn source(&amp;self) -&gt; Option&lt;&amp;(dyn Error &#43; &#39;static)&gt; { ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-18T21:28:06+08:00" />
+<meta property="article:modified_time" content="2023-10-18T21:28:06+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/disco/">Disco</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/">
+              Rust里的小东西
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-10-18T21:28:06&#43;08:00">
+                October 18, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/rust/">Rust</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/iterator/">Iterator</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">迭代器</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/result/">Result</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="rust中常用的小东西">
+  Rust中常用的小东西
+  <a class="heading-link" href="#rust%e4%b8%ad%e5%b8%b8%e7%94%a8%e7%9a%84%e5%b0%8f%e4%b8%9c%e8%a5%bf">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<h2 id="result">
+  Result
+  <a class="heading-link" href="#result">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>在不同的模块中有不同的<code>Result</code>定义，但都是<code>std::result::Result</code>的包装。</p>
+<h3 id="stdresultresult">
+  std::result::Result
+  <a class="heading-link" href="#stdresultresult">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">enum</span> Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>T,<span style="color:#6e7681"> </span>E<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>Ok(T),<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>Err(E),<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="stdioresult">
+  std::io::Result
+  <a class="heading-link" href="#stdioresult">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">type</span> Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>T<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>T,<span style="color:#6e7681"> </span>Error<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><p>其中Error：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">Error</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>repr: <span style="color:#f0883e;font-weight:bold">Repr</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="stdfmtresult">
+  std::fmt::Result
+  <a class="heading-link" href="#stdfmtresult">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">type</span> Result <span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>(),<span style="color:#6e7681"> </span>Error<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><p>其中Error：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">Error</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="stdthreadresult">
+  std::thread::Result
+  <a class="heading-link" href="#stdthreadresult">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">type</span> Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>T<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>T,<span style="color:#6e7681"> </span>Box<span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#ff7b72">dyn</span><span style="color:#6e7681"> </span>Any<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#6e7681"> </span>Send<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#6e7681"> </span>&#39;static<span style="color:#ff7b72;font-weight:bold">&gt;&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><h2 id="error">
+  Error
+  <a class="heading-link" href="#error">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="stderrorerror">
+  std::error::Error
+  <a class="heading-link" href="#stderrorerror">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">trait</span><span style="color:#6e7681"> </span>Error: <span style="color:#f0883e;font-weight:bold">Debug</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#6e7681"> </span>Display<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">source</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; Option<span style="color:#ff7b72;font-weight:bold">&lt;&amp;</span>(<span style="color:#ff7b72">dyn</span><span style="color:#6e7681"> </span>Error<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#6e7681"> </span>&#39;static)<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">..</span>.<span style="color:#6e7681"> </span>}<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">// 如果要自定义错误，该方法可选实现
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">description</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#79c0ff">&amp;</span><span style="color:#ff7b72">str</span> {<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">..</span>.<span style="color:#6e7681"> </span>}<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">// Deprecated 
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">cause</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; Option<span style="color:#ff7b72;font-weight:bold">&lt;&amp;</span><span style="color:#ff7b72">dyn</span><span style="color:#6e7681"> </span>Error<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">..</span>.<span style="color:#6e7681"> </span>}<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">// Deprecated 
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">provide</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>&#39;a<span style="color:#6e7681"> </span>self,<span style="color:#6e7681"> </span>demand: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>Demand<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span>)<span style="color:#6e7681"> </span>{<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">..</span>.<span style="color:#6e7681"> </span>}<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">// nightly-only
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><h2 id="debug--display">
+  Debug &amp; Display
+  <a class="heading-link" href="#debug--display">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>两者除了特征名称不一样，要求实现的方法一模一样</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">trait</span><span style="color:#6e7681"> </span>Debug<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// Required method
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">fmt</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self,<span style="color:#6e7681"> </span>f: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>Formatter<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;_<span style="color:#ff7b72;font-weight:bold">&gt;</span>)<span style="color:#6e7681"> </span>-&gt; Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>(),<span style="color:#6e7681"> </span>Error<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">trait</span><span style="color:#6e7681"> </span>Display<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// Required method
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">fmt</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self,<span style="color:#6e7681"> </span>f: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>Formatter<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;_<span style="color:#ff7b72;font-weight:bold">&gt;</span>)<span style="color:#6e7681"> </span>-&gt; Result<span style="color:#ff7b72;font-weight:bold">&lt;</span>(),<span style="color:#6e7681"> </span>Error<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><p>根据文档描述，<code>Debug</code>面向程序员，在生产环境中不应该出现；</p>
+<p>为一个类型实现<code>Display</code>，会自动实现<code>ToString</code>trait，允许使用<code>.to_string()</code>方法。更应该为一个类型实现<code>Display</code>而不是<code>ToString</code>。</p>
+<h2 id="from--into">
+  From &amp; Into
+  <a class="heading-link" href="#from--into">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">A</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>member_A: <span style="color:#ff7b72">u8</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>member_B: String,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>member_C: <span style="color:#ff7b72">bool</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">B</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>member_A: <span style="color:#ff7b72">char</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>member_B: <span style="color:#ff7b72">f32</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>From<span style="color:#ff7b72;font-weight:bold">&lt;</span>A<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>B<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">from</span>(value: <span style="color:#f0883e;font-weight:bold">Keyboard</span>)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#8b949e;font-style:italic">// details
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><p>为B类型实现<code>From</code> trait，可以从A转换成B类型：<code>let b:B = B::from(A)</code>；实现<code>From</code>trait后，<code>Into</code>trait也自动实现：<code>let b:B = a.into(B)</code>，更推荐实现<code>From</code>而不是<code>Into</code>；但是并没有为A实现<code>From</code>trait，因此<code>let a:A = A::from(B)</code>或者<code>let a:A = b.into(A)</code>是非法的。另外，使用<code>into()</code>方法时，必须指明接收值的类型。</p>
+<h2 id="迭代器与for循环">
+  迭代器与For循环
+  <a class="heading-link" href="#%e8%bf%ad%e4%bb%a3%e5%99%a8%e4%b8%8efor%e5%be%aa%e7%8e%af">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><code>IntoIterator</code>：实现该trait可以使用for循环，将隐式调用<code>into_iter()</code>方法将该类型转换为迭代器</p>
+<p><code>Iterator</code>：实现该特征即定义为迭代器，for循环就是不断调用该trait的<code>next()</code>方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">Iter</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>index: <span style="color:#ff7b72">u8</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>songs: <span style="color:#79c0ff">&amp;</span>&#39;a <span style="color:#ff7b72">u8</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>Iter<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">new</span>(p: <span style="color:#79c0ff">&amp;</span>&#39;a <span style="color:#f0883e;font-weight:bold">PlayList</span>)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>Iter<span style="color:#6e7681"> </span>{<span style="color:#6e7681"> </span>songs: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">p</span>.songs,<span style="color:#6e7681"> </span>index: <span style="color:#f0883e;font-weight:bold">p</span>.playing<span style="color:#6e7681"> </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>Iterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>Iter<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">next</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>self)<span style="color:#6e7681"> </span>-&gt; Option<span style="color:#ff7b72;font-weight:bold">&lt;</span>Self::Item<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">if</span><span style="color:#6e7681"> </span>self.index<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">*</span>self.songs<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>self.index<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+=</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">1</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>Some(self.index);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>None;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">IntoIter</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>playing: <span style="color:#ff7b72">u8</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>songs: <span style="color:#ff7b72">u8</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>IntoIter<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">new</span>(p: <span style="color:#f0883e;font-weight:bold">PlayList</span>)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>IntoIter{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>playing: <span style="color:#f0883e;font-weight:bold">p</span>.playing,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>songs: <span style="color:#f0883e;font-weight:bold">p</span>.songs<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>Iterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>IntoIter<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">next</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>self)<span style="color:#6e7681"> </span>-&gt; Option<span style="color:#ff7b72;font-weight:bold">&lt;</span>Self::Item<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">if</span><span style="color:#6e7681"> </span>self.playing<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#6e7681"> </span>self.songs<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>self.playing<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+=</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">1</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>Some(self.playing);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>None;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">IterMut</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>playing: <span style="color:#79c0ff">&amp;</span>&#39;a <span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>songs: <span style="color:#79c0ff">&amp;</span>&#39;a <span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>IterMut<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">new</span>(p: <span style="color:#79c0ff">&amp;</span>&#39;a <span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>PlayList)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>IterMut<span style="color:#6e7681"> </span>{<span style="color:#6e7681"> </span>playing: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>p.playing,<span style="color:#6e7681"> </span>songs: <span style="color:#79c0ff">&amp;</span><span style="color:#f0883e;font-weight:bold">mut</span><span style="color:#6e7681"> </span>p.songs<span style="color:#6e7681"> </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>Iterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>IterMut<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">next</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>self)<span style="color:#6e7681"> </span>-&gt; Option<span style="color:#ff7b72;font-weight:bold">&lt;</span>Self::Item<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">if</span><span style="color:#6e7681"> </span>self.playing<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#6e7681"> </span>self.songs<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span><span style="color:#ff7b72;font-weight:bold">*</span>self.playing<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+=</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">1</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>Some(<span style="color:#ff7b72;font-weight:bold">*</span>self.playing)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">return</span><span style="color:#6e7681"> </span>None;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">// PlayList定义
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">PlayList</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>playing: <span style="color:#ff7b72">u8</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>songs: <span style="color:#ff7b72">u8</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>PlayList<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">new</span>()<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>PlayList<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>playing: <span style="color:#a5d6ff">0</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>songs: <span style="color:#a5d6ff">5</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">iter</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Iter</span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>Iter::new(self)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">into_iter</span>(self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">IntoIter</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>IntoIter::new(self)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">iter_mut</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">IterMut</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>IterMut::new(self)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">// 借用
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// 实现IntoIterator，可用for循环遍历
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>IntoIterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&amp;</span>&#39;a<span style="color:#6e7681"> </span>PlayList<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">IntoIter</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>Iter<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">into_iter</span>(self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span>::IntoIter<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>self.iter()<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">// 拿走所有权
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>IntoIterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>PlayList<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">IntoIter</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>IntoIter;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">into_iter</span>(self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span>::IntoIter<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>self.into_iter()<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">// 可变借用
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">impl</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>IntoIterator<span style="color:#6e7681"> </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&amp;</span>&#39;a<span style="color:#6e7681"> </span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>PlayList<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">Item</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">u8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">type</span> <span style="color:#f0883e;font-weight:bold">IntoIter</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>IterMut<span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;a<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">into_iter</span>(self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Self</span>::IntoIter<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>self.iter_mut()<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">main</span>()<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>playlist<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>PlayList::new();<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// 不可变借用
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>i<span style="color:#6e7681"> </span><span style="color:#ff7b72">in</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&amp;</span>playlist<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>println!(<span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">{i}</span><span style="color:#a5d6ff">&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// 可变借用
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>i<span style="color:#6e7681"> </span><span style="color:#ff7b72">in</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&amp;</span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>playlist<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>println!(<span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">{i}</span><span style="color:#a5d6ff">&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// 取走所有权
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// 可变借用执行后，playing=songs，所以这个循环不输出内容
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">for</span><span style="color:#6e7681"> </span>i<span style="color:#6e7681"> </span><span style="color:#ff7b72">in</span><span style="color:#6e7681"> </span>playlist<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>println!(<span style="color:#a5d6ff">&#34;</span><span style="color:#a5d6ff">{i}</span><span style="color:#a5d6ff">&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div>
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2023
+     ptrzs 
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
