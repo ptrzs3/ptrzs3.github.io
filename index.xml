@@ -78,7 +78,7 @@ fn main() { println!(&amp;#34;Hello, world!&amp;#34;); } #include &amp;lt;stdio.
       <guid>https://ptrzs3.github.io/posts/clap/</guid>
       <description>Rust命令行解析程序：ClapLink to heading基于Clap 4.4.6
 参考资料：Clap官方手册
-Chapter 1Link to heading配置解析器Link to heading使用Command结构体的new方法构建解析器a：
+Chapter 1Link to heading配置解析器Link to heading使用Command结构体的new方法构建解析器：
 // arg.exe use clap::{arg, Command}; fn main() { // 只要调用clap解析命令行参数，--help和--version会自动添加到命令行参数列表中 // 使用arg!宏定义了两个命令行参数：two, one let matches = Command::new(&amp;#34;MyApp&amp;#34;) .version(&amp;#34;1.0&amp;#34;) .author(&amp;#34;Kevin K. &amp;lt;kbknapp@gmail.com&amp;gt;&amp;#34;) .about(&amp;#34;Does awesome things&amp;#34;) .arg(arg!(--two &amp;lt;VALUE&amp;gt;).required(true)) .arg(arg!(--one &amp;lt;VALUE&amp;gt;).required(true)) .get_matches(); println!( &amp;#34;two: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;two&amp;#34;).expect(&amp;#34;required&amp;#34;) ); println!( &amp;#34;one: {:?}&amp;#34;, matches.get_one::&amp;lt;String&amp;gt;(&amp;#34;one&amp;#34;).expect(&amp;#34;required&amp;#34;) ); } 用法：
 arg.exe --two foo --one bar：两个参数分别对应foo和bar arg.exe -h 或 arg.exe --help：输出帮助信息 arg.exe -v 或 arg.</description>
     </item>
