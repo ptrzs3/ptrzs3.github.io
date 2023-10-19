@@ -479,7 +479,7 @@ pub struct Error; std::thread::ResultLink to headingpub type Result&lt;T&gt; =
   
     let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
   
-    getTheme = getTheme == null ? 'preferred_color_scheme' : getTheme;
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
     
     let s = document.createElement('script');
     s.src = 'https://giscus.app/client.js';
