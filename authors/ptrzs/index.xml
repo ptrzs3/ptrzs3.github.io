@@ -50,15 +50,14 @@ pub struct Error; std::thread::ResultLink to headingpub type Result&amp;lt;T&a
       <pubDate>Fri, 13 Oct 2023 20:56:12 +0800</pubDate>
       
       <guid>https://ptrzs3.github.io/posts/hadoop/</guid>
-      <description>Hadoop配置方案Link to headingMarkdownLink to heading什么是MarkdownLink to heading​	Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
+      <description>前置内容Link to headingMarkdownLink to heading什么是MarkdownLink to heading​	Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯。它允许人们使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。
 ​	由于Markdown的轻量化、易读易写特性，并且对于图片，图表、数学式都有支持，目前许多网站都广泛使用Markdown来撰写帮助文档或是用于论坛上发表消息。如GitHub、Reddit、CSDN、简书等，甚至还能被用来撰写电子书。
 为什么使用MarkdownLink to heading专注于内容而不是形式 纯文本格式，兼容性强 格式转换方便 Markdown语法示例Link to heading直接插入图片（建议使用图床上传）
 插入代码块
-fn main() { println!(&amp;#34;Hello, world!&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; int main(void) { printf(&amp;#34;Hello, World!&amp;#34;); return 0; } 插入数学公式 $$ \lim_{n \to \infty} \sum_{k=1}^n \frac{1}{k^2} = \frac{\pi^2}{6} $$
+fn main() { println!(&amp;#34;Hello, world!&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; int main(void) { printf(&amp;#34;Hello, World!&amp;#34;); return 0; } 插入数学公式 $$ f(x_1,x_2,\ldots,x_n) = \left({1 \over x_1}\right)^2+\left({1 \over x_2}\right)^2+\cdots+\left({1 \over x_n}\right)^2 $$
 图床Link to heading​	在Markdown文档中插入图片，其实存储在文档中的是图片的路径，而不是图片本身。所以如果只将Markdown文件本身分享出去而没有打包本地图片的话，文档中的图片就无法显示。因此有一种通用的做法是将图片上传到公网，在Markdown中插入图片时使用公网路径，这样只要有网络连接，Markdown中的图片都可以显示。这个存储图片的地址就是图床。一般来说上传到图床的图片不应该是私密信息，因为图床是公开访问权限的。为了使用方便，有软件比如PicGo实现了将本地图片添加到Markdown文档后，自动将图片上传到图床，并将图片路径替换为网络路径。
 ​	网络上有公益图床，即免费使用（但可能会对上传和下载流量做出限制）的图床。这种图床一般速率较慢，且有闭站的风险，因此建议使用比如腾讯云、阿里云等有保障的厂商提供的图床服务。
-安装虚拟机Link to heading略
-虚拟机配置Link to heading​	为实现分布式计算，需要所有计算节点的网络彼此可连通；为避免不可预见的问题，相关安装包均使用相同版本。</description>
+Hadoop配置方案Link to heading本配置使用一台物理机加两台虚拟机的形式搭建分布式计算平台，网络拓扑如下图</description>
     </item>
     
     <item>

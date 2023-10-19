@@ -141,7 +141,7 @@
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              2-minute read
+              5-minute read
             </span>
           </div>
           <div class="authors">
@@ -160,9 +160,9 @@
 
       <div class="post-content">
         
-        <h1 id="hadoop配置方案">
-  Hadoop配置方案
-  <a class="heading-link" href="#hadoop%e9%85%8d%e7%bd%ae%e6%96%b9%e6%a1%88">
+        <h1 id="前置内容">
+  前置内容
+  <a class="heading-link" href="#%e5%89%8d%e7%bd%ae%e5%86%85%e5%ae%b9">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
@@ -222,9 +222,7 @@
 <li>
 <p>插入数学公式
 $$
-\lim_{n \to \infty}
-\sum_{k=1}^n \frac{1}{k^2}
-= \frac{\pi^2}{6}
+f(x_1,x_2,\ldots,x_n) = \left({1 \over x_1}\right)^2+\left({1 \over x_2}\right)^2+\cdots+\left({1 \over x_n}\right)^2
 $$</p>
 </li>
 </ul>
@@ -237,6 +235,23 @@ $$</p>
 </h2>
 <p>​		在Markdown文档中插入图片，其实存储在文档中的是图片的路径，而不是图片本身。所以如果只将Markdown文件本身分享出去而没有打包本地图片的话，文档中的图片就无法显示。因此有一种通用的做法是将图片上传到公网，在Markdown中插入图片时使用公网路径，这样只要有网络连接，Markdown中的图片都可以显示。这个存储图片的地址就是图床。一般来说上传到图床的图片不应该是私密信息，因为图床是公开访问权限的。为了使用方便，有软件比如PicGo实现了将本地图片添加到Markdown文档后，自动将图片上传到图床，并将图片路径替换为网络路径。</p>
 <p>​		网络上有公益图床，即免费使用（但可能会对上传和下载流量做出限制）的图床。这种图床一般速率较慢，且有闭站的风险，因此建议使用比如腾讯云、阿里云等有保障的厂商提供的图床服务。</p>
+<h1 id="hadoop配置方案">
+  Hadoop配置方案
+  <a class="heading-link" href="#hadoop%e9%85%8d%e7%bd%ae%e6%96%b9%e6%a1%88">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>本配置使用一台物理机加两台虚拟机的形式搭建分布式计算平台，网络拓扑如下图</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/aa.drawio.png" alt="aa.drawio"></p>
+<h2 id="安装物理机">
+  安装物理机
+  <a class="heading-link" href="#%e5%ae%89%e8%a3%85%e7%89%a9%e7%90%86%e6%9c%ba">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>将“CentOS-7-x86_64-DVD-1804.iso”镜像文件写入U盘，修改BIOS设置令系统从U盘引导，按照程序指引安装即可</p>
 <h2 id="安装虚拟机">
   安装虚拟机
   <a class="heading-link" href="#%e5%ae%89%e8%a3%85%e8%99%9a%e6%8b%9f%e6%9c%ba">
@@ -264,12 +279,12 @@ $$</p>
 <ol>
 <li>
 <p>操作系统文件需要管理员root权限，切换为root:</p>
-<p><code>su root</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>su root
+</span></span></code></pre></div></li>
 <li>
-<p>使用gedit编辑器编辑用户名，三台虚拟机的主机名设置为Cent1、Cent2、Cent3</p>
-<p><code>gedit /etc/hostname</code></p>
-</li>
+<p>使用gedit编辑器编辑用户名，三台虚拟机的主机名设置为master、slave1、slave2</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>gedit /etc/hostname
+</span></span></code></pre></div></li>
 <li>
 <p>编辑后保存并退出gedit编辑器，回到终端。重启虚拟机后，主机名即永久修改</p>
 </li>
@@ -294,8 +309,9 @@ $$</p>
 </li>
 <li>
 <p>关闭虚拟机防火墙</p>
-<p><code>systemctl stop firewalled.service</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl stop firewalled.service
+</span></span><span style="display:flex;"><span>systemctl disable firewalled.service
+</span></span></code></pre></div></li>
 <li>
 <p>配置三台虚拟机的ip地址，确保虚拟机与主机处于同一网段</p>
 </li>
@@ -314,17 +330,24 @@ $$</p>
 <ol>
 <li>
 <p>确保ssh服务处于运行状态</p>
-<p><code>service sshd status</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>service sshd status
+</span></span></code></pre></div></li>
 <li>
 <p>使用RSA加密算法生成公钥和私钥（默认配置）</p>
-<p><code>ssh-keygen -t rsa</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-keygen -t rsa
+</span></span></code></pre></div></li>
 <li>
 <p>将生成的公钥发送到另外两台虚拟机下</p>
-<p><code>ssh-copy-id &lt;ip&gt;</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>ssh-copy-id &lt;user&gt;@&lt;ip&gt;
+</span></span></code></pre></div></li>
 </ol>
+<h2 id="分布式计算平台配置">
+  分布式计算平台配置
+  <a class="heading-link" href="#%e5%88%86%e5%b8%83%e5%bc%8f%e8%ae%a1%e7%ae%97%e5%b9%b3%e5%8f%b0%e9%85%8d%e7%bd%ae">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
 <h3 id="配置java环境">
   配置Java环境
   <a class="heading-link" href="#%e9%85%8d%e7%bd%aejava%e7%8e%af%e5%a2%83">
@@ -335,21 +358,16 @@ $$</p>
 <ol>
 <li>
 <p>解压JDK包</p>
-<p><code>cd /usr/local</code></p>
-<p><code>tar -zxvf jdk-8u171-linux-x64.tar.gz</code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd /usr/java
+</span></span><span style="display:flex;"><span>tar -zxvf jdk-8u171-linux-x64.tar.gz
+</span></span></code></pre></div></li>
 <li>
-<p>配置环境变量(root)</p>
-<p><code>vim /root/.bash_profile </code></p>
-<p>在文档末尾追加以下内容：</p>
-<p><code>export JAVA_HOME=/usr/java/jdk1.8.0_171/</code>
-<code>export PATH=$JAVA_HOME/bin:$PATH</code></p>
-<p>保存并退出</p>
-</li>
-<li>
-<p>使<code>.bash_profile</code>生效</p>
-<p><code>source /root/.bash_profile</code></p>
-</li>
+<p>配置环境变量</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>su root
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export JAVA_HOME=/usr/java/jdk1.8.0_171/&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export JAVA_HOME=/usr/java/jdk1.8.0_171/&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>source .bash_profile
+</span></span></code></pre></div></li>
 <li>
 <p>验证Java版本号</p>
 <p>使用<code>java -version</code>命令查看Java版本号，输出<code>java version &quot;1.8.0_171&quot;</code>即配置成功</p>
@@ -362,28 +380,551 @@ $$</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p><img src="https://hadoop.apache.org/hadoop-logo.jpg" alt="hadoop-logo"></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/hadoop-logo.jpg" alt="hadoop-logo"></p>
 <p>Hadoop版本号为3.1.0</p>
 <ol>
 <li>
 <p>解压Hadoop包</p>
-<p><code>cd /usr/local</code></p>
-<p><code>tar -zxvf hadoop-3.1.0.tar.gz </code></p>
-</li>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd /usr/local
+</span></span><span style="display:flex;"><span>tar -zxvf hadoop-3.1.0.tar.gz 
+</span></span></code></pre></div></li>
 <li>
 <p>配置Hadoop环境变量</p>
-<p><code>vim /usr/local/hadoop-3.1.0/etc/hadoop/hadoop-env.sh</code></p>
-<p>在文件末尾追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /usr/local/hadoop-3.1.0/etc/hadoop/hadoop-env.sh
+</span></span></code></pre></div><p>在文件末尾追加以下内容：</p>
 <p><code>export JAVA_HOME=/usr/local/jdk.1.8.0_171/</code></p>
 </li>
 <li>
 <p>配置yarn环境变量</p>
-<p><code>vim /usr/local/hadoop-3.1.0/etc/hadoop/yarn-env.sh</code></p>
-<p>在文件末尾追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /usr/local/hadoop-3.1.0/etc/hadoop/yarn-env.sh
+</span></span></code></pre></div><p>在文件末尾追加以下内容：</p>
 <p><code>export JAVA_HOME=/usr/local/jdk.1.8.0_171/</code></p>
 </li>
+<li>
+<p>配置核心组件</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/hadoop-3.1.0/etc/hadoop/core-site.xml
+</span></span></code></pre></div><p>在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;name&gt;</span>fs.defaultFS<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;value&gt;</span>hdfs://master:9000<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;value&gt;</span>/home/cent/hadoopdata<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>配置文件系统</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/hadoop-3.1.0/etc/hadoop/hdfs-site.xml
+</span></span></code></pre></div><p>在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;name&gt;</span>dfs.replication<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;value&gt;</span>1<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>配置yarn site.xml文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/hadoop-3.1.0/etc/hadoop/yarn-site.xml
+</span></span></code></pre></div><p>在文件的<code>&lt;configuration&gt;</code>和<code>&lt;/configuration&gt;</code>之间追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.nodemanager.aux-services<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>mapreduce_shuffle<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.resourcemanager.address<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>master:18040<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.resourcemanager.scheduler.address<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>master:18030<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.resourcemanager.resouce-tracker.address<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>master:18025<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.resourcemanager.admin.address<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>master:18141<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.resourcemanager.webapp.address<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>master:18088<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>配置MapReduce计算框架文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/hadoop-3.1.0/etc/hadoop/mapred-site.xml
+</span></span></code></pre></div><p>在文件的<code>configuration</code>标签之间追加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>mapreduce.framework.name<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>yarn<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>yarn.app.mapreduce.am.env<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>HADOOP_MAPRED_HOME=/home/cent/hadoop-3.1.0<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>mapreduce.map.env<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>HADOOP_MAPRED_HOME=/home/cent/hadoop-3.1.0<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;name&gt;</span>mapreduce.reduce.env<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;value&gt;</span>HADOOP_MAPRED_HOME=/home/cent/hadoop-3.1.0<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>配置<code>master</code>中的workers文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/hadoop-3.1.0/etc/hadoop/wokers
+</span></span></code></pre></div><p>输入以下内容并保存：</p>
+<pre tabindex="0"><code>master
+slave1
+slave2
+</code></pre></li>
+<li>
+<p>将<code>master</code>上的Hadoop复制到所有<code>salve</code>主机</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>scp -r /home/cent/hadoop-3.1.0 cent@slave1:~/
+</span></span></code></pre></div></li>
 </ol>
-<h1 id="附录">
+<h4 id="hadoop集群的启动">
+  Hadoop集群的启动
+  <a class="heading-link" href="#hadoop%e9%9b%86%e7%be%a4%e7%9a%84%e5%90%af%e5%8a%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<ol>
+<li>
+<p>配置操作系统的环境变量</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HADOOP_HOME=/home/cent/hadoop-3.1.0&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export PATH=</span><span style="color:#79c0ff">$HADOOP_HOME</span><span style="color:#a5d6ff">/bin:</span><span style="color:#79c0ff">$HADOOP_HOME</span><span style="color:#a5d6ff">/sbin:</span><span style="color:#79c0ff">$PATH</span><span style="color:#a5d6ff">&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>source .bash_profile
+</span></span></code></pre></div></li>
+<li>
+<p>创建Hadoop数据目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir /home/cent/hadoopdata
+</span></span></code></pre></div></li>
+<li>
+<p>在<code>master</code>上格式化文件系统，仅需执行一次</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hdfs namenode -format
+</span></span></code></pre></div></li>
+<li>
+<p>启动和关闭Hadoop</p>
+<p>已经将Hadoop添加进环境变量，以<code>cent</code>用户在任意位置按顺序执行以下命令分别启动HDFS和Yarn</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>start-dfs.sh
+</span></span><span style="display:flex;"><span>start-yarn.sh
+</span></span></code></pre></div><p>关闭时则首先先<code>stop-yarn.sh</code>，后<code>stop-dfs.sh</code></p>
+</li>
+<li>
+<p>在<code>Master</code>和<code>Slave</code>上分别验证Hadoop是否启动成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>jps
+</span></span></code></pre></div><p>Master成功启动则应输出有四个进程</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_09-42-05.jpg" alt="Snipaste_2023-10-18_09-42-05"></p>
+<p>Slave成功启动则应输出三个进程</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_09-42-12.jpg" alt="Snipaste_2023-10-18_09-42-12"></p>
+<p>若成功启动可在http://master:9870进入Hadoop管理平台</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_09-39-40.jpg" alt="Snipaste_2023-10-18_09-39-40"></p>
+<p>在Datanodes中可以看到三台主机均在线</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_11-46-01.jpg" alt="Snipaste_2023-10-18_11-46-01"></p>
+</li>
+</ol>
+<h4 id="运行mapreduce程序">
+  运行MapReduce程序
+  <a class="heading-link" href="#%e8%bf%90%e8%a1%8cmapreduce%e7%a8%8b%e5%ba%8f">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>运行Hadoop安装包中的计算圆周率示例程序</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>hadoop jar ./hadoop-mapreduce-examples-3.1.0.jar pi <span style="color:#a5d6ff">10</span> <span style="color:#a5d6ff">10</span>
+</span></span></code></pre></div><p>如果输出如下图信息，则表明程序正常运行并已完成且输出计算结果</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_11-32-15.jpg" alt="Snipaste_2023-10-18_11-32-15"></p>
+<p>点击输出内容中的链接，可查看当前任务的运行状态</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2023-10-18_11-32-56.jpg" alt="Snipaste_2023-10-18_11-32-56"></p>
+<h4 id="hdfs的基本命令">
+  HDFS的基本命令
+  <a class="heading-link" href="#hdfs%e7%9a%84%e5%9f%ba%e6%9c%ac%e5%91%bd%e4%bb%a4">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>HDFS即Hadoop分布式文件系统</p>
+<ul>
+<li>创建目录</li>
+</ul>
+<p><code>hadoop fs -mkdir &lt;absoulute_dir&gt;</code></p>
+<ul>
+<li>查看文件列表</li>
+</ul>
+<p><code>hadoop fs -ls &lt;absoulute_dir&gt;</code></p>
+<ul>
+<li>文件上传</li>
+</ul>
+<p><code>hadoop fs -put &lt;src&gt; &lt;dst&gt;</code></p>
+<ul>
+<li>文件下载</li>
+</ul>
+<p><code>hadoop fs -get &lt;dst&gt; &lt;src&gt;</code></p>
+<ul>
+<li>查看HDFS中文件的内容</li>
+</ul>
+<p><code>hadoop fs &lt;option&gt; &lt;file&gt;</code></p>
+<ul>
+<li>
+<p>删除HDFS中的文件</p>
+<p><code>hadoop fs -rm &lt;file&gt;</code></p>
+</li>
+</ul>
+<h3 id="eclipse">
+  Eclipse
+  <a class="heading-link" href="#eclipse">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		开发MapReduce程序有多种方法，从开发工具来看，可以选择Eclipse、IEDA等；从开发语言来看，可以选择Java、Python等。每一种开发工具和开发语言都有其优势和特点，需要根据项目特性来决定。</p>
+<h4 id="安装eclipse">
+  安装Eclipse
+  <a class="heading-link" href="#%e5%ae%89%e8%a3%85eclipse">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>安装并启动Eclipse</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf eclipse-java-photo-R-linux-gtk-x86_64.tar.gz
+</span></span></code></pre></div><p>启动Eclipse，进入安装目录，然后在Linux命令行中输入命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>./eclipse
+</span></span></code></pre></div><h4 id="开发mapreduce程序的基本配置">
+  开发MapReduce程序的基本配置
+  <a class="heading-link" href="#%e5%bc%80%e5%8f%91mapreduce%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>要在Eclipse上开发MapReduce程序，需要为其安装Hadoop插件。</p>
+<ol>
+<li>
+<p>将hadoop-eclipse-plugin-2.6.0.jar文件复制到“home/cent/ecplise/plugins/”下</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp hadoop-eclipse-plugin-2.6.0.jar /home/cent/ecplise/plugins/
+</span></span></code></pre></div></li>
+<li>
+<p>在Eclipse中设置Hadoop的安装目录</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/QQ%25E5%259B%25BE%25E7%2589%258720231019175401.png" alt="QQ图片20231019175401"></p>
+<p>创建并配置Map/Reduce Locations</p>
+<p>打开Map/Reduce Location子窗口，创建并配置新的Hadoop Location，配置如下图</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/QQ%25E5%259B%25BE%25E7%2589%258720231019180043.png" alt="QQ图片20231019180043"></p>
+</li>
+</ol>
+<h3 id="安装mysql">
+  安装MySQL
+  <a class="heading-link" href="#%e5%ae%89%e8%a3%85mysql">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>
+<p>下载或复制MySQL 8.0.11安装包</p>
+</li>
+<li>
+<p>删除CentOS7已有的MariaDB</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rpm -qa | grep mariadb
+</span></span><span style="display:flex;"><span>&gt;&gt; mariadb-libs-5.5.35-3.el1.x86_64
+</span></span><span style="display:flex;"><span>rpm -e --nodeps mariadb-libs-5.5.35-3.el1.x86_64
+</span></span></code></pre></div></li>
+<li>
+<p>执行安装命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rpm -ivh mysql-community-common-8.0.11-1.e17.x86_64.rpm
+</span></span><span style="display:flex;"><span>rpm -ivh mysql-community-libs-8.0.11-1.e17.x86_64.rpm
+</span></span><span style="display:flex;"><span>rpm -ivh mysql-community-client-8.0.11-1.e17.x86_64.rpm
+</span></span><span style="display:flex;"><span>rpm -ivh mysql-community-server-8.0.11-1.e17.x86_64.rpm
+</span></span></code></pre></div></li>
+<li>
+<p>启动MySQL服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>systemctl start mysqld.service
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/f0c14cc60c8c42a5a3c68853193c04bf.png" alt="f0c14cc60c8c42a5a3c68853193c04bf"></p>
+</li>
+<li>
+<p>登录MySQL</p>
+<p>首次登录需要获取临时密码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>sudo grep<span style="color:#a5d6ff">&#39;temporary password&#39;</span> /var/log/MySQLd.log
+</span></span></code></pre></div><p>使用获取到的临时密码登录MySQL：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mysql-uroot-p
+</span></span></code></pre></div><p>修改MySQL的密码策略并重设密码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">set</span><span style="color:#6e7681"> </span>global<span style="color:#6e7681"> </span>validate_password_policy<span style="color:#ff7b72;font-weight:bold">=</span>LOW;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">set</span><span style="color:#6e7681"> </span>global<span style="color:#6e7681"> </span>validate_password_length<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">6</span>;<span style="color:#6e7681"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">USER</span><span style="color:#6e7681"> </span><span style="color:#f85149">‘</span>root<span style="color:#f85149">’</span><span style="color:#ff7b72;font-weight:bold">@</span><span style="color:#f85149">‘</span>localhost<span style="color:#f85149">’</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">IDENTIFIED</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span><span style="color:#f85149">‘</span><span style="color:#a5d6ff">123456</span><span style="color:#f85149">’</span>;<span style="color:#6e7681"> 
+</span></span></span></code></pre></div></li>
+</ol>
+<h3 id="hive">
+  Hive
+  <a class="heading-link" href="#hive">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<h4 id="hive的安装">
+  Hive的安装
+  <a class="heading-link" href="#hive%e7%9a%84%e5%ae%89%e8%a3%85">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>​		<a href="https://zh.wikipedia.org/wiki/Apache_Hive"  class="external-link" target="_blank" rel="noopener">Hive</a>是基于Hadoop的一个数据仓库工具，用来进行数据提取、转化、加载，这是一种可以存储、查询和分析存储在Hadoop中的大规模数据的机制。hive数据仓库工具能将结构化的数据文件映射为一张数据库表，并提供SQL查询功能，能将SQL语句转变成MapReduce任务来执行。Hive的优点是学习成本低，可以通过类似SQL语句实现快速MapReduce统计，使MapReduce变得更加简单，而不必开发专门的MapReduce应用程序。hive十分适合对数据仓库进行统计分析。</p>
+<ol>
+<li>
+<p>下载并解压Hive安装包</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf apache-hive-3.1.0-bin.tar.gz
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/e11f73ba8336532970444928cc5995ca.png" alt="e11f73ba8336532970444928cc5995ca"></p>
+</li>
+<li>
+<p>配置Hive</p>
+<p>创建hive-site.xml文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd conf
+</span></span><span style="display:flex;"><span>vim hive-site.xml
+</span></span></code></pre></div><p>将下列代码追加到hive-site.xml文件中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">&lt;?xml-stylesheet type=&#34;text/xsl&#34; href=&#34;configuration.xsl&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>hive.metastore.local<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>true<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>javax.jdo.option.ConnectionURL<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>jdbc:mysql://master:3306/hive_168?useSSL=false<span style="color:#ffa657">&amp;amp;</span>allowPublicKeyRetrieval=true<span style="color:#ffa657">&amp;amp;</span>severTimezone=GMT%2B8<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>javax.jdo.option.ConnectionDriverName<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>com.mysql.cj.jdbc.Driver<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>javax.jdo.option.ConnectionUserName<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>hadoopcent<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>javax.jdo.option.ConnectionPassword<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>123456<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/configuration&gt;</span>
+</span></span></code></pre></div><p>复制java connector到Hive依赖库：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp mysql-connector-java-8.0.11.jar ~/apache-hive-3.1.0-bin/lib
+</span></span></code></pre></div><p>配置.bash_profile文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>vim /home/cent/.bash_profile
+</span></span></code></pre></div><p>在.bash_profile文件中追加环境变量设置代码如下：</p>
+<pre tabindex="0"><code>export HIVE_HOME=/home/cent/apache-hive-3.1.0-bin
+export PATH=$PATH:$HIVE_HOME/bin
+</code></pre><p>添加环境变量后退出，<code>source</code>使其生效</p>
+</li>
+<li>
+<p>启动并验证Hive</p>
+<p>要启动Hive，需要确保MySQL和Hadoop俊处于运行状态，使用以下命令查看MySQL是否运行中</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>service mysqld status
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/f0c14cc60c8c42a5a3c68853193c04bf.png" alt=""></p>
+<p>将<code>Hive</code>导入环境变量后，使用<code>cent</code>用户在任意位置启动<code>hive</code>，如果出现Hive命令提示符<code>hive &gt;</code>则表明Hive安装和配置成功</p>
+</li>
+</ol>
+<h4 id="hive的操作方式">
+  Hive的操作方式
+  <a class="heading-link" href="#hive%e7%9a%84%e6%93%8d%e4%bd%9c%e6%96%b9%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>操作Hive的方式有两种：命令行模式和交互模式。</p>
+<ul>
+<li>
+<p>命令行模式</p>
+<p>创建表</p>
+<pre tabindex="0"><code class="language-hive" data-lang="hive">hive -e &#39;create table testDB(id int, name string, age int);&#39;
+</code></pre><p>查看表</p>
+<pre tabindex="0"><code class="language-hive" data-lang="hive">hive -e &#39;show tables;&#39;
+</code></pre></li>
+<li>
+<p>交互模式（即使用Hive Shell操作）</p>
+<pre tabindex="0"><code class="language-hive" data-lang="hive">hive &gt; create database test_db;
+	&gt;&gt; OK
+	&gt;&gt; Time taken: 0.711 seconds
+hive &gt; show databases;
+hive &gt; exit;
+</code></pre></li>
+</ul>
+<h3 id="zookeeper集群安装">
+  ZooKeeper集群安装
+  <a class="heading-link" href="#zookeeper%e9%9b%86%e7%be%a4%e5%ae%89%e8%a3%85">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		<a href="https://zookeeper.apache.org/"  class="external-link" target="_blank" rel="noopener">ZooKeeper</a> 是一种集中式服务，用于维护配置信息、命名、提供分布式同步和组服务。所有这些服务都会以某种形式被分布式应用程序使用。每次实施这些服务时，都需要做大量的工作来修复不可避免的错误和竞赛条件。由于这类服务的实施难度很大，应用程序最初通常会敷衍了事，这使得它们在发生变化时变得脆弱不堪，并且难以管理。即使正确地实现了这些服务，在部署应用程序时，不同的实现方式也会导致管理的复杂性。</p>
+<ol>
+<li>
+<p>安装ZooKeeper 3.4.9</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf zookeeper-3.4.9.tar.gz
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/60a7ccd6c0b8970ccd4d25aff6eb4499.png" alt="60a7ccd6c0b8970ccd4d25aff6eb4499"></p>
+</li>
+<li>
+<p>配置ZooKeeper</p>
+<p>首先进入<code>conf</code>子目录，其已存在模板配置文件，将其复制并重命名为<code>zoo.cfg</code>，在文件中添加以下内容并保存</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>server.1<span style="color:#ff7b72;font-weight:bold">=</span>master:2888:3888
+</span></span><span style="display:flex;"><span>server.2<span style="color:#ff7b72;font-weight:bold">=</span>slave1:2888:3888
+</span></span><span style="display:flex;"><span>server.3<span style="color:#ff7b72;font-weight:bold">=</span>slave2:2888:3888
+</span></span></code></pre></div><p>在所有计算节点中创建节点标识文件，以Master为例，在新建的myid文件中输入相应id，master、slave1、slave2的ID分别为1、2、3</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>mkdir -p /tmp/zookeeper
+</span></span><span style="display:flex;"><span>gedit /tmp/zookeeper/myid
+</span></span></code></pre></div><p>复制master的ZooKeeper到所有slave</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>scp -r zookeeper-3.4.9 slave1:~/
+</span></span></code></pre></div></li>
+<li>
+<p>启动zookeeper</p>
+<p>在所有计算节点上分别启动zookeeper</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>bin/zkServer.sh start
+</span></span></code></pre></div><p>通过以下命令查看zookeeper运行状态</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>bin/zkServer.sh status
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="hbase">
+  HBase
+  <a class="heading-link" href="#hbase">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		<a href="https://zh.wikipedia.org/wiki/Apache_HBase"  class="external-link" target="_blank" rel="noopener">HBase</a>是一个开源的非关系型分布式数据库（NoSQL），它参考了谷歌的BigTable建模，实现的编程语言为 Java。它是Apache软件基金会的Hadoop项目的一部分，运行于HDFS文件系统之上，为 Hadoop 提供类似于BigTable 规模的服务。因此，它可以对稀疏文件提供极高的容错率。</p>
+<h4 id="habse的安装">
+  Habse的安装
+  <a class="heading-link" href="#habse%e7%9a%84%e5%ae%89%e8%a3%85">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<ol>
+<li>
+<p>解压并安装HBase</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf hbase-1.2.4-bin-tar.gz
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/35dea4e1f1c281a3b7a59ccca983b720.png" alt="hbase"></p>
+</li>
+<li>
+<p>配置HBase
+编辑<code>hbase-env.sh</code>文件，修改JAVA_HOME</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export JAVA_HOME=/usr/java/jdk1.8.0_171&#34;</span> &gt;&gt; hbase-env.sh
+</span></span></code></pre></div><p>修改配置文件<code>hbase-site.xml</code>，将下面的代码放在 hbase-site.xml 文件的<code>configuration</code>标签之间</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>fs.defaultFS<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>hdfs://master:9000<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;property&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;name&gt;</span>hadoop.tmp.dir<span style="color:#7ee787">&lt;/name&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#7ee787">&lt;value&gt;</span>/home/cent/hadoopdata<span style="color:#7ee787">&lt;/value&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/property&gt;</span>
+</span></span></code></pre></div><p>配置regionservers，将已经存在的localhost删除，执行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>rm regionservers
+</span></span><span style="display:flex;"><span>touch regionservers
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;master&#34;</span> &gt;&gt; regionservers
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;slave1&#34;</span> &gt;&gt; regionservers
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;slave2&#34;</span> &gt;&gt; regionservers
+</span></span></code></pre></div><p>修改<code>.base_profile</code>文件，添加HBASE相关的环境变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HBase_HOME=/home/centhbase-1.2.4/&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export PATH=</span><span style="color:#79c0ff">$HBASE_HOME</span><span style="color:#a5d6ff">/bin:</span><span style="color:#79c0ff">$PATH</span><span style="color:#a5d6ff">&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HADOOP_CLASSPATH=</span><span style="color:#79c0ff">$HBASE_HOME</span><span style="color:#a5d6ff">/lib/*&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>source .bash_profile
+</span></span></code></pre></div><p>之后将HBase安装目录复制到所有Slave</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>scp -r ~/hbase-1.2.4 slave2:~/
+</span></span><span style="display:flex;"><span>scp -r ~/hbase-1.2.4 slave2:~/
+</span></span></code></pre></div></li>
+<li>
+<p>启动并验证HBase
+进入Master上的HBase安装目录，执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>bin/start-hbase.sh
+</span></span></code></pre></div></li>
+</ol>
+<h4 id="hbase常用命令">
+  HBase常用命令
+  <a class="heading-link" href="#hbase%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>进入HBase Shell</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>bin/hbase shell
+</span></span></code></pre></div><p>创建表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">create</span><span style="color:#f85149">“</span>test1<span style="color:#a5d6ff">&#34;,{NAME=&gt;&#39;f1&#39;,VERSION =&gt;5}
+</span></span></span></code></pre></div><p>查看列表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>list<span style="color:#6e7681">
+</span></span></span></code></pre></div><p>插入数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>put<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;test1&#39;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;id001&#39;</span>,<span style="color:#a5d6ff">&#39;f1:uid&#39;</span>,<span style="color:#a5d6ff">&#39;001&#39;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic"># id001是行键；f1是列簇名；uid是属性名，表示用户id；001就是属性的值
+</span></span></span></code></pre></div><p>扫描查询数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>scan<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;test1&#39;</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><p>查看表结构</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">describe</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;test&#39;</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><p>删除表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span>disable<span style="color:#a5d6ff">&#39;test&#39;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>opdrop<span style="color:#a5d6ff">&#39;test&#39;</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><p>退出HBase Shell</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">exit</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="sqoop">
+  Sqoop
+  <a class="heading-link" href="#sqoop">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>​		Sqoop是一个用来完成Hadoop和关系型数据库之间的数据相互转移的工具，它可以将关系型数据库中的数据导入Hadoop的HDFS中，也可以将HDFS的数据导入关系型数据库中。</p>
+<h4 id="sqoop的安装">
+  Sqoop的安装
+  <a class="heading-link" href="#sqoop%e7%9a%84%e5%ae%89%e8%a3%85">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<ol>
+<li>
+<p>下载或复制Sqoop1.4.7安装包，将文件复制到Master的“/home/cent”目录。</p>
+</li>
+<li>
+<p>安装Sqoop</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -zxvf sqoop-1.4.7.bin_hadoop-2.6.0.tar.gz
+</span></span></code></pre></div><p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/8fd5286cc636e2b1b6d1b8e6a9e1865c.png" alt="8fd5286cc636e2b1b6d1b8e6a9e1865c"></p>
+</li>
+<li>
+<p>配置MySQL连接器</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cp mysql-connector-java-8.0.11.jar ./sqoop-1.4.7.bin_hadoop-2.6.0/lib
+</span></span></code></pre></div></li>
+<li>
+<p>配置Sqoop环境变量</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd ./sqoop-1.4.7.bin_hadoop-2.6.0/conf/
+</span></span><span style="display:flex;"><span>touch sqoop-env.sh
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HADOOP_COMMON_HOME=/home/cent/haadoop-3.1.0&#34;</span> &gt;&gt; sqoop-env.sh
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HADOOP_MAPRED_HOME=/home/cent/hadoop-3.1.0&#34;</span> &gt;&gt; sqoop-env.sh
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HBASE_home=/home/cent/hbase-1.2.4&#34;</span> &gt;&gt; sqoop-env.sh
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export HIVE_HOME=/home/cent/apache-hive-3.1.0-bin&#34;</span> &gt;&gt; sqoop-env.sh
+</span></span></code></pre></div></li>
+<li>
+<p>配置Linux环境变量</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export SQOOP-HOME=/home/cent/sqoop-1.4.7.bin_hadoop-2.6.0&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>echo <span style="color:#a5d6ff">&#34;export PATH=</span><span style="color:#79c0ff">$PATH</span><span style="color:#a5d6ff">:</span><span style="color:#79c0ff">$SQOOP_HOME</span><span style="color:#a5d6ff">/bin&#34;</span> &gt;&gt; .bash_profile
+</span></span><span style="display:flex;"><span>source .bash_profile
+</span></span></code></pre></div><p>此时，<code>.bash_profile</code>文件应有以下环境变量：</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Cache_-619602590bc94c15..jpg" alt="Cache_-619602590bc94c15."></p>
+</li>
+</ol>
+<h4 id="sqoop基本应用">
+  Sqoop基本应用
+  <a class="heading-link" href="#sqoop%e5%9f%ba%e6%9c%ac%e5%ba%94%e7%94%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>启动并验证Sqoop，执行<code>sqoop help</code>命令查看，有以下内容输出即安装成功</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/4ee7b31d94d8f31e184798ab3f5face0.png" alt="4ee7b31d94d8f31e184798ab3f5face0"></p>
+<p>列出MySQL的数据库下的所有表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bin/sqoop eval --driver com.mysql.cj.jdbc.Driver --connect jdbc:mysql:// 192.168.163.138:3306/test_db?serverTimezone<span style="color:#ff7b72;font-weight:bold">=</span>UTC<span style="color:#79c0ff">\&amp;</span><span style="color:#79c0ff">useSSL</span><span style="color:#ff7b72;font-weight:bold">=</span>false --username root --password Hive_%centdjhuang168168 --query <span style="color:#a5d6ff">&#34;show tables&#34;</span>
+</span></span></code></pre></div><p>列出MySQL的所有数据库</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bin/sqoop eval--driver com.mysql.cj.jdbc.Driver--connect jdbc:mysql: //192.168.163.138:3306?serverTimezone<span style="color:#ff7b72;font-weight:bold">=</span>UTC<span style="color:#79c0ff">\&amp;</span><span style="color:#79c0ff">useSSLL</span><span style="color:#ff7b72;font-weight:bold">=</span>false --username root --password Hive_%centdjhuang168168--query<span style="color:#a5d6ff">&#34;show databases&#34;</span>
+</span></span></code></pre></div><p>执行查询语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>bin/sqoop eval --driver com.mysql.cj.jdbc.Driver --connect jdbc:mysql: //192.168.163.138:3306?serverTimezone<span style="color:#ff7b72;font-weight:bold">=</span>UTC<span style="color:#79c0ff">\&amp;</span><span style="color:#79c0ff">useSSL</span><span style="color:#ff7b72;font-weight:bold">=</span>false --username root --password Hive_%centdjhuang168168 --query <span style="color:#a5d6ff">&#34;selsect * from myclass&#34;</span>
+</span></span></code></pre></div><h1 id="附录">
   附录
   <a class="heading-link" href="#%e9%99%84%e5%bd%95">
     <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
@@ -405,7 +946,7 @@ $$</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
-<p><img src="https://download.huawei.com/mdl/image/download?uuid=f6f0f3e9e0cb4ae79e9da078da96fb12" alt="SSH工作流程"></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/download" alt="SSH工作流程"></p>
 <ol>
 <li>
 <p>连接建立：SSH客户端向SSH服务器建立TCP连接，发送连接请求</p>
@@ -418,18 +959,18 @@ $$</p>
 </li>
 <li>
 <p>密钥交换：双方通过密钥交换算法动态生成会话密钥和会话ID，前者用于数据的加密，后者用于唯一标识该SSH连接。为保证会话密钥的安全性，密钥并不是一方生成后发送给另一方，而是通过数学算法本地生成。</p>
-<p><img src="https://download.huawei.com/mdl/image/download?uuid=644396500e9549d19821793de2c1617a" alt="SSH密钥交换"></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/download" alt="SSH密钥交换"></p>
 </li>
 <li>
 <p>用户认证</p>
 <ul>
 <li>
 <p>口令认证：客户端请求建立SSH连接，服务器将本机公钥发送给客户端，客户端通过此公钥加密口令并发送给服务器，服务器使用私钥解密后验证口令是否正确。若攻击者截获客户端的SSH连接请求，并发送自己的公钥给客户端，则可以截获服务器的登录口令，这种攻击称为“中间人攻击”。</p>
-<p><img src="https://download.huawei.com/mdl/image/download?uuid=9b5ca3e252304bb8ab110a6a1e4c5ad4" alt="SSH密码认证登录流程"></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/download" alt="SSH密码认证登录流程"></p>
 </li>
 <li>
 <p>密钥认证：服务器需事先保存有客户端的公钥。服务器收到客户端的连接请求，使用已保存的客户端的公钥加密一个随机内容发送给客户端，客户端使用私钥解密并将内容返回，服务器验证内容正确则建立SSH连接。</p>
-<p><img src="https://download.huawei.com/mdl/image/download?uuid=33900275558042adadc3b9edb05b7837" alt="SSH密钥认证登录流程"></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/download" alt="SSH密钥认证登录流程"></p>
 </li>
 </ul>
 </li>
@@ -578,11 +1119,22 @@ $$</p>
 </ul>
 </li>
 </ul>
+<h1 id="fault--troubleshooting">
+  Fault  Troubleshooting
+  <a class="heading-link" href="#fault--troubleshooting">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ul>
+<li>
+<p>Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password)</p>
+<p>在将本机的公钥传输给其他主机之后，将自身的id_rsa.pub加入authorized_keys</p>
+</li>
+</ul>
 
         <hr>
       </div>
-
-
       <footer>
         
 
