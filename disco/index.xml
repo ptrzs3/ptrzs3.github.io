@@ -6,7 +6,19 @@
     <description>Recent content in Disco on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 21 Oct 2023 21:43:55 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/disco/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Oct 2023 16:12:34 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/disco/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Method</title>
+      <link>https://ptrzs3.github.io/disco/rounddown/</link>
+      <pubDate>Mon, 23 Oct 2023 16:12:34 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/disco/rounddown/</guid>
+      <description>下取整Link to heading如果大家处理问题都采用计算机的思想的话，根本不存在犹豫和内耗这两个概念。
+凡是可能犹豫的，也就是某个期望小于1的，都按false处理；只有期望等于1的时候，才去执行。
+有些事情在犹豫，说明就是没有做好准备，或者是没有很强的执行意愿，却扔在这里不断地考虑、内耗，白白损耗自己的精力，最后即使是硬着头皮去执行了，结果也绝对是不尽人意
+人啊，什么时候能认清自己</description>
+    </item>
+    
     <item>
       <title>Boom</title>
       <link>https://ptrzs3.github.io/disco/boom/</link>
