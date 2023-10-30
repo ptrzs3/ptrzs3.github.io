@@ -6,7 +6,22 @@
     <description>Recent content in Posts on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Oct 2023 21:28:06 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Oct 2023 15:36:26 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>字符集</title>
+      <link>https://ptrzs3.github.io/posts/%E5%AD%97%E7%AC%A6%E9%9B%86/</link>
+      <pubDate>Mon, 30 Oct 2023 15:36:26 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/%E5%AD%97%E7%AC%A6%E9%9B%86/</guid>
+      <description>字符集Link to heading字符集（Character Set），是字符的集合。在Unicode出现之前，常用的字符集有ASCII，GB2312等。世界上有各种各样的语言，每种语言又有各自的字符，而诸如ASCII、GB2312等字符集具有很强的地区性，即只能表达特定地区常用的字符，如ASCII字符集就无法表示中文字符。
+1994年，Unicode横空出世，它可以表达世界上已知的绝大多数字符，在这种字符环境下，不再存在语言的编码冲突，在同屏下，可以显示任意语言的字符，因此，Unicode也被称为万国码、统一码。由于Unicode出现比ASCII要晚，因此为了兼容ASCII文档，Unicode将ASCII吸收为子集，即0~127为原生ASCII码。Unicode只是定义了字符所对应的二进制数，而没有规定这些字符如何存储和传输。
+Unicode默认版本是UCS-2，即采用定长两个字节来表示字符，取值范围为U+0000~U+FFFF，这样的范围足以表达全球主要语言的大多数字符。但是Unicode为了表示更多的字符，还提供了UCS-4，取值范围U+00000000～U+7FFFFFFF，可表达一百多万字符。
+字符编码规则Link to headingUnicode常用的编码规则有UTF-8、UTF-16、UTF-32。
+对比 UTF-8 UTF-16 UTF-32 UCS-2 UCS-4 编码空间 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ FFFF 0 ~ 7FFFFFFF 最少编码字节数 1 2 4 2 4 最多编码字节数 4 4 4 2 4 是否依赖字节序 否 是 是 是 是 UCS是定长编码，这种编码方式最大的缺点就是浪费存储空间。对于字符“A”，如果用UCS-2来存储，则其需要占用两个字节，而用UCS-4来存储，则需要占用四个字节。UTF是可变长度的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。同样存储字符“A”，UTF-8只需要占用一个字节；对于汉字，比如“中”，UTF-8需要占用三个字节。
+UTF-8的存储规则Link to heading以下是用来编码 UCS-2 的 UTF-8 子集：
+字节 位数 最小十六进制值 最大十六进制值 二进制表示的字节序列 1 7 00000000 0000007F 0xxxxxxx 2 11 00000080 000007FF 110xxxxx 10xxxxxx 3 16 00000800 0000FFFF 1110xxxx 10xxxxxx 10xxxxxx 对于单字节的字符，字节的最高位二进制数设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和最初的前128个ASCII标准码是完全相同的。 对于n字节的符号（n &amp;gt; 1），第一个字节的前n位都设为1，第n + 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码 对于汉字“中”，Unicode编码为“4E2D”，转换成二进制是“100111000101101”。用UTF-8来表示需要占用三个字节：1110 0100 10 111000 10 101101，将每个字节转换为十进制即：228 184 173</description>
+    </item>
+    
     <item>
       <title>Rust里的小东西</title>
       <link>https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/</link>

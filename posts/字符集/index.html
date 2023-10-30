@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  字符集 · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="字符集Link to heading字符集（Character Set），是字符的集合。在Unicode出现之前，常用的字符集有ASCII，GB2312等。世界上有各种各样的语言，每种语言又有各自的字符，而诸如ASCII、GB2312等字符集具有很强的地区性，即只能表达特定地区常用的字符，如ASCII字符集就无法表示中文字符。
+1994年，Unicode横空出世，它可以表达世界上已知的绝大多数字符，在这种字符环境下，不再存在语言的编码冲突，在同屏下，可以显示任意语言的字符，因此，Unicode也被称为万国码、统一码。由于Unicode出现比ASCII要晚，因此为了兼容ASCII文档，Unicode将ASCII吸收为子集，即0~127为原生ASCII码。Unicode只是定义了字符所对应的二进制数，而没有规定这些字符如何存储和传输。
+Unicode默认版本是UCS-2，即采用定长两个字节来表示字符，取值范围为U&#43;0000~U&#43;FFFF，这样的范围足以表达全球主要语言的大多数字符。但是Unicode为了表示更多的字符，还提供了UCS-4，取值范围U&#43;00000000～U&#43;7FFFFFFF，可表达一百多万字符。
+字符编码规则Link to headingUnicode常用的编码规则有UTF-8、UTF-16、UTF-32。
+对比 UTF-8 UTF-16 UTF-32 UCS-2 UCS-4 编码空间 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ FFFF 0 ~ 7FFFFFFF 最少编码字节数 1 2 4 2 4 最多编码字节数 4 4 4 2 4 是否依赖字节序 否 是 是 是 是 UCS是定长编码，这种编码方式最大的缺点就是浪费存储空间。对于字符“A”，如果用UCS-2来存储，则其需要占用两个字节，而用UCS-4来存储，则需要占用四个字节。UTF是可变长度的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。同样存储字符“A”，UTF-8只需要占用一个字节；对于汉字，比如“中”，UTF-8需要占用三个字节。
+UTF-8的存储规则Link to heading以下是用来编码 UCS-2 的 UTF-8 子集：
+字节 位数 最小十六进制值 最大十六进制值 二进制表示的字节序列 1 7 00000000 0000007F 0xxxxxxx 2 11 00000080 000007FF 110xxxxx 10xxxxxx 3 16 00000800 0000FFFF 1110xxxx 10xxxxxx 10xxxxxx 对于单字节的字符，字节的最高位二进制数设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和最初的前128个ASCII标准码是完全相同的。 对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n &#43; 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码 对于汉字“中”，Unicode编码为“4E2D”，转换成二进制是“100111000101101”。用UTF-8来表示需要占用三个字节：1110 0100 10 111000 10 101101，将每个字节转换为十进制即：228 184 173">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="字符集"/>
+<meta name="twitter:description" content="字符集Link to heading字符集（Character Set），是字符的集合。在Unicode出现之前，常用的字符集有ASCII，GB2312等。世界上有各种各样的语言，每种语言又有各自的字符，而诸如ASCII、GB2312等字符集具有很强的地区性，即只能表达特定地区常用的字符，如ASCII字符集就无法表示中文字符。
+1994年，Unicode横空出世，它可以表达世界上已知的绝大多数字符，在这种字符环境下，不再存在语言的编码冲突，在同屏下，可以显示任意语言的字符，因此，Unicode也被称为万国码、统一码。由于Unicode出现比ASCII要晚，因此为了兼容ASCII文档，Unicode将ASCII吸收为子集，即0~127为原生ASCII码。Unicode只是定义了字符所对应的二进制数，而没有规定这些字符如何存储和传输。
+Unicode默认版本是UCS-2，即采用定长两个字节来表示字符，取值范围为U&#43;0000~U&#43;FFFF，这样的范围足以表达全球主要语言的大多数字符。但是Unicode为了表示更多的字符，还提供了UCS-4，取值范围U&#43;00000000～U&#43;7FFFFFFF，可表达一百多万字符。
+字符编码规则Link to headingUnicode常用的编码规则有UTF-8、UTF-16、UTF-32。
+对比 UTF-8 UTF-16 UTF-32 UCS-2 UCS-4 编码空间 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ FFFF 0 ~ 7FFFFFFF 最少编码字节数 1 2 4 2 4 最多编码字节数 4 4 4 2 4 是否依赖字节序 否 是 是 是 是 UCS是定长编码，这种编码方式最大的缺点就是浪费存储空间。对于字符“A”，如果用UCS-2来存储，则其需要占用两个字节，而用UCS-4来存储，则需要占用四个字节。UTF是可变长度的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。同样存储字符“A”，UTF-8只需要占用一个字节；对于汉字，比如“中”，UTF-8需要占用三个字节。
+UTF-8的存储规则Link to heading以下是用来编码 UCS-2 的 UTF-8 子集：
+字节 位数 最小十六进制值 最大十六进制值 二进制表示的字节序列 1 7 00000000 0000007F 0xxxxxxx 2 11 00000080 000007FF 110xxxxx 10xxxxxx 3 16 00000800 0000FFFF 1110xxxx 10xxxxxx 10xxxxxx 对于单字节的字符，字节的最高位二进制数设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和最初的前128个ASCII标准码是完全相同的。 对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n &#43; 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码 对于汉字“中”，Unicode编码为“4E2D”，转换成二进制是“100111000101101”。用UTF-8来表示需要占用三个字节：1110 0100 10 111000 10 101101，将每个字节转换为十进制即：228 184 173"/>
+
+<meta property="og:title" content="字符集" />
+<meta property="og:description" content="字符集Link to heading字符集（Character Set），是字符的集合。在Unicode出现之前，常用的字符集有ASCII，GB2312等。世界上有各种各样的语言，每种语言又有各自的字符，而诸如ASCII、GB2312等字符集具有很强的地区性，即只能表达特定地区常用的字符，如ASCII字符集就无法表示中文字符。
+1994年，Unicode横空出世，它可以表达世界上已知的绝大多数字符，在这种字符环境下，不再存在语言的编码冲突，在同屏下，可以显示任意语言的字符，因此，Unicode也被称为万国码、统一码。由于Unicode出现比ASCII要晚，因此为了兼容ASCII文档，Unicode将ASCII吸收为子集，即0~127为原生ASCII码。Unicode只是定义了字符所对应的二进制数，而没有规定这些字符如何存储和传输。
+Unicode默认版本是UCS-2，即采用定长两个字节来表示字符，取值范围为U&#43;0000~U&#43;FFFF，这样的范围足以表达全球主要语言的大多数字符。但是Unicode为了表示更多的字符，还提供了UCS-4，取值范围U&#43;00000000～U&#43;7FFFFFFF，可表达一百多万字符。
+字符编码规则Link to headingUnicode常用的编码规则有UTF-8、UTF-16、UTF-32。
+对比 UTF-8 UTF-16 UTF-32 UCS-2 UCS-4 编码空间 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ 10FFFF 0 ~ FFFF 0 ~ 7FFFFFFF 最少编码字节数 1 2 4 2 4 最多编码字节数 4 4 4 2 4 是否依赖字节序 否 是 是 是 是 UCS是定长编码，这种编码方式最大的缺点就是浪费存储空间。对于字符“A”，如果用UCS-2来存储，则其需要占用两个字节，而用UCS-4来存储，则需要占用四个字节。UTF是可变长度的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。同样存储字符“A”，UTF-8只需要占用一个字节；对于汉字，比如“中”，UTF-8需要占用三个字节。
+UTF-8的存储规则Link to heading以下是用来编码 UCS-2 的 UTF-8 子集：
+字节 位数 最小十六进制值 最大十六进制值 二进制表示的字节序列 1 7 00000000 0000007F 0xxxxxxx 2 11 00000080 000007FF 110xxxxx 10xxxxxx 3 16 00000800 0000FFFF 1110xxxx 10xxxxxx 10xxxxxx 对于单字节的字符，字节的最高位二进制数设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和最初的前128个ASCII标准码是完全相同的。 对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n &#43; 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码 对于汉字“中”，Unicode编码为“4E2D”，转换成二进制是“100111000101101”。用UTF-8来表示需要占用三个字节：1110 0100 10 111000 10 101101，将每个字节转换为十进制即：228 184 173" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/%E5%AD%97%E7%AC%A6%E9%9B%86/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-30T15:36:26+08:00" />
+<meta property="article:modified_time" content="2023-10-30T15:36:26+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/%E5%AD%97%E7%AC%A6%E9%9B%86/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/disco/">Disco</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/%E5%AD%97%E7%AC%A6%E9%9B%86/">
+              字符集
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-10-30T15:36:26&#43;08:00">
+                October 30, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="字符集">
+  字符集
+  <a class="heading-link" href="#%e5%ad%97%e7%ac%a6%e9%9b%86">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>字符集（Character Set），是字符的集合。在Unicode出现之前，常用的字符集有ASCII，GB2312等。世界上有各种各样的语言，每种语言又有各自的字符，而诸如ASCII、GB2312等字符集具有很强的地区性，即只能表达特定地区常用的字符，如ASCII字符集就无法表示中文字符。</p>
+<p>1994年，Unicode横空出世，它可以表达世界上已知的绝大多数字符，在这种字符环境下，不再存在语言的编码冲突，在同屏下，可以显示任意语言的字符，因此，Unicode也被称为万国码、统一码。由于Unicode出现比ASCII要晚，因此为了兼容ASCII文档，Unicode将ASCII吸收为子集，即0~127为原生ASCII码。Unicode只是定义了字符所对应的二进制数，而<strong>没有规定这些字符如何存储和传输</strong>。</p>
+<p>Unicode默认版本是UCS-2，即采用定长两个字节来表示字符，取值范围为U+0000~U+FFFF，这样的范围足以表达全球主要语言的大多数字符。但是Unicode为了表示更多的字符，还提供了UCS-4，取值范围U+00000000～U+7FFFFFFF，可表达一百多万字符。</p>
+<h1 id="字符编码规则">
+  字符编码规则
+  <a class="heading-link" href="#%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81%e8%a7%84%e5%88%99">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Unicode常用的编码规则有UTF-8、UTF-16、UTF-32。</p>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>UTF-8</th>
+<th>UTF-16</th>
+<th>UTF-32</th>
+<th>UCS-2</th>
+<th>UCS-4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编码空间</td>
+<td>0 ~ 10FFFF</td>
+<td>0 ~ 10FFFF</td>
+<td>0 ~ 10FFFF</td>
+<td>0 ~ FFFF</td>
+<td>0 ~ 7FFFFFFF</td>
+</tr>
+<tr>
+<td>最少编码字节数</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>最多编码字节数</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>是否依赖字节序</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<p>UCS是定长编码，这种编码方式最大的缺点就是浪费存储空间。对于字符“A”，如果用UCS-2来存储，则其需要占用两个字节，而用UCS-4来存储，则需要占用四个字节。UTF是可变长度的编码方式，它可以使用1~4个字节表示一个符号，根据不同的符号而变化字节长度。同样存储字符“A”，UTF-8只需要占用一个字节；对于汉字，比如“中”，UTF-8需要占用三个字节。</p>
+<h1 id="utf-8的存储规则">
+  UTF-8的存储规则
+  <a class="heading-link" href="#utf-8%e7%9a%84%e5%ad%98%e5%82%a8%e8%a7%84%e5%88%99">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>以下是用来编码 UCS-2 的 UTF-8 子集：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字节</th>
+<th style="text-align:left">位数</th>
+<th style="text-align:left">最小十六进制值</th>
+<th style="text-align:left">最大十六进制值</th>
+<th style="text-align:left">二进制表示的字节序列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">00000000</td>
+<td style="text-align:left">0000007F</td>
+<td style="text-align:left">0xxxxxxx</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">11</td>
+<td style="text-align:left">00000080</td>
+<td style="text-align:left">000007FF</td>
+<td style="text-align:left">110xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">00000800</td>
+<td style="text-align:left">0000FFFF</td>
+<td style="text-align:left">1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>对于单字节的字符，字节的最高位二进制数设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和最初的前128个ASCII标准码是完全相同的。</li>
+<li>对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n + 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码</li>
+</ul>
+<p>对于汉字“中”，Unicode编码为“4E2D”，转换成二进制是“100111000101101”。用UTF-8来表示需要占用三个字节：1110 <strong>0100</strong> 10 <strong>111000</strong> 10 <strong>101101</strong>，将每个字节转换为十进制即：228 184 173</p>
+
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
