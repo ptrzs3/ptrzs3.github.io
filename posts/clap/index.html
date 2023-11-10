@@ -104,10 +104,6 @@
             </li>
           
             <li class="navigation-item">
-              <a class="navigation-link" href="/disco/">Disco</a>
-            </li>
-          
-            <li class="navigation-item">
               <a class="navigation-link" href="/about/">About</a>
             </li>
           
@@ -435,7 +431,44 @@
 </span></span></span></code></pre></div><p>默认选项。当用户没有传递该参数时，使用默认值</p>
 <p>用法：<code>arg.exe 443</code> 或 <code>arg.exe</code></p>
 <p>输出：<code>port: 443</code> 或 <code>port: 2020</code></p>
-
+<h2 id="chapter-3">
+  Chapter 3
+  <a class="heading-link" href="#chapter-3">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="枚举类型验证">
+  枚举类型验证
+  <a class="heading-link" href="#%e6%9e%9a%e4%b8%be%e7%b1%bb%e5%9e%8b%e9%aa%8c%e8%af%81">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>允许指定有效的输入值，其他值无效</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">use</span><span style="color:#6e7681"> </span>clap::{arg,<span style="color:#6e7681"> </span>command,<span style="color:#6e7681"> </span>Arg};<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">main</span>()<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span>matches<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>command!()<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">// requires `cargo` feature
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">        </span>.arg(Arg::new(<span style="color:#a5d6ff">&#34;MODE&#34;</span>).value_parser([<span style="color:#a5d6ff">&#34;fast&#34;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;medium&#34;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;slow&#34;</span>]))<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>.get_matches();<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#8b949e;font-style:italic">// Note, it&#39;s safe to call unwrap() because the arg is required
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    </span><span style="color:#ff7b72">match</span><span style="color:#6e7681"> </span>matches<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>.get_one::<span style="color:#ff7b72;font-weight:bold">&lt;</span>String<span style="color:#ff7b72;font-weight:bold">&gt;</span>(<span style="color:#a5d6ff">&#34;MODE&#34;</span>)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>.expect(<span style="color:#a5d6ff">&#34;&#39;MODE&#39; is required and parsing will fail if its missing&#34;</span>)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>.as_str()<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#a5d6ff">&#34;fast&#34;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>println!(<span style="color:#a5d6ff">&#34;Hare&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#a5d6ff">&#34;slow&#34;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=&gt;</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">            </span>println!(<span style="color:#a5d6ff">&#34;Tortoise&#34;</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span>_<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=&gt;</span><span style="color:#6e7681"> </span>unreachable!(),<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div>
         <hr>
       </div>
       <footer>
