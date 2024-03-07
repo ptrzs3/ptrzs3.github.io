@@ -6,7 +6,95 @@
     <description>Recent content in ptrzs on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Dec 2023 12:36:43 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Mar 2024 16:52:03 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ID3音乐标签</title>
+      <link>https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Thu, 07 Mar 2024 16:52:03 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/</guid>
+      <description>介绍Link to headingMP3文件中存在ID3标签，用于记录作者、歌曲名、歌词等信息。
+ID3标签分为ID3v1和ID3v2，后者又细分为四个小版本，最常用的是ID3v2.3和ID3v2.4，支持2.4的解析器亦可解析2.3的内容，即向下兼容。
+ID3v1Link to headingID3v1长度固定为128Bytes，存放于MP3文件末尾。
+Bytes Index（start from 1) Length(Bytes) Contents Comments 1-3 3 TAG 固定的3字节长&amp;quot;TAG&amp;quot;，用于标识ID3v1 4-33 30 Title 歌曲名 34-63 30 Artist 歌手 64-93 30 Album 专辑 94-97 4 Year 年份 98-127 30 Comment 音乐评论 128 1 Genre 音乐流派 第98-127字节的内容，在ID3v1.1时更新了协议，如果第126字节为0，则表示第127字节为曲目序号，第98-125字节的内容为音乐评论信息；如果第126字节不为0，则30字节长度全部为音乐评论信息。
+以《云烟成雨》为例，下图红色框区域即ID3v1协议内容
+由于ID3v1协议存放的信息不多，且几乎无法扩展，因此出现ID3v2协议。
+ID3v2Link to headingID3v2协议出现在MP3文件开头，若MP3文件开头三个字节为0x49 0x44 0x33，即&amp;quot;ID3&amp;quot;，说明该文件存在ID3v2协议信息。
+协议框架Link to headingID3v2协议框架见下表
+Contents Length(Bytes) Comments 首部 10 定长10字节，出现在文件最开头 扩展首部 变长 可选出现，由首部内容决定 标签帧 变长 存放歌名、作者、封面等信息 填充 变长 可选出现，如果出现，内容一定是0x00 脚注 10 定长10字节，可选出现，不能和填充一起出现，目前为ID3v2.</description>
+    </item>
+    
+    <item>
+      <title>Yaml格式</title>
+      <link>https://ptrzs3.github.io/posts/yaml/</link>
+      <pubDate>Thu, 07 Mar 2024 16:50:49 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/yaml/</guid>
+      <description>YAML Ain&amp;rsquo;t Markup LanguageLink to heading缩进几个空格字符不重要，同一层次的元素左侧要对齐
+缩进不能使用Tab字符，一般缩进两个空格
+可以增加空行以提升可读性
+同一个文件中，可以用---分隔
+...可用来表示文件结尾
+数组：可用区块格式（短杠+空格表示起始），或者使用内置格式
+--- # 最喜爱的电影 movies: - 肖申克的救赎 - 阿甘正传 - 霸王别姬 --- # 等价于 movies: [肖申克的救赎, 阿甘正传, 霸王别姬] 对象：键值对集合
+--- # 区块格式 person: name: John Smith age: 33 --- # 内置格式 person: {name: John Smith, age: 33} 字符串：不需要包含在引号内
+# 多行字符串，一种为保留换行（使用|字符） data: | There once was a man from Darjeeling Who got on a bus bound for Ealing It said on the door &amp;#34;Please don&amp;#39;t spit on the floor&amp;#34; So he carefully spat on the ceiling # 或者使用折叠换行（使用&amp;gt;字符） data: &amp;gt; Wrapped text will be folded into a single paragraph Blank lines denote paragraph breaks The newline character is \ # &amp;#39;\&amp;#39;表示下一行与本行是同一行 converted to a whitspace character 锚点和引用</description>
+    </item>
+    
+    <item>
+      <title>麻将</title>
+      <link>https://ptrzs3.github.io/posts/%E9%BA%BB%E5%B0%86/</link>
+      <pubDate>Thu, 07 Mar 2024 16:49:47 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/%E9%BA%BB%E5%B0%86/</guid>
+      <description>麻将Link to heading牌型组合Link to heading一饼~九饼各四张，共三十六张
+一条~九条各四张，共三十六张（一条是一只鸟，也被成为幺鸡）
+一万~九万各四张，共三十六张
+上述108张为序数牌，四川麻将只用这108张
+东风、南风、西风、北风、红中、发财、白板各四张，共28张，为字牌
+上述136张牌也是最常用的麻将组合
+春、夏、秋、冬、梅、兰、竹、菊共八张，为花牌
+上述八张，国标麻将、福建麻将、台湾麻将会用到
+术语Link to heading顺子：连续三张同花色的顺序依次的序数牌称为顺子，如三万、四万、五万
+刻子：三张同样的牌叫刻子，如三张四饼
+对子：两张同样的牌叫对子，如两张二饼
+碰：其他三家丢的牌和已有的牌能组成一个刻子
+吃：上家丢的牌和已有的牌能组成一个顺子
+杠：已有一个刻子，上家丢的牌和刻子图案相同，即为杠。将这张牌和刻子摞在一起（实为四张牌，但认为是三张牌）。
+和牌规则Link to heading麻将是凑牌的游戏，扔出一张没用的，拿进一张有用的牌
+游戏过程Link to heading洗牌
+砌牌：每个人36张牌，上下两张叠在一起为一墩，各自为18墩，砌成牌墙摆在自己面前（如果不用花牌，则每人十七墩）
+掷骰子：掷骰子得到的点数n，决定从哪个人前面的牌墙抓牌。庄家为第一位，从庄家开始逆时针数。
+取牌：从牌墙开始从右往左数n墩，这n墩不动。由庄家开始从第n+1墩开始取两墩，逆时针顺序继续取牌，直到庄家和闲家都取三墩共十二张牌。接着庄家继续取下图这两张牌：
+接着闲家按逆时针各取一张牌，最终庄家14张，闲家13张牌
+取牌完成后，将牌立起，不被别人看到
+取牌完成后，庄家先出，扔出一张不要的牌（扔出的牌为明牌）而不摸牌；之后按逆时针顺序由闲家先从剩余的牌墙中按顺序取一张牌，或者用上家扔出的牌，之后扔出一张不要的牌；接下来按逆时针轮流进行。
+在打牌过程中，会有碰、吃、杠的动作。碰、吃之后，把组成的三张牌组合并明牌放在左边，之后丢出一张牌。碰、吃、杠均为可选动作，是为了加快和牌动作并增加游戏的趣味性。
+当游戏进行到一定程度时，己方只差一张牌即和牌，此时就进入“听牌”的状态，听牌需要报听，即对外宣布己方听牌。听牌状态，只能扔出摸到的牌。
+如果摸到一张牌和了，即为自摸；如果靠收进别人的牌而和的，即为点和，扔出这张牌的人，即为点炮；如果别人扔出恰好需要的牌，而被别人收进，则为截和
+Q：庄家如何确定？
+A：第一句庄家掷骰子决定，此后庄家可轮流坐庄或胜者坐庄</description>
+    </item>
+    
+    <item>
+      <title>JSLint</title>
+      <link>https://ptrzs3.github.io/posts/jslint/</link>
+      <pubDate>Thu, 07 Mar 2024 16:47:51 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/jslint/</guid>
+      <description>ESLintLink to heading在语法层面规范代码，兼顾排版效果
+安装Link to headingnpm install eslint -D 初始化Link to headingnpm init @eslint/config 按照提示进行初始化后，eslint的规则文件在.eslintrc.yml中。
+eslintrc文件将在ESLint v9.0.0被弃用，转而使用eslint.config.js
+配置对象详解Link to heading配置文件（eslintrc）中包含多个对象，如extends、parserOptions、rules等。
+extendsLink to headingentends对象可以继承多个规则，但是可以在rules对象中覆盖其中某些规则
+默认继承eslint: recommended，如果在开发其他类型项目如Vue，可以添加继承plugin:vue/vue3-strongly-recommended等规则。
+parserOptionsLink to headingrulesLink to headingrules对象包含用户具体配置的规则，如
+rules: quotes: - warn - single no-unused-vars: off eslint支持的所有规则：https://eslint.org/docs/latest/rules
+执行Link to headingnpx eslint target.js CLI：npx eslint [options] [file|dir|glob]*
+eslint所有命令行参数：https://eslint.org/docs/latest/use/command-line-interface
+痛点Link to heading若要查看是否有不规范代码，需要重新执行命令并从命令行中分析，或者npx eslint --ext .</description>
+    </item>
+    
     <item>
       <title>A Story</title>
       <link>https://ptrzs3.github.io/disco/story/</link>

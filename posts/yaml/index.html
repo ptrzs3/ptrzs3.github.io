@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Yaml格式 · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="YAML Ain&rsquo;t Markup LanguageLink to heading缩进几个空格字符不重要，同一层次的元素左侧要对齐
+缩进不能使用Tab字符，一般缩进两个空格
+可以增加空行以提升可读性
+同一个文件中，可以用---分隔
+...可用来表示文件结尾
+数组：可用区块格式（短杠&#43;空格表示起始），或者使用内置格式
+--- # 最喜爱的电影 movies: - 肖申克的救赎 - 阿甘正传 - 霸王别姬 --- # 等价于 movies: [肖申克的救赎, 阿甘正传, 霸王别姬] 对象：键值对集合
+--- # 区块格式 person: name: John Smith age: 33 --- # 内置格式 person: {name: John Smith, age: 33} 字符串：不需要包含在引号内
+# 多行字符串，一种为保留换行（使用|字符） data: | There once was a man from Darjeeling Who got on a bus bound for Ealing It said on the door &#34;Please don&#39;t spit on the floor&#34; So he carefully spat on the ceiling # 或者使用折叠换行（使用&gt;字符） data: &gt; Wrapped text will be folded into a single paragraph Blank lines denote paragraph breaks The newline character is \ # &#39;\&#39;表示下一行与本行是同一行 converted to a whitspace character 锚点和引用">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Yaml格式"/>
+<meta name="twitter:description" content="YAML Ain&rsquo;t Markup LanguageLink to heading缩进几个空格字符不重要，同一层次的元素左侧要对齐
+缩进不能使用Tab字符，一般缩进两个空格
+可以增加空行以提升可读性
+同一个文件中，可以用---分隔
+...可用来表示文件结尾
+数组：可用区块格式（短杠&#43;空格表示起始），或者使用内置格式
+--- # 最喜爱的电影 movies: - 肖申克的救赎 - 阿甘正传 - 霸王别姬 --- # 等价于 movies: [肖申克的救赎, 阿甘正传, 霸王别姬] 对象：键值对集合
+--- # 区块格式 person: name: John Smith age: 33 --- # 内置格式 person: {name: John Smith, age: 33} 字符串：不需要包含在引号内
+# 多行字符串，一种为保留换行（使用|字符） data: | There once was a man from Darjeeling Who got on a bus bound for Ealing It said on the door &#34;Please don&#39;t spit on the floor&#34; So he carefully spat on the ceiling # 或者使用折叠换行（使用&gt;字符） data: &gt; Wrapped text will be folded into a single paragraph Blank lines denote paragraph breaks The newline character is \ # &#39;\&#39;表示下一行与本行是同一行 converted to a whitspace character 锚点和引用"/>
+
+<meta property="og:title" content="Yaml格式" />
+<meta property="og:description" content="YAML Ain&rsquo;t Markup LanguageLink to heading缩进几个空格字符不重要，同一层次的元素左侧要对齐
+缩进不能使用Tab字符，一般缩进两个空格
+可以增加空行以提升可读性
+同一个文件中，可以用---分隔
+...可用来表示文件结尾
+数组：可用区块格式（短杠&#43;空格表示起始），或者使用内置格式
+--- # 最喜爱的电影 movies: - 肖申克的救赎 - 阿甘正传 - 霸王别姬 --- # 等价于 movies: [肖申克的救赎, 阿甘正传, 霸王别姬] 对象：键值对集合
+--- # 区块格式 person: name: John Smith age: 33 --- # 内置格式 person: {name: John Smith, age: 33} 字符串：不需要包含在引号内
+# 多行字符串，一种为保留换行（使用|字符） data: | There once was a man from Darjeeling Who got on a bus bound for Ealing It said on the door &#34;Please don&#39;t spit on the floor&#34; So he carefully spat on the ceiling # 或者使用折叠换行（使用&gt;字符） data: &gt; Wrapped text will be folded into a single paragraph Blank lines denote paragraph breaks The newline character is \ # &#39;\&#39;表示下一行与本行是同一行 converted to a whitspace character 锚点和引用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/yaml/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-07T16:50:49+08:00" />
+<meta property="article:modified_time" content="2024-03-07T16:50:49+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/yaml/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/yaml/">
+              Yaml格式
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-07T16:50:49&#43;08:00">
+                March 7, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/yaml/">yaml</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="yaml-aint-markup-language">
+  YAML Ain&rsquo;t Markup Language
+  <a class="heading-link" href="#yaml-aint-markup-language">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ul>
+<li>
+<p>缩进几个空格字符不重要，同一层次的元素左侧要对齐</p>
+</li>
+<li>
+<p>缩进不能使用Tab字符，一般缩进两个空格</p>
+</li>
+<li>
+<p>可以增加空行以提升可读性</p>
+</li>
+<li>
+<p>同一个文件中，可以用<code>---</code>分隔</p>
+</li>
+<li>
+<p><code>...</code>可用来表示文件结尾</p>
+</li>
+<li>
+<p>数组：可用区块格式（短杠+空格表示起始），或者使用内置格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff7b72">---</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 最喜爱的电影</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">movies</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">肖申克的救赎</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">阿甘正传</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">霸王别姬</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">---</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 等价于</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">movies</span>:<span style="color:#6e7681"> </span>[<span style="color:#a5d6ff">肖申克的救赎, 阿甘正传, 霸王别姬]</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>对象：键值对集合</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ff7b72">---</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 区块格式</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">person</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">name</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">John Smith</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">age</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">33</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">---</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 内置格式</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">person</span>:<span style="color:#6e7681"> </span>{<span style="color:#7ee787">name: John Smith, age</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">33</span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>字符串：不需要包含在引号内</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># 多行字符串，一种为保留换行（使用|字符）</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">data</span>:<span style="color:#6e7681"> </span>|<span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  There once was a man from Darjeeling
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  Who got on a bus bound for Ealing
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      It said on the door
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      &#34;Please don&#39;t spit on the floor&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  So he carefully spat on the ceiling</span><span style="color:#6e7681">  
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic"># 或者使用折叠换行（使用&gt;字符）</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">data</span>:<span style="color:#6e7681"> </span>&gt;<span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  Wrapped text
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  will be folded
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  into a single
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  paragraph
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  Blank lines denote
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  paragraph breaks
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  The newline character is \ # &#39;\&#39;表示下一行与本行是同一行
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  converted to a whitspace character</span><span style="color:#6e7681">  
+</span></span></span></code></pre></div></li>
+<li>
+<p>锚点和引用</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># &#39;&lt;&lt;&#39;表示合并到当前数据，&#39;&amp;&#39;建立锚点，&#39;*&#39;用来引用锚点</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">animal</span>:<span style="color:#6e7681"> </span><span style="color:#8b949e;font-weight:bold;font-style:italic">&amp;id001</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">run</span>:<span style="color:#6e7681"> </span><span style="color:#79c0ff">True</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">eat</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">meat</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">extends</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">&lt;&lt;</span>:<span style="color:#6e7681"> </span><span style="color:#8b949e;font-weight:bold;font-style:italic">*id001</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic"># 等价于</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">animal</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">run</span>:<span style="color:#6e7681"> </span><span style="color:#79c0ff">True</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">eat</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">meat</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">extends</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">run</span>:<span style="color:#6e7681"> </span><span style="color:#79c0ff">True</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#7ee787">eat</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">meat</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>纯量</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#7ee787">boolean</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#79c0ff">True</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># true, TRUE</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#79c0ff">False</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># false, FALSE</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">float</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">3.1415926</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">0.31415926e+10</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">int</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">12345</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">0b1011_0111</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic">#二进制</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">null</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#7ee787">nodeName</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;node&#39;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#7ee787">parent</span>:<span style="color:#6e7681"> </span><span style="color:#a5d6ff">~</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 使用&#39;#&#39;表示null</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">string</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">hello</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#a5d6ff">hello</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#a5d6ff">world</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 等价于&#39;hello world&#39;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">date</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#79c0ff">2024-03-05</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 日期必须符合ISO8601 yyyy-MM-dd</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#7ee787">datetime</span>:<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>- <span style="color:#79c0ff">2024-03-05T16:09:15</span><span style="color:#a5d6ff">+08</span>:<span style="color:#a5d6ff">00</span><span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># ISO8601格式</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+</ul>
+
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

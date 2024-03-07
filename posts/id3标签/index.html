@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  ID3音乐标签 · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="ID3协议介绍">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ID3音乐标签"/>
+<meta name="twitter:description" content="ID3协议介绍"/>
+
+<meta property="og:title" content="ID3音乐标签" />
+<meta property="og:description" content="ID3协议介绍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-07T16:52:03+08:00" />
+<meta property="article:modified_time" content="2024-03-07T16:52:03+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/">
+              ID3音乐标签
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-07T16:52:03&#43;08:00">
+                March 7, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              2-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/%E9%9F%B3%E4%B9%90%E5%85%83%E6%95%B0%E6%8D%AE/">音乐元数据</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/id3v2/">ID3v2</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="介绍">
+  介绍
+  <a class="heading-link" href="#%e4%bb%8b%e7%bb%8d">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>MP3文件中存在ID3标签，用于记录作者、歌曲名、歌词等信息。</p>
+<p>ID3标签分为ID3v1和ID3v2，后者又细分为四个小版本，最常用的是ID3v2.3和ID3v2.4，支持2.4的解析器亦可解析2.3的内容，即向下兼容。</p>
+<h1 id="id3v1">
+  ID3v1
+  <a class="heading-link" href="#id3v1">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>ID3v1长度固定为128Bytes，存放于MP3文件末尾。</p>
+<table>
+<thead>
+<tr>
+<th>Bytes Index（start from 1)</th>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-3</td>
+<td>3</td>
+<td>TAG</td>
+<td>固定的3字节长&quot;TAG&quot;，用于标识ID3v1</td>
+</tr>
+<tr>
+<td>4-33</td>
+<td>30</td>
+<td>Title</td>
+<td>歌曲名</td>
+</tr>
+<tr>
+<td>34-63</td>
+<td>30</td>
+<td>Artist</td>
+<td>歌手</td>
+</tr>
+<tr>
+<td>64-93</td>
+<td>30</td>
+<td>Album</td>
+<td>专辑</td>
+</tr>
+<tr>
+<td>94-97</td>
+<td>4</td>
+<td>Year</td>
+<td>年份</td>
+</tr>
+<tr>
+<td>98-127</td>
+<td>30</td>
+<td>Comment</td>
+<td>音乐评论</td>
+</tr>
+<tr>
+<td>128</td>
+<td>1</td>
+<td>Genre</td>
+<td>音乐流派</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>第98-127字节的内容，在ID3v1.1时更新了协议，如果第126字节为0，则表示第127字节为曲目序号，第98-125字节的内容为音乐评论信息；如果第126字节不为0，则30字节长度全部为音乐评论信息。</p>
+</blockquote>
+<p>以《<a href="https://pan.baidu.com/s/1F8d-sdVD7JLBpwavJzQInA?pwd=rphu"  class="external-link" target="_blank" rel="noopener">云烟成雨</a>》为例，下图红色框区域即ID3v1协议内容</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240116120411457.png" alt="image-20240116120411457"></p>
+<p>由于ID3v1协议存放的信息不多，且几乎无法扩展，因此出现ID3v2协议。</p>
+<h1 id="id3v2">
+  ID3v2
+  <a class="heading-link" href="#id3v2">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>ID3v2协议出现在MP3文件开头，若MP3文件开头三个字节为0x49 0x44 0x33，即&quot;ID3&quot;，说明该文件存在ID3v2协议信息。</p>
+<h2 id="协议框架">
+  协议框架
+  <a class="heading-link" href="#%e5%8d%8f%e8%ae%ae%e6%a1%86%e6%9e%b6">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>ID3v2协议框架见下表</p>
+<table>
+<thead>
+<tr>
+<th>Contents</th>
+<th>Length(Bytes)</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首部</td>
+<td>10</td>
+<td>定长10字节，出现在文件最开头</td>
+</tr>
+<tr>
+<td>扩展首部</td>
+<td>变长</td>
+<td>可选出现，由首部内容决定</td>
+</tr>
+<tr>
+<td>标签帧</td>
+<td>变长</td>
+<td>存放歌名、作者、封面等信息</td>
+</tr>
+<tr>
+<td>填充</td>
+<td>变长</td>
+<td>可选出现，如果出现，内容一定是0x00</td>
+</tr>
+<tr>
+<td>脚注</td>
+<td>10</td>
+<td>定长10字节，可选出现，不能和填充一起出现，目前为ID3v2.4独有</td>
+</tr>
+</tbody>
+</table>
+<p>下面介绍各部分内容。</p>
+<h2 id="协议首部">
+  协议首部
+  <a class="heading-link" href="#%e5%8d%8f%e8%ae%ae%e9%a6%96%e9%83%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>首部长度为定长10字节，出现在文件最开头</p>
+<table>
+<thead>
+<tr>
+<th>Index(start from 1)</th>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comments</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-3</td>
+<td>3</td>
+<td>Identifier</td>
+<td>“ID3”，用于标识ID3v2协议</td>
+<td>49 44 33</td>
+</tr>
+<tr>
+<td>4-5</td>
+<td>2</td>
+<td>Version</td>
+<td>ID3协议主版本号和修订版本号</td>
+<td>04 00</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>Flags</td>
+<td>标志位，ID3v4只启用高4位</td>
+<td>0b abcd 0000</td>
+</tr>
+<tr>
+<td>7-10</td>
+<td>4</td>
+<td>Size</td>
+<td>扩展首部、帧和填充的总长度,最高位<strong>作废</strong></td>
+<td>00 2A 6B 79</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>标志位高4位，从高位到低位分别代表是否unsynchronisation，是否有扩展首部出现，是否有实验性指示位，是否有脚注出现（ID3v2.3此位恒为0）</p>
+<p>Size的实际算法</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># 每个字节的最高位作废</span>
+</span></span><span style="display:flex;"><span>real <span style="color:#ff7b72;font-weight:bold">=</span> size[<span style="color:#a5d6ff">0</span>] <span style="color:#ff7b72;font-weight:bold">&amp;</span> <span style="color:#a5d6ff">0x7F</span> <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x200000</span> <span style="color:#ff7b72;font-weight:bold">+</span> size[<span style="color:#a5d6ff">1</span>] <span style="color:#ff7b72;font-weight:bold">&amp;</span> <span style="color:#a5d6ff">0x7F</span> <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x4000</span> <span style="color:#ff7b72;font-weight:bold">+</span> size[<span style="color:#a5d6ff">2</span>] <span style="color:#ff7b72;font-weight:bold">&amp;</span> <span style="color:#a5d6ff">0x7F</span> <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x80</span> <span style="color:#ff7b72;font-weight:bold">+</span> size[<span style="color:#a5d6ff">3</span>] <span style="color:#ff7b72;font-weight:bold">&amp;</span> <span style="color:#a5d6ff">0x7F</span>
+</span></span></code></pre></div></blockquote>
+<p>下图蓝色选中区域即为ID3v2协议首部</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240116124127831.png" alt="image-20240116124127831"></p>
+<p>可以分析出，为ID3v2.3协议，无扩展首部，Size为701945字节</p>
+<h2 id="扩展首部">
+  扩展首部
+  <a class="heading-link" href="#%e6%89%a9%e5%b1%95%e9%a6%96%e9%83%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>如果首部标志位的第2位为1，说明有扩展首部出现。</p>
+<p>ID3v2.3和ID3v2.4的扩展首部内容有差异。</p>
+<h3 id="id3v23">
+  ID3v2.3
+  <a class="heading-link" href="#id3v23">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comment</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>Size</td>
+<td>扩展首部的总长度，排除当前4字节，最小为6字节，最长10字节</td>
+<td>00 00 00 06</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Flags</td>
+<td>标志位，只有第一个字节的最高位有效</td>
+<td>80 00</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Size of Padding</td>
+<td>没看明白，详情见文档24页</td>
+<td>00 00 00 00</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>如果标志位置1，说明有CRC-32数据，长度为4字节，此时Size为00 00 00 0A</p>
+</blockquote>
+<h3 id="id3v24">
+  ID3v2.4
+  <a class="heading-link" href="#id3v24">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comment</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>Size</td>
+<td>扩展首部的总长度，最高位作废，最小为6字节，最长12字节</td>
+<td>00 00 00 06</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Number of flags bytes</td>
+<td>标志位的长度，固定为0x01</td>
+<td>01</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Flags</td>
+<td>标志位，目前只启用第2、3、4位</td>
+<td>0b 0bcd 000</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>扩展首部很少出现，最核心的内容是标志位的负载内容，详情见官方文档46-47页</p>
+</blockquote>
+<h2 id="标签帧">
+  标签帧
+  <a class="heading-link" href="#%e6%a0%87%e7%ad%be%e5%b8%a7">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>这部分内容承载歌曲的信息，包含歌名、作者、作曲人、歌词、封面等。</p>
+<p>每一帧有一个长度为10字节的帧首部（ID3v2.3和ID3v2.4有较大区别）</p>
+<h3 id="id3v23帧首部">
+  ID3v2.3帧首部
+  <a class="heading-link" href="#id3v23%e5%b8%a7%e9%a6%96%e9%83%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comment</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>Frame ID</td>
+<td>帧描述符，如TIT2</td>
+<td>54 49 54 32</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Size</td>
+<td>帧长，即负载数据的长度，最高位<strong>有效</strong></td>
+<td>00 00 00 0B</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Flags</td>
+<td>标志位</td>
+<td>0b abc0 0000 ijk0 0000</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Size实际算法</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># 最高位有效</span>
+</span></span><span style="display:flex;"><span>real <span style="color:#ff7b72;font-weight:bold">=</span> size[<span style="color:#a5d6ff">0</span>] <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x1000000</span> <span style="color:#ff7b72;font-weight:bold">+</span> size[<span style="color:#a5d6ff">1</span>] <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x10000</span> size[<span style="color:#a5d6ff">2</span>] <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0x100</span> <span style="color:#ff7b72;font-weight:bold">+</span> size[<span style="color:#a5d6ff">3</span>]
+</span></span></code></pre></div><p>负载数据的第一个字节为编码类型</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240116150013190.png" alt="image-20240116150013190"></p>
+<p>Flags详解见文档25-26页</p>
+</blockquote>
+<h3 id="id3v24帧首部">
+  ID3v2.4帧首部
+  <a class="heading-link" href="#id3v24%e5%b8%a7%e9%a6%96%e9%83%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comment</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>Frame ID</td>
+<td>帧描述符，如TIT2</td>
+<td>54 49 54 32</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Size</td>
+<td>帧长，不包含帧头，最高位<strong>作废</strong></td>
+<td>00 00 00 0B</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Flags</td>
+<td>标志位</td>
+<td>0b 0abc 0000 0h00 kmnp</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Flags详解见文档49-50页</p>
+</blockquote>
+<h3 id="常见的帧描述符">
+  常见的帧描述符
+  <a class="heading-link" href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e5%b8%a7%e6%8f%8f%e8%bf%b0%e7%ac%a6">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Identifier</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APIC</td>
+<td>附加图片，封面</td>
+</tr>
+<tr>
+<td>COMM</td>
+<td>音乐评论</td>
+</tr>
+<tr>
+<td>SYLT</td>
+<td>同步歌词</td>
+</tr>
+<tr>
+<td>TALB</td>
+<td>专辑</td>
+</tr>
+<tr>
+<td>TBPM</td>
+<td>每分钟节拍</td>
+</tr>
+<tr>
+<td>TCOM</td>
+<td>作曲</td>
+</tr>
+<tr>
+<td>TCON</td>
+<td>音乐类型（流派）</td>
+</tr>
+<tr>
+<td>TCOP</td>
+<td>版权信息</td>
+</tr>
+<tr>
+<td>TIT2</td>
+<td>歌曲名</td>
+</tr>
+<tr>
+<td>TLAN</td>
+<td>语言</td>
+</tr>
+<tr>
+<td>TMOO</td>
+<td>情绪</td>
+</tr>
+<tr>
+<td>USLT</td>
+<td>非同步歌词</td>
+</tr>
+<tr>
+<td>TPE1</td>
+<td>主要艺术家</td>
+</tr>
+</tbody>
+</table>
+<h3 id="示例分析">
+  示例分析
+  <a class="heading-link" href="#%e7%a4%ba%e4%be%8b%e5%88%86%e6%9e%90">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>以《云烟成雨》为例分析帧</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240116135031426.png" alt="image-20240116135031426"></p>
+<p>帧首部为上图红色框区域：帧描述符为TIT2，帧长为11字节，标志位为0；负载数据为上图绿色框区域，长度11字节</p>
+<p>负载数据的第1个字节0x01，表示使用有BOM（0xFF 0xFE）的UTF-16小端序编码。对于常用字符，采用UTF-16表示需要占用两个字节。11个字节去掉前3个字节，后面8个字节（小端序）分别表示“云”、“烟”、“成”、“雨”。接下来根据协议首部的Size大小循环读取帧即可。</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240116145719181.png" alt="image-20240116145719181"></p>
+<p>上图歌曲中选中区域为负载数据，长度29字节，第1个字节为0x00，说明是ISO-8859-1编码（Latin-1，单字节编码，向下兼容ASCII），后面28字节为专辑名</p>
+<h2 id="填充">
+  填充
+  <a class="heading-link" href="#%e5%a1%ab%e5%85%85">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>以0x00填充，不会和脚注一起出现。填充的作用是在需要时往文件里添加额外的帧而无需重写整个文件。</p>
+<h2 id="脚注">
+  脚注
+  <a class="heading-link" href="#%e8%84%9a%e6%b3%a8">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>在ID3v2.4协议中定义，如果出现则长度为固定的10字节。前3个字节与协议首部相反，其余7个字节与协议首部相同。</p>
+<table>
+<thead>
+<tr>
+<th>Index(start from 1)</th>
+<th>Length(Bytes)</th>
+<th>Contents</th>
+<th>Comments</th>
+<th>Example(Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-3</td>
+<td>3</td>
+<td>Identifier</td>
+<td>“3D1”，用于标识ID3v2.4协议的脚注</td>
+<td>33 44 49</td>
+</tr>
+<tr>
+<td>4-5</td>
+<td>2</td>
+<td>Version</td>
+<td>ID3协议主版本号和修订版本号</td>
+<td>04 00</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>Flags</td>
+<td>标志位，ID3v4只启用高4位</td>
+<td>0b abcd 0000</td>
+</tr>
+<tr>
+<td>7-10</td>
+<td>4</td>
+<td>Size</td>
+<td>扩展首部、帧和填充的总长度</td>
+<td>00 2A 6B 79</td>
+</tr>
+</tbody>
+</table>
+<h1 id="rust实现">
+  Rust实现
+  <a class="heading-link" href="#rust%e5%ae%9e%e7%8e%b0">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><a href="https://crates.io/crates/music-metadata"  class="external-link" target="_blank" rel="noopener">https://crates.io/crates/music-metadata</a></p>
+
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

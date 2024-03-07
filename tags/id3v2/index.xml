@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ID3v2 on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/id3v2/</link>
+    <description>Recent content in ID3v2 on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Mar 2024 16:52:03 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/id3v2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ID3音乐标签</title>
+      <link>https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/</link>
+      <pubDate>Thu, 07 Mar 2024 16:52:03 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/</guid>
+      <description>介绍Link to headingMP3文件中存在ID3标签，用于记录作者、歌曲名、歌词等信息。
+ID3标签分为ID3v1和ID3v2，后者又细分为四个小版本，最常用的是ID3v2.3和ID3v2.4，支持2.4的解析器亦可解析2.3的内容，即向下兼容。
+ID3v1Link to headingID3v1长度固定为128Bytes，存放于MP3文件末尾。
+Bytes Index（start from 1) Length(Bytes) Contents Comments 1-3 3 TAG 固定的3字节长&amp;quot;TAG&amp;quot;，用于标识ID3v1 4-33 30 Title 歌曲名 34-63 30 Artist 歌手 64-93 30 Album 专辑 94-97 4 Year 年份 98-127 30 Comment 音乐评论 128 1 Genre 音乐流派 第98-127字节的内容，在ID3v1.1时更新了协议，如果第126字节为0，则表示第127字节为曲目序号，第98-125字节的内容为音乐评论信息；如果第126字节不为0，则30字节长度全部为音乐评论信息。
+以《云烟成雨》为例，下图红色框区域即ID3v1协议内容
+由于ID3v1协议存放的信息不多，且几乎无法扩展，因此出现ID3v2协议。
+ID3v2Link to headingID3v2协议出现在MP3文件开头，若MP3文件开头三个字节为0x49 0x44 0x33，即&amp;quot;ID3&amp;quot;，说明该文件存在ID3v2协议信息。
+协议框架Link to headingID3v2协议框架见下表
+Contents Length(Bytes) Comments 首部 10 定长10字节，出现在文件最开头 扩展首部 变长 可选出现，由首部内容决定 标签帧 变长 存放歌名、作者、封面等信息 填充 变长 可选出现，如果出现，内容一定是0x00 脚注 10 定长10字节，可选出现，不能和填充一起出现，目前为ID3v2.</description>
+    </item>
+    
+  </channel>
+</rss>

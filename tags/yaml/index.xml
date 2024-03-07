@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>yaml on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/yaml/</link>
+    <description>Recent content in yaml on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Mar 2024 16:50:49 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/yaml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Yaml格式</title>
+      <link>https://ptrzs3.github.io/posts/yaml/</link>
+      <pubDate>Thu, 07 Mar 2024 16:50:49 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/yaml/</guid>
+      <description>YAML Ain&amp;rsquo;t Markup LanguageLink to heading缩进几个空格字符不重要，同一层次的元素左侧要对齐
+缩进不能使用Tab字符，一般缩进两个空格
+可以增加空行以提升可读性
+同一个文件中，可以用---分隔
+...可用来表示文件结尾
+数组：可用区块格式（短杠+空格表示起始），或者使用内置格式
+--- # 最喜爱的电影 movies: - 肖申克的救赎 - 阿甘正传 - 霸王别姬 --- # 等价于 movies: [肖申克的救赎, 阿甘正传, 霸王别姬] 对象：键值对集合
+--- # 区块格式 person: name: John Smith age: 33 --- # 内置格式 person: {name: John Smith, age: 33} 字符串：不需要包含在引号内
+# 多行字符串，一种为保留换行（使用|字符） data: | There once was a man from Darjeeling Who got on a bus bound for Ealing It said on the door &amp;#34;Please don&amp;#39;t spit on the floor&amp;#34; So he carefully spat on the ceiling # 或者使用折叠换行（使用&amp;gt;字符） data: &amp;gt; Wrapped text will be folded into a single paragraph Blank lines denote paragraph breaks The newline character is \ # &amp;#39;\&amp;#39;表示下一行与本行是同一行 converted to a whitspace character 锚点和引用</description>
+    </item>
+    
+  </channel>
+</rss>

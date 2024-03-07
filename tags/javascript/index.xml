@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/javascript/</link>
+    <description>Recent content in JavaScript on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 07 Mar 2024 16:47:51 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JSLint</title>
+      <link>https://ptrzs3.github.io/posts/jslint/</link>
+      <pubDate>Thu, 07 Mar 2024 16:47:51 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/jslint/</guid>
+      <description>ESLintLink to heading在语法层面规范代码，兼顾排版效果
+安装Link to headingnpm install eslint -D 初始化Link to headingnpm init @eslint/config 按照提示进行初始化后，eslint的规则文件在.eslintrc.yml中。
+eslintrc文件将在ESLint v9.0.0被弃用，转而使用eslint.config.js
+配置对象详解Link to heading配置文件（eslintrc）中包含多个对象，如extends、parserOptions、rules等。
+extendsLink to headingentends对象可以继承多个规则，但是可以在rules对象中覆盖其中某些规则
+默认继承eslint: recommended，如果在开发其他类型项目如Vue，可以添加继承plugin:vue/vue3-strongly-recommended等规则。
+parserOptionsLink to headingrulesLink to headingrules对象包含用户具体配置的规则，如
+rules: quotes: - warn - single no-unused-vars: off eslint支持的所有规则：https://eslint.org/docs/latest/rules
+执行Link to headingnpx eslint target.js CLI：npx eslint [options] [file|dir|glob]*
+eslint所有命令行参数：https://eslint.org/docs/latest/use/command-line-interface
+痛点Link to heading若要查看是否有不规范代码，需要重新执行命令并从命令行中分析，或者npx eslint --ext .</description>
+    </item>
+    
+  </channel>
+</rss>
