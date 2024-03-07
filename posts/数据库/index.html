@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  MySQL · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="mysql基础知识">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL"/>
+<meta name="twitter:description" content="mysql基础知识"/>
+
+<meta property="og:title" content="MySQL" />
+<meta property="og:description" content="mysql基础知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-07T17:07:54+08:00" />
+<meta property="article:modified_time" content="2024-03-07T17:07:54+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+              MySQL
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-07T17:07:54&#43;08:00">
+                March 7, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              4-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/mysql/">MySQL</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h3 id="关系型数据模型中的数据依赖与范式">
+  关系型数据模型中的数据依赖与范式
+  <a class="heading-link" href="#%e5%85%b3%e7%b3%bb%e5%9e%8b%e6%95%b0%e6%8d%ae%e6%a8%a1%e5%9e%8b%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae%e4%be%9d%e8%b5%96%e4%b8%8e%e8%8c%83%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>在关系数据库中每个关系都需要进行规范化，使之达到一定的规范化程度，从而提高数据的结构性、共享性、一致性和可操作性。关系模型原理的核心内容就是规范化概念，规范化是把数据库组织在保持存储数据完整性的同时最小化冗余数据的结构的过程。规范化的数据库必须符合关系模型的范式规则。范式可以防止在使用数据库时出现数据不一致的情况，并防止数据丢失。关系模型有第一范式、第二范式、第三范式和BCNF范式等，高级范式从属于低级范式。</p>
+<p><strong>第一范式</strong></p>
+<ol>
+<li>数据组的每个属性只能包含一个值</li>
+<li>关系中的每个数组必须包含相同数量的值</li>
+<li>关系中的每个数组一定不能相通</li>
+</ol>
+<p><strong>第二范式</strong>：在满足第一范式要求的基础上，要求每一条数据必须可以被唯一区分，及非主属性完全依赖于主关键字</p>
+<p><strong>第三范式</strong>：在满足第二范式要求的基础上，要求数据库表中不存在已被其他表包含的非主关键字信息</p>
+<p>在实际工作中，将数据解规范化是通用的惯例，也就是违反范式，尤其是第二、第三范式，以提高性能或减少复杂性</p>
+<h3 id="mysql体系结构">
+  MYSQL体系结构
+  <a class="heading-link" href="#mysql%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>MySQL体系结构如下图</p>
+<h3 id="snipaste_2024-01-08_21-23-34httpspics-1300084735cosap-nanjingmyqcloudcomsnipaste_2024-01-08_21-23-34png">
+  <img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/Snipaste_2024-01-08_21-23-34.png" alt="Snipaste_2024-01-08_21-23-34">
+  <a class="heading-link" href="#snipaste_2024-01-08_21-23-34httpspics-1300084735cosap-nanjingmyqcloudcomsnipaste_2024-01-08_21-23-34png">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>Connectors：与不同编程语言交互的接口</li>
+<li>Connection Pool：管理缓冲用户连接、线程处理等需要缓存的需求</li>
+<li>SQL INTerface：接受用户操作并返回结果</li>
+<li>Parser：解析用户发来的sql语句并判断是否合法</li>
+<li>Optimizer：SQL语句在查询之前会使用优化器对查询进行优化，使用“选取-投影-连接”策略进行查询</li>
+<li>Caches &amp; Buffers：查询缓存。如果缓存中有命中结果，则直接返回</li>
+<li>Engine：存储引擎。从mysql5.5之后，InnoDB是mysql的默认引擎</li>
+</ul>
+<h3 id="数据库表创建">
+  数据库表创建
+  <a class="heading-link" href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e8%a1%a8%e5%88%9b%e5%bb%ba">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>
+<p>创建表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>type<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">column</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">CONSTRAINT</span>]<span style="color:#6e7681"> </span>[<span style="color:#ff7b72">default</span>],<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>[<span style="color:#ff7b72">table</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">CONSTRAINT</span>]<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>使用表：<code>use &lt;table_name&gt;;</code></p>
+</li>
+<li>
+<p>查看所有表名称：<code>SHOW tables；</code></p>
+</li>
+<li>
+<p>主键约束</p>
+<p>一个表中可以有一个或多个主键，即单字段主键和联合主键</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 通过列级约束来指定主键 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">student</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/* 给id字段设置为从1开始自增*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span>id<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">11</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span><span style="color:#79c0ff">AUTO_INCREMENT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">VARCHAR</span>(<span style="color:#a5d6ff">255</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">not</span><span style="color:#6e7681"> </span><span style="color:#79c0ff;font-weight:bold">null</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/*给score字段添加默认约束*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">FLOAT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">default</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">0</span>.<span style="color:#a5d6ff">0</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 也可以添加表级约束指定主键 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">student</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span>id<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">11</span>)<span style="color:#6e7681"> </span><span style="color:#79c0ff">AUTO_INCREMENT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">VARCHAR</span>(<span style="color:#a5d6ff">255</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">not</span><span style="color:#6e7681"> </span><span style="color:#79c0ff;font-weight:bold">null</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">FLOAT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span>(id)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 通过表级约束指定联合主键 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">student</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span>id<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">11</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span><span style="color:#79c0ff">AUTO_INCREMENT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/* 给name字段添加非空约束*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">VARCHAR</span>(<span style="color:#a5d6ff">255</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">not</span><span style="color:#6e7681"> </span><span style="color:#79c0ff;font-weight:bold">null</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">FLOAT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span>(id,<span style="color:#6e7681"> </span>name)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>外键约束</p>
+<p>外键用来在两个或多个表之间建立连接，一个表可以有多个外键，外键可以不是本表的主键，但一定是另一个表的主键。</p>
+<p>外键的值可以为空，如果不为空，则外键的值必须与另一个表中的某个主键值相等。</p>
+<p>创建外键的语法</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 将从表的主键注册为主表的外键，由从表维护两者关系 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>[<span style="color:#ff7b72">CONSTRAINT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>foreign_key_name<span style="color:#ff7b72;font-weight:bold">&gt;</span>]<span style="color:#6e7681"> </span><span style="color:#ff7b72">FOREIGN</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span>field_1,[field_2,...]<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">REFERENCES</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>master_table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>primary_key_1[,primary_key_2,...]<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 创建主表 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">student</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span>id<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">10</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#8b949e;font-style:italic">/*给name字段添加唯一性约束*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/*可以将多个字段定义为UNIQUE，凡是定义为UNIQUE的列，值不能有重复*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">VARCHAR</span>(<span style="color:#a5d6ff">20</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">UNIQUE</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">FLOAT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>school<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">3</span>)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 创建从表 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">school</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>(<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>id<span style="color:#6e7681"> </span><span style="color:#ff7b72">INT</span>(<span style="color:#a5d6ff">3</span>)<span style="color:#6e7681"> </span><span style="color:#ff7b72">PRIMARY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span><span style="color:#79c0ff">AUTO_INCREMENT</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">VARCHAR</span>(<span style="color:#a5d6ff">20</span>),<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#ff7b72">CONSTRAINT</span><span style="color:#6e7681"> </span>fk_stu_scl<span style="color:#6e7681"> </span><span style="color:#ff7b72">FOREIGN</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span>(id)<span style="color:#6e7681"> </span><span style="color:#ff7b72">REFERENCES</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">student</span>(school)<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/* 将本表的id注册为外键，与表student字段school相关联*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">  </span><span style="color:#8b949e;font-style:italic">/* school表作为从表，student表作为主表*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>查看数据表结构：<code>DESC &lt;table_name&gt; [\G]</code></p>
+<p><code>\G</code>为可选项，详细区别看图：</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/clipboard_2024-01-08_22-23.bmp" alt=""></p>
+<p>其中<code>Key</code>可以为：</p>
+<ul>
+<li>PRI：该字读是主键的一部分</li>
+<li>MUL：该字段中某个给定值允许多次出现</li>
+<li>UNI：该字段是UNIQUE索引的一部分</li>
+</ul>
+</li>
+<li>
+<p>查看表详细结构：<code>SHOW CREATE TABLE &lt;table_name&gt; [\G]</code><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/clipboard_2024-01-08_22-36.bmp" alt="clipboard_2024-01-08_22-36"></p>
+</li>
+</ul>
+<h3 id="数据库表修改">
+  数据库表修改
+  <a class="heading-link" href="#%e6%95%b0%e6%8d%ae%e5%ba%93%e8%a1%a8%e4%bf%ae%e6%94%b9">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li>
+<p>修改表名</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>old_table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">RENAME</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">to</span>]<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>new_table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>修改字段类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>MODIFY<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>filed<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>new_type<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>修改字段名</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">change</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>old_field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>new_field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>new_type<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>添加字段</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/* 添加新字段并指定字段位置：FIRST添加到首列，AFTER添加到指定字段后一列*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">ADD</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>new_field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>type<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">CONSTRAINT</span>]<span style="color:#6e7681"> </span>[FIRST<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">|</span><span style="color:#6e7681"> </span>AFTER<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>filed_name<span style="color:#ff7b72;font-weight:bold">&gt;</span>];<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>删除字段</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">DROP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>修改字段排序</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/*将某字段放在第一列或者指定字段后一列*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>MODIFY<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field_1<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>type_of_field_1<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>FIRST<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">|</span><span style="color:#6e7681"> </span>AFTER<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field_2<span style="color:#ff7b72;font-weight:bold">&gt;&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>更改表存储引擎</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#79c0ff">ENGINE</span><span style="color:#ff7b72;font-weight:bold">=&lt;</span>new_engine<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>解除外键约束</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">ALTER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">DROP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FOREIGN</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">KEY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>key_name<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p>删除表</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">DROP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/*如果主表存在外键约束，需要先解除外键约束再删除主表，否则拒绝删除*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+</ul>
+<h3 id="mysql数据类型">
+  mysql数据类型
+  <a class="heading-link" href="#mysql%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>mysql支持的数据类型主要有数值类型、日期/时间类型、字符串类型和二进制类型。</p>
+<p>数值类型</p>
+<ul>
+<li>
+<p><strong>整数类型</strong>：TINYINT, SMALLINT, MEDIUMINT, INT, BIGINT</p>
+<p>声明方式：<code>&lt;type&gt;[M]</code>，M表示最大显示宽度，如果实际数据小于这个宽度，则左补空格，超过这个长度且不超取值范围仍然正常显示而不会截断</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage(Bytes)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TINYINT</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr>
+<td>INT</td>
+<td>4</td>
+<td></td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>浮点数和定点数</strong>：FLOAT, DOUBLE, DECIMAL</p>
+<p>声明方式：<code>&lt;type&gt;[M, D]</code>，M表示最大显示宽度，D表示小数显示宽度。对于<code>DECIMAL</code>，默认M=10，D=0；对于<code>FLOAT</code>和<code>DOUBLE</code>，默认保存为硬件支持的最大精度</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage(Bytes)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FLOAT</td>
+<td>4</td>
+<td>当数值超过设定的精度时四舍五入而不会警告</td>
+</tr>
+<tr>
+<td>DOUBLE</td>
+<td>8</td>
+<td>当数值超过设定的精度时四舍五入而不会警告</td>
+</tr>
+<tr>
+<td>DECIMAL</td>
+<td>M + 2</td>
+<td>当数值超过设定的精度时四舍五入且发出警告；当表示货币、科学数据等对精度要求比较高的类型，尽量选择<code>DECIMAL</code>类型，以字符串形式保存</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>日期和时间类型</strong>：YEAR, TIME, DATE, DATETIME, TIMESTAMP</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage Format</th>
+<th>Range</th>
+<th>Storage(Bytes)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YEAR</td>
+<td>YYYY</td>
+<td>1901~2155</td>
+<td>1</td>
+<td>插入时可以是数值形式或者字符串形式</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>HH:MM:SS</td>
+<td>-835:59:59 ~ 835:59:59</td>
+<td>3</td>
+<td>插入时以字符串形式。如果不以冒号分隔，则自右向左解析，即认为最右两个字符为秒；以冒号分隔，则输入形式为&rsquo;D HH:MM:SS&rsquo;。最终的存储格式都是HH:MM:SS。非法数据被解析为00:00:00。可以使用<code>CURRENT_TIME</code>和<code>NOW()</code>获取当前时间</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>YYYY-MM-DD</td>
+<td>1000-01-01 ~ 9999-12-31</td>
+<td>3</td>
+<td>插入时可以是字符串形式或者数值形式。以两位数表示年份，00～69被转换为2000～2069，70～99被转换为1970～1999。可以使用<code>CURRENT_DATE</code>和<code>NOW()</code>获取当前日期</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1000-01-01 00:00:00 ~ 9999-12-31 23:59:59</td>
+<td>8</td>
+<td>插入时可以是字符串形式或者数值形式，如<code>'YYYY-MM-DD HH:MM:SS'</code>或者<code>YYMMDDHHMMSS</code></td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>1970-01-01 00:00:01 ~ 2038-01-19 03:14:07</td>
+<td>4</td>
+<td>显示宽度默认为19位</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>文本字符串类型</strong>：CHAR, VARCHAR, TINYTEXT, TEXT, MEDIUMTEXT, LONGTEXT, ENUM, SET. 文本字符串支持区分大小写和模式匹配</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage(Bytes)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHAR(M: 1~255)</td>
+<td>M, 每个字符占用一个Bytes</td>
+<td>定长文本字符串，长度不够右补空格</td>
+</tr>
+<tr>
+<td>VARCHAR(M: 1~255)</td>
+<td>L+1, L(&lt;=M)为字符串实际长度，多出来的一个字节用来记录字符串长度</td>
+<td>变长文本字符串</td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>L+1, L&lt;28</td>
+<td></td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>L+2, L&lt;216</td>
+<td></td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>L+3, L&lt;224</td>
+<td></td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>L+4, L&lt;232</td>
+<td></td>
+</tr>
+<tr>
+<td>ENUM</td>
+<td>1或2</td>
+<td>枚举类型的允许值在创建表时规定，最多支持65535个值。每个枚举字段只允许一个枚举值</td>
+</tr>
+<tr>
+<td>SET</td>
+<td></td>
+<td>SET类型的允许值在创建表时规定，每个SET字段最多允许64个SET值</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>(<span style="color:#ff7b72;font-weight:bold">&lt;</span>filed<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">ENUM</span>(<span style="color:#a5d6ff">&#39;value_1&#39;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;value_2&#39;</span>));<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#8b949e;font-style:italic">/* 枚举类型字段如果允许为NULL，则该字段默认为NULL，否则默认为第一个枚举值 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#8b949e;font-style:italic">/* 枚举值在mysql中存储的是索引编号，从1开始存储 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#8b949e;font-style:italic">/* 枚举值NULL为自动添加，索引为NULL；&#39;&#39;为自动添加，索引为0 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#8b949e;font-style:italic">/* 插入数据时可以使用枚举值，也可以使用索引编号，非法值则报错，并且每个字段只允许一个枚举值或索引编号 */</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">CREATE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">TABLE</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>(<span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">SET</span>(<span style="color:#a5d6ff">&#39;value_1&#39;</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;value_2&#39;</span>));<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 重复值被自动剔除 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 插入时可以是任意顺序，实际保存按定义顺序 */</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 插入非法值会报错并禁止插入 */</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p><strong>二进制字符串</strong>：BIT, BINARY, VARBINARY, TINYBLOB, BLOB</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage(Bytes)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIT(M: 1~64)</td>
+<td>(M+7) / 8</td>
+<td>位字段类型，M为每个数值占用的bit数，默认为1，长度不够左补0</td>
+</tr>
+<tr>
+<td>BINARY(M)</td>
+<td>M</td>
+<td>定长二进制字符串，长度不够右补0</td>
+</tr>
+<tr>
+<td>VARBINARY(M)</td>
+<td>L+1</td>
+<td>变长二进制字符串，用一个字节存储长度</td>
+</tr>
+<tr>
+<td>TINYBLOB(M)</td>
+<td>L+1, L&lt;28</td>
+<td>最大长度255字节</td>
+</tr>
+<tr>
+<td>BLOB(M)</td>
+<td>L+2, L&lt;216</td>
+<td>最大长度65535字节</td>
+</tr>
+<tr>
+<td>MEIDUMBLOB(M)</td>
+<td>L+3, L&lt;224</td>
+<td>最大长度16M字节</td>
+</tr>
+<tr>
+<td>LONGBLOB(M)</td>
+<td>L+4, L&lt;232</td>
+<td>最大长度4G字节</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="查询语句">
+  查询语句
+  <a class="heading-link" href="#%e6%9f%a5%e8%af%a2%e8%af%ad%e5%8f%a5">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#d2a8ff;font-weight:bold">field</span>(s)<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">|</span><span style="color:#6e7681"> </span>view_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>conditions]<span style="color:#6e7681"> </span>[<span style="color:#ff7b72">GROUP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">HAVING</span><span style="color:#6e7681"> </span>conditions]]<span style="color:#6e7681"> </span>[<span style="color:#ff7b72">ORDER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">ASC</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">|</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">DESC</span>]]<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>age<span style="color:#6e7681"> </span>[<span style="color:#ff7b72">NOT</span>]<span style="color:#6e7681"> </span><span style="color:#ff7b72">IN</span><span style="color:#6e7681"> </span>(<span style="color:#a5d6ff">13</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">14</span>,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">15</span>);<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>age<span style="color:#6e7681"> </span><span style="color:#ff7b72">BETWEEN</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">10</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">AND</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">15</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">LIKE</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;_明%&#39;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 李明， 张明达*/</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 模糊查找，_匹配一个字符，%匹配任意长度字符*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">*</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>courses<span style="color:#6e7681"> </span><span style="color:#ff7b72">IS</span><span style="color:#6e7681"> </span>[<span style="color:#ff7b72">NOT</span>]<span style="color:#6e7681"> </span><span style="color:#79c0ff;font-weight:bold">NULL</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 查询未[已]选课的学生信息 */</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">*</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">LIKE</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;王%&#39;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">OR</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">LIKE</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#39;张%&#39;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">ORDER</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span>age<span style="color:#6e7681"> </span><span style="color:#ff7b72">ASC</span>,<span style="color:#6e7681"> </span>score<span style="color:#6e7681"> </span><span style="color:#ff7b72">DESC</span>;<span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="统计函数">
+  统计函数
+  <a class="heading-link" href="#%e7%bb%9f%e8%ae%a1%e5%87%bd%e6%95%b0">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>Fucntion</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AVG( [ DISTINCT ] <!-- raw HTML omitted --> )</td>
+<td>平均值</td>
+</tr>
+<tr>
+<td>COUNT( [DISTINCT] * )</td>
+<td>返回记录的行数</td>
+</tr>
+<tr>
+<td>COUNG( [DISTINCT] <!-- raw HTML omitted --> )</td>
+<td>返回值的个数</td>
+</tr>
+<tr>
+<td>MAX( [DISTINCT] <!-- raw HTML omitted -->)</td>
+<td></td>
+</tr>
+<tr>
+<td>MIN( [DISTINCT] <!-- raw HTML omitted -->)</td>
+<td></td>
+</tr>
+<tr>
+<td>SUM( [DISTINCT] <!-- raw HTML omitted -->)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">MAX</span>(age)<span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* WHERE子句中不能使用统计函数 */</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>age<span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">COUNT</span>(<span style="color:#ff7b72;font-weight:bold">*</span>)<span style="color:#6e7681"> </span>count_age<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">GROUP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span>age;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/*统计不同年龄有多少学生，统计结果写到count_age列，以年龄进行分组显示*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">AVG</span>(score)<span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">GROUP</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">BY</span><span style="color:#6e7681"> </span>name<span style="color:#6e7681"> </span><span style="color:#ff7b72">HAVING</span><span style="color:#6e7681"> </span><span style="color:#d2a8ff;font-weight:bold">AVG</span>(score)<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">80</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">WHERE和HAVING的区别：
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">1. WHERE子句不能用统计函数，而HAVING可以
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">2. GROUP BY后面不可以用WHERE，而可以用HAVING
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">3. HAVING字句中可以使用字段别名，而WHERE不可以使用别名
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">4. HAVING筛选组，没有使用SELECT筛选的字段在HAVING中不能出现，而WHERE中可以出现
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>field<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>table_name<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">LIMIT</span><span style="color:#6e7681"> </span>[offset<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>,]<span style="color:#ff7b72;font-weight:bold">&lt;</span>length<span style="color:#ff7b72;font-weight:bold">&gt;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">*</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">LIMIT</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">5</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">*</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span><span style="color:#ff7b72">LIMIT</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">2</span>,<span style="color:#a5d6ff">8</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 从第3行开始查询8行*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><h3 id="连接查询">
+  连接查询
+  <a class="heading-link" href="#%e8%bf%9e%e6%8e%a5%e6%9f%a5%e8%af%a2">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>涉及两个及以上的表的查询称为连接查询。连接查询分为内连接、外连接和复合连接。连接查询要求参加连接的表必须有相同的字段，比如学生表和成绩表都有相同的学生学号字段。</p>
+<h4 id="内连接">
+  内连接
+  <a class="heading-link" href="#%e5%86%85%e8%bf%9e%e6%8e%a5">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>连接查询中使用WHERE子句给出连接条件</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>[table_name.]<span style="color:#ff7b72;font-weight:bold">&lt;</span>field_1<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">&lt;</span>operator<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681"> </span>[table_name.]<span style="color:#ff7b72;font-weight:bold">&lt;</span>field_2<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/*如果有必要则使用table_name.field来区分是哪个表的字段*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>stu.id,<span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>grade<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span>stu,<span style="color:#6e7681"> </span>score<span style="color:#6e7681"> </span>sc<span style="color:#6e7681"> </span><span style="color:#8b949e;font-style:italic"># 给student表起别名stu，score表起别名sc。别名前后都要改
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>stu.id<span style="color:#ff7b72;font-weight:bold">=</span>sc.id;<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># ANSI SQL，与上句等价
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>stu.id,<span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>grade<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span>stu<span style="color:#6e7681"> </span><span style="color:#ff7b72">inner</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">join</span><span style="color:#6e7681"> </span>score<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">on</span><span style="color:#6e7681"> </span>stu.id<span style="color:#ff7b72;font-weight:bold">=</span>score.id;<span style="color:#6e7681">
+</span></span></span></code></pre></div><h4 id="外连接">
+  外连接
+  <a class="heading-link" href="#%e5%a4%96%e8%bf%9e%e6%8e%a5">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p>在内连接中，如果student表和score表中出现不相等的id，则对应的记录不会出现在查询结果中。</p>
+<p>外连接分为左外连接和右外连接。对于左外连接，左表的所有记录和右表中满足条件的记录会出现在查询结果中，对于在左表中出现而右表中没有出现的，置为NULL；对于右外连接，右表的所有记录和左表中满足条件的记录会出现在查询结果中，对于在右表中出现而左表中没有出现的，置为NULL。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>stu.id,<span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>grade<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span>stu<span style="color:#6e7681"> </span><span style="color:#ff7b72">left</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">join</span><span style="color:#6e7681"> </span>score<span style="color:#6e7681"> </span>sc<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">on</span><span style="color:#6e7681"> </span>stu.id<span style="color:#ff7b72;font-weight:bold">=</span>sc.id;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 查询student表中所有学生的ID、姓名和成绩，如果成绩表中没有的，置为NULL*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>stu.id,<span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>grade<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>score<span style="color:#6e7681"> </span>sc<span style="color:#6e7681"> </span><span style="color:#ff7b72">right</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">join</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span>stu<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">on</span><span style="color:#6e7681"> </span>stu.id<span style="color:#ff7b72;font-weight:bold">=</span>sc.id;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">/* 查询student表中所有学生的ID、姓名和成绩，如果成绩表中没有的，置为NULL*/</span><span style="color:#6e7681">
+</span></span></span></code></pre></div><h4 id="复合连接">
+  复合连接
+  <a class="heading-link" href="#%e5%a4%8d%e5%90%88%e8%bf%9e%e6%8e%a5">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681">  </span>id,<span style="color:#6e7681"> </span>grade<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student,<span style="color:#6e7681"> </span>score<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>student.id<span style="color:#ff7b72;font-weight:bold">=</span>score.id<span style="color:#6e7681"> </span><span style="color:#ff7b72">AND</span><span style="color:#6e7681"> </span>course<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;物理&#39;</span>;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic"># WHERE子句中不仅可以跟连接条件，也可以跟限制条件
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-mysql" data-lang="mysql"><span style="display:flex;"><span><span style="color:#ff7b72">SELECT</span><span style="color:#6e7681"> </span>stu.id,<span style="color:#6e7681"> </span>name,<span style="color:#6e7681"> </span>course_name<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">FROM</span><span style="color:#6e7681"> </span>student<span style="color:#6e7681"> </span>stu,<span style="color:#6e7681"> </span>sc,<span style="color:#6e7681"> </span>course<span style="color:#6e7681"> </span>cr<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">WHERE</span><span style="color:#6e7681"> </span>stu.id<span style="color:#ff7b72;font-weight:bold">=</span>sc.id<span style="color:#6e7681"> </span><span style="color:#ff7b72">AND</span><span style="color:#6e7681"> </span>cr.id<span style="color:#ff7b72;font-weight:bold">=</span>sc.id;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic"># 两个表中没有共同的字段，通过第三张表进行连接
+</span></span></span></code></pre></div>
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

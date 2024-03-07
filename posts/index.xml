@@ -6,7 +6,27 @@
     <description>Recent content in Posts on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 Mar 2024 16:52:03 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Mar 2024 17:07:54 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL</title>
+      <link>https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Thu, 07 Mar 2024 17:07:54 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description>关系型数据模型中的数据依赖与范式Link to heading在关系数据库中每个关系都需要进行规范化，使之达到一定的规范化程度，从而提高数据的结构性、共享性、一致性和可操作性。关系模型原理的核心内容就是规范化概念，规范化是把数据库组织在保持存储数据完整性的同时最小化冗余数据的结构的过程。规范化的数据库必须符合关系模型的范式规则。范式可以防止在使用数据库时出现数据不一致的情况，并防止数据丢失。关系模型有第一范式、第二范式、第三范式和BCNF范式等，高级范式从属于低级范式。
+第一范式
+数据组的每个属性只能包含一个值 关系中的每个数组必须包含相同数量的值 关系中的每个数组一定不能相通 第二范式：在满足第一范式要求的基础上，要求每一条数据必须可以被唯一区分，及非主属性完全依赖于主关键字
+第三范式：在满足第二范式要求的基础上，要求数据库表中不存在已被其他表包含的非主关键字信息
+在实际工作中，将数据解规范化是通用的惯例，也就是违反范式，尤其是第二、第三范式，以提高性能或减少复杂性
+MYSQL体系结构Link to headingMySQL体系结构如下图
+Link to headingConnectors：与不同编程语言交互的接口 Connection Pool：管理缓冲用户连接、线程处理等需要缓存的需求 SQL INTerface：接受用户操作并返回结果 Parser：解析用户发来的sql语句并判断是否合法 Optimizer：SQL语句在查询之前会使用优化器对查询进行优化，使用“选取-投影-连接”策略进行查询 Caches &amp;amp; Buffers：查询缓存。如果缓存中有命中结果，则直接返回 Engine：存储引擎。从mysql5.5之后，InnoDB是mysql的默认引擎 数据库表创建Link to heading创建表
+CREATE TABLE &amp;lt;table_name&amp;gt; ( &amp;lt;field&amp;gt; &amp;lt;type&amp;gt; [column CONSTRAINT] [default], [table CONSTRAINT] ); 使用表：use &amp;lt;table_name&amp;gt;;
+查看所有表名称：SHOW tables；
+主键约束
+一个表中可以有一个或多个主键，即单字段主键和联合主键
+/* 通过列级约束来指定主键 */ CREATE TABLE student ( /* 给id字段设置为从1开始自增*/ id INT(11) PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) not null, /*给score字段添加默认约束*/ score FLOAT default 0.</description>
+    </item>
+    
     <item>
       <title>ID3音乐标签</title>
       <link>https://ptrzs3.github.io/posts/id3%E6%A0%87%E7%AD%BE/</link>
