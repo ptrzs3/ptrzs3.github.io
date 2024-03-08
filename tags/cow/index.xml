@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cow on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/cow/</link>
+    <description>Recent content in Cow on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 08 Mar 2024 19:30:53 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/cow/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cow相关内容</title>
+      <link>https://ptrzs3.github.io/posts/cow/</link>
+      <pubDate>Fri, 08 Mar 2024 19:30:53 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/cow/</guid>
+      <description>Cow相关Link to headingRelated traitsLink to headingBorrowLink to headingpub trait Borrow&amp;lt;T&amp;gt; where T: ?Sized, { // Required method fn borrow(&amp;amp;self) -&amp;gt; &amp;amp;T; } BorrowMutLink to heading// 要求实现BorrowMut的类型必须先实现Borrow pub trait BorrowMut&amp;lt;Borrowed&amp;gt;: Borrow&amp;lt;Borrowed&amp;gt; where Borrowed: ?Sized, { // Required method fn borrow_mut(&amp;amp;mut self) -&amp;gt; &amp;amp;mut Borrowed; } trait继承：要求实现BorrowMut trait的类型也必须实现Borrow trait。trait继承是rust支持的唯一一种继承
+ToOwnedLink to headingpub trait ToOwned { // 不是为类型起别名，而是要求Owned类型必须实现Borrow trait type Owned: Borrow&amp;lt;Self&amp;gt;; // Required method fn to_owned(&amp;amp;self) -&amp;gt; Self::Owned; // Provided method fn clone_into(&amp;amp;self, target: &amp;amp;mut Self::Owned) { .</description>
+    </item>
+    
+  </channel>
+</rss>

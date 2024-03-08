@@ -17,11 +17,12 @@
 str类型也称为字符串切片，常以其引用的形式&amp;str出现（也就是字符串字面量，即&amp;&#39;static str）。
 Q：既然是static生命周期，为什么在结构体中还需要标注生命周期呢？
 圣经：在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。
-str类型是动态尺寸类型（Dynamic Size Type）。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
-let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片。
+str类型是动态尺寸类型（Dynamic Size Type），Rust中所有切片都是DST，包括[u8]，再推广为[T]。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
+let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片的引用，但我们习惯直接称其为字符串切片。
+但是出于方便，我们往往不会说使用切片引用，而是直接说使用字符串切片或数组切片，实际上，这时指代的都是切片的引用！（原文出处）
 &amp;strLink to heading引用一般是长度已知的，原则上是存放在栈区（目前还没有发现引用时DST的）。
 &amp;str 由两个部分组成：一个指向某些字节的指针和一个长度（查看原文）。
-String和&amp;StringLink to headingString并不是Rust核心库的，只是标准库中一个公开的结构体。
+String和&amp;StringLink to heading#[derive(PartialEq, PartialOrd, Eq, Ord)] #[stable(feature = &#34;rust1&#34;, since = &#34;1.0.0&#34;)] #[cfg_attr(not(test), lang = &#34;String&#34;)] pub struct String { vec: Vec&lt;u8&gt;, } String并不是Rust核心库的，只是标准库中一个公开的结构体。
 在某些函数签名中使用&amp;String类型（String的引用类型），建议更改为&amp;str类型。
 fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // Ok let baz: &amp;str = &#34;Hello&#34;; foo(baz); // Error } fn foo(_: &amp;String) {} // 将foo的签名改为&amp;str，则baz也可以传递 // fn foo(_: &amp;str) {} 通过上述代码，可以知道&amp;String和&amp;str是不等价的，且&amp;str不能转换为&amp;String，但&amp;String却可以自动Deref为&amp;str。">
 <meta name="keywords" content="blog,developer,personal">
@@ -32,11 +33,12 @@ fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // O
 str类型也称为字符串切片，常以其引用的形式&amp;str出现（也就是字符串字面量，即&amp;&#39;static str）。
 Q：既然是static生命周期，为什么在结构体中还需要标注生命周期呢？
 圣经：在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。
-str类型是动态尺寸类型（Dynamic Size Type）。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
-let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片。
+str类型是动态尺寸类型（Dynamic Size Type），Rust中所有切片都是DST，包括[u8]，再推广为[T]。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
+let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片的引用，但我们习惯直接称其为字符串切片。
+但是出于方便，我们往往不会说使用切片引用，而是直接说使用字符串切片或数组切片，实际上，这时指代的都是切片的引用！（原文出处）
 &amp;strLink to heading引用一般是长度已知的，原则上是存放在栈区（目前还没有发现引用时DST的）。
 &amp;str 由两个部分组成：一个指向某些字节的指针和一个长度（查看原文）。
-String和&amp;StringLink to headingString并不是Rust核心库的，只是标准库中一个公开的结构体。
+String和&amp;StringLink to heading#[derive(PartialEq, PartialOrd, Eq, Ord)] #[stable(feature = &#34;rust1&#34;, since = &#34;1.0.0&#34;)] #[cfg_attr(not(test), lang = &#34;String&#34;)] pub struct String { vec: Vec&lt;u8&gt;, } String并不是Rust核心库的，只是标准库中一个公开的结构体。
 在某些函数签名中使用&amp;String类型（String的引用类型），建议更改为&amp;str类型。
 fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // Ok let baz: &amp;str = &#34;Hello&#34;; foo(baz); // Error } fn foo(_: &amp;String) {} // 将foo的签名改为&amp;str，则baz也可以传递 // fn foo(_: &amp;str) {} 通过上述代码，可以知道&amp;String和&amp;str是不等价的，且&amp;str不能转换为&amp;String，但&amp;String却可以自动Deref为&amp;str。"/>
 
@@ -45,11 +47,12 @@ fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // O
 str类型也称为字符串切片，常以其引用的形式&amp;str出现（也就是字符串字面量，即&amp;&#39;static str）。
 Q：既然是static生命周期，为什么在结构体中还需要标注生命周期呢？
 圣经：在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。
-str类型是动态尺寸类型（Dynamic Size Type）。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
-let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片。
+str类型是动态尺寸类型（Dynamic Size Type），Rust中所有切片都是DST，包括[u8]，再推广为[T]。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
+let str_a: &amp;str = &#34;Hello&#34;; let str_b: &amp;str = &#34;I Love Rust&#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;str，也就是它的引用，也称为字符串切片的引用，但我们习惯直接称其为字符串切片。
+但是出于方便，我们往往不会说使用切片引用，而是直接说使用字符串切片或数组切片，实际上，这时指代的都是切片的引用！（原文出处）
 &amp;strLink to heading引用一般是长度已知的，原则上是存放在栈区（目前还没有发现引用时DST的）。
 &amp;str 由两个部分组成：一个指向某些字节的指针和一个长度（查看原文）。
-String和&amp;StringLink to headingString并不是Rust核心库的，只是标准库中一个公开的结构体。
+String和&amp;StringLink to heading#[derive(PartialEq, PartialOrd, Eq, Ord)] #[stable(feature = &#34;rust1&#34;, since = &#34;1.0.0&#34;)] #[cfg_attr(not(test), lang = &#34;String&#34;)] pub struct String { vec: Vec&lt;u8&gt;, } String并不是Rust核心库的，只是标准库中一个公开的结构体。
 在某些函数签名中使用&amp;String类型（String的引用类型），建议更改为&amp;str类型。
 fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // Ok let baz: &amp;str = &#34;Hello&#34;; foo(baz); // Error } fn foo(_: &amp;String) {} // 将foo的签名改为&amp;str，则baz也可以传递 // fn foo(_: &amp;str) {} 通过上述代码，可以知道&amp;String和&amp;str是不等价的，且&amp;str不能转换为&amp;String，但&amp;String却可以自动Deref为&amp;str。" />
 <meta property="og:type" content="article" />
@@ -211,11 +214,14 @@ fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // O
 <p><code>str</code>是<em>primitive type</em>，即原始类型，是Rust语言级别上的<em><strong>唯一</strong></em>一种字符串类型。</p>
 <p><code>str</code>类型也称为字符串切片，常以其引用的形式<code>&amp;str</code>出现（也就是字符串字面量，即<code>&amp;'static str</code>）。</p>
 <p>Q：既然是<em>static</em>生命周期，为什么在结构体中还需要标注生命周期呢？</p>
-<p>圣经：<em>在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。</em></p>
-<p><code>str</code>类型是动态尺寸类型（Dynamic Size Type）。和<code>u32</code>类型对比，一个<code>u32</code>类型无论数值在<code>u32</code>允许的范围之间如何变化，<code>u32</code>占用的内存都是4字节，因此<code>u32</code>类型是定长类型，原则上是存放在栈区。而对于<code>str</code>，看下面这样的代码：</p>
+<p><del>圣经：<em>在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。</em></del></p>
+<p><code>str</code>类型是动态尺寸类型（Dynamic Size Type），Rust中所有切片都是DST，包括<code>[u8]</code>，再推广为<code>[T]</code>。和<code>u32</code>类型对比，一个<code>u32</code>类型无论数值在<code>u32</code>允许的范围之间如何变化，<code>u32</code>占用的内存都是4字节，因此<code>u32</code>类型是定长类型，原则上是存放在栈区。而对于<code>str</code>，看下面这样的代码：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span>str_a: <span style="color:#79c0ff">&amp;</span><span style="color:#ff7b72">str</span> <span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;Hello&#34;</span>;<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span>str_b: <span style="color:#79c0ff">&amp;</span><span style="color:#ff7b72">str</span> <span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;I Love Rust&#34;</span>;<span style="color:#6e7681">
-</span></span></span></code></pre></div><p>上述代码中，<code>str_a</code>的长度是5个字节，<code>str_b</code>的长度是11个字节，他们同属<code>str</code>类型，而因为赋值不同导致占用内存空间不同，因此说<code>str</code>是动态尺寸类型，无法存放在栈上。因此，使用<code>str</code>类型时，更多地是使用<code>&amp;str</code>，也就是它的引用，也称为字符串切片。</p>
+</span></span></span></code></pre></div><p>上述代码中，<code>str_a</code>的长度是5个字节，<code>str_b</code>的长度是11个字节，他们同属<code>str</code>类型，而因为赋值不同导致占用内存空间不同，因此说<code>str</code>是动态尺寸类型，无法存放在栈上。因此，使用<code>str</code>类型时，更多地是使用<code>&amp;str</code>，也就是它的引用，也称为字符串切片的引用，但我们习惯直接称其为<em><strong>字符串切片</strong></em>。</p>
+<blockquote>
+<p>但是出于方便，我们往往不会说使用切片引用，而是直接说使用字符串切片或数组切片，实际上，这时指代的都是切片的引用！（<a href="https://course.rs/difficulties/slice.html#%E6%80%BB%E7%BB%93"  class="external-link" target="_blank" rel="noopener">原文出处</a>）</p>
+</blockquote>
 <h2 id="str-1">
   &amp;str
   <a class="heading-link" href="#str-1">
@@ -232,7 +238,13 @@ fn main() { let bar: String = String::from(&#34;Hello&#34;); foo(&amp;bar); // O
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p><code>String</code>并不是<a href="https://rustwiki.org/zh-CN/core/index.html#rust-%E6%A0%B8%E5%BF%83%E5%BA%93"  class="external-link" target="_blank" rel="noopener">Rust核心库</a>的，只是标准库中一个公开的结构体。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">#[derive(PartialEq, PartialOrd, Eq, Ord)]</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-weight:bold;font-style:italic">#[stable(feature = </span><span style="color:#a5d6ff">&#34;rust1&#34;</span><span style="color:#8b949e;font-weight:bold;font-style:italic">, since = </span><span style="color:#a5d6ff">&#34;1.0.0&#34;</span><span style="color:#8b949e;font-weight:bold;font-style:italic">)]</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-weight:bold;font-style:italic">#[cfg_attr(not(test), lang = </span><span style="color:#a5d6ff">&#34;String&#34;</span><span style="color:#8b949e;font-weight:bold;font-style:italic">)]</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">struct</span> String {<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>vec: Vec<span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#ff7b72">u8</span><span style="color:#ff7b72;font-weight:bold">&gt;</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><p><code>String</code>并不是<a href="https://rustwiki.org/zh-CN/core/index.html#rust-%E6%A0%B8%E5%BF%83%E5%BA%93"  class="external-link" target="_blank" rel="noopener">Rust核心库</a>的，只是标准库中一个公开的结构体。</p>
 <p>在某些函数签名中使用<code>&amp;String</code>类型（<code>String</code>的引用类型），建议更改为<code>&amp;str</code>类型。</p>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">main</span>()<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
 </span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span>bar: String <span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>String::from(<span style="color:#a5d6ff">&#34;Hello&#34;</span>);<span style="color:#6e7681">

@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Mar 2024 09:28:53 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Mar 2024 19:30:53 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cow相关内容</title>
+      <link>https://ptrzs3.github.io/posts/cow/</link>
+      <pubDate>Fri, 08 Mar 2024 19:30:53 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/cow/</guid>
+      <description>Cow相关Link to headingRelated traitsLink to headingBorrowLink to headingpub trait Borrow&amp;lt;T&amp;gt; where T: ?Sized, { // Required method fn borrow(&amp;amp;self) -&amp;gt; &amp;amp;T; } BorrowMutLink to heading// 要求实现BorrowMut的类型必须先实现Borrow pub trait BorrowMut&amp;lt;Borrowed&amp;gt;: Borrow&amp;lt;Borrowed&amp;gt; where Borrowed: ?Sized, { // Required method fn borrow_mut(&amp;amp;mut self) -&amp;gt; &amp;amp;mut Borrowed; } trait继承：要求实现BorrowMut trait的类型也必须实现Borrow trait。trait继承是rust支持的唯一一种继承
+ToOwnedLink to headingpub trait ToOwned { // 不是为类型起别名，而是要求Owned类型必须实现Borrow trait type Owned: Borrow&amp;lt;Self&amp;gt;; // Required method fn to_owned(&amp;amp;self) -&amp;gt; Self::Owned; // Provided method fn clone_into(&amp;amp;self, target: &amp;amp;mut Self::Owned) { .</description>
+    </item>
+    
     <item>
       <title>String、&amp;String、str和&amp;str</title>
       <link>https://ptrzs3.github.io/posts/string%E7%9B%B8%E5%85%B3/</link>
@@ -17,11 +27,12 @@
 str类型也称为字符串切片，常以其引用的形式&amp;amp;str出现（也就是字符串字面量，即&amp;amp;&#39;static str）。
 Q：既然是static生命周期，为什么在结构体中还需要标注生命周期呢？
 圣经：在存在多个引用时，编译器有时会无法自动推导生命周期，此时就需要我们手动去标注，通过为参数标注合适的生命周期来帮助编译器进行借用检查的分析。
-str类型是动态尺寸类型（Dynamic Size Type）。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
-let str_a: &amp;amp;str = &amp;#34;Hello&amp;#34;; let str_b: &amp;amp;str = &amp;#34;I Love Rust&amp;#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;amp;str，也就是它的引用，也称为字符串切片。
+str类型是动态尺寸类型（Dynamic Size Type），Rust中所有切片都是DST，包括[u8]，再推广为[T]。和u32类型对比，一个u32类型无论数值在u32允许的范围之间如何变化，u32占用的内存都是4字节，因此u32类型是定长类型，原则上是存放在栈区。而对于str，看下面这样的代码：
+let str_a: &amp;amp;str = &amp;#34;Hello&amp;#34;; let str_b: &amp;amp;str = &amp;#34;I Love Rust&amp;#34;; 上述代码中，str_a的长度是5个字节，str_b的长度是11个字节，他们同属str类型，而因为赋值不同导致占用内存空间不同，因此说str是动态尺寸类型，无法存放在栈上。因此，使用str类型时，更多地是使用&amp;amp;str，也就是它的引用，也称为字符串切片的引用，但我们习惯直接称其为字符串切片。
+但是出于方便，我们往往不会说使用切片引用，而是直接说使用字符串切片或数组切片，实际上，这时指代的都是切片的引用！（原文出处）
 &amp;amp;strLink to heading引用一般是长度已知的，原则上是存放在栈区（目前还没有发现引用时DST的）。
 &amp;amp;str 由两个部分组成：一个指向某些字节的指针和一个长度（查看原文）。
-String和&amp;amp;StringLink to headingString并不是Rust核心库的，只是标准库中一个公开的结构体。
+String和&amp;amp;StringLink to heading#[derive(PartialEq, PartialOrd, Eq, Ord)] #[stable(feature = &amp;#34;rust1&amp;#34;, since = &amp;#34;1.0.0&amp;#34;)] #[cfg_attr(not(test), lang = &amp;#34;String&amp;#34;)] pub struct String { vec: Vec&amp;lt;u8&amp;gt;, } String并不是Rust核心库的，只是标准库中一个公开的结构体。
 在某些函数签名中使用&amp;amp;String类型（String的引用类型），建议更改为&amp;amp;str类型。
 fn main() { let bar: String = String::from(&amp;#34;Hello&amp;#34;); foo(&amp;amp;bar); // Ok let baz: &amp;amp;str = &amp;#34;Hello&amp;#34;; foo(baz); // Error } fn foo(_: &amp;amp;String) {} // 将foo的签名改为&amp;amp;str，则baz也可以传递 // fn foo(_: &amp;amp;str) {} 通过上述代码，可以知道&amp;amp;String和&amp;amp;str是不等价的，且&amp;amp;str不能转换为&amp;amp;String，但&amp;amp;String却可以自动Deref为&amp;amp;str。</description>
     </item>
