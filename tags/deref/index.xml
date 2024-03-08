@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>deref on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/deref/</link>
+    <description>Recent content in deref on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 08 Mar 2024 09:17:23 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/deref/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust中的借用、引用与解引用</title>
+      <link>https://ptrzs3.github.io/posts/rust%E4%B8%AD%E7%9A%84%E5%80%9F%E7%94%A8%E5%92%8C%E5%BC%95%E7%94%A8/</link>
+      <pubDate>Fri, 08 Mar 2024 09:17:23 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/rust%E4%B8%AD%E7%9A%84%E5%80%9F%E7%94%A8%E5%92%8C%E5%BC%95%E7%94%A8/</guid>
+      <description>Rust中的借用、引用和解引用Link to heading标准库的介绍：https://rustwiki.org/zh-CN/std/keyword.ref.html（译文）| https://doc.rust-lang.org/std/keyword.ref.html （原版，有能力推荐读这个）
+Rust book的介绍：https://rustwiki.org/zh-CN/book/ch04-02-references-and-borrowing.html
+我们将创建一个引用的行为称为 借用（borrowing）
+ref indicates that you want a reference to an unpacked value. （我理解为ref产出一个引用）
+Case 0Link to heading// rustwiki: 我们将创建一个引用的行为称为 **借用**（*borrowing*） // 个人认为：在参数传递时，称其为引用或者借用都可 // 引用不侵占所有权，不变更数据的所有者 fn main() { let mut number: i32 = 5; flip(&amp;amp;mut number); println!(&amp;#34;number = {}&amp;#34;, number); } fn flip(para: &amp;amp;mut i32) { *para = -*para; } Case 1Link to headinglet ref a = 5; // &amp;amp;i32 let b = &amp;amp;5; // i32 assert_eq!</description>
+    </item>
+    
+  </channel>
+</rss>

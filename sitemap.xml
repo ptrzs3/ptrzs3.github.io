@@ -3,24 +3,45 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ptrzs3.github.io/authors/</loc>
-    <lastmod>2024-03-07T17:07:54+08:00</lastmod>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/</loc>
-    <lastmod>2024-03-07T17:07:54+08:00</lastmod>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/posts/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/authors/ptrzs/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/rust/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/str/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/string/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/posts/string%E7%9B%B8%E5%85%B3/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/</loc>
+    <lastmod>2024-03-08T09:28:53+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/deref/</loc>
+    <lastmod>2024-03-08T09:17:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/tags/ref/</loc>
+    <lastmod>2024-03-08T09:17:23+08:00</lastmod>
+  </url><url>
+    <loc>https://ptrzs3.github.io/posts/rust%E4%B8%AD%E7%9A%84%E5%80%9F%E7%94%A8%E5%92%8C%E5%BC%95%E7%94%A8/</loc>
+    <lastmod>2024-03-08T09:17:23+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/tags/mysql/</loc>
     <lastmod>2024-03-07T17:07:54+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/posts/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2024-03-07T17:07:54+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/posts/</loc>
-    <lastmod>2024-03-07T17:07:54+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/authors/ptrzs/</loc>
-    <lastmod>2024-03-07T17:07:54+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/tags/</loc>
     <lastmod>2024-03-07T17:07:54+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
@@ -93,9 +114,6 @@
     <lastmod>2023-10-18T21:28:06+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/tags/result/</loc>
-    <lastmod>2023-10-18T21:28:06+08:00</lastmod>
-  </url><url>
-    <loc>https://ptrzs3.github.io/tags/rust/</loc>
     <lastmod>2023-10-18T21:28:06+08:00</lastmod>
   </url><url>
     <loc>https://ptrzs3.github.io/posts/rust%E9%87%8C%E7%9A%84%E5%B0%8F%E4%B8%9C%E8%A5%BF/</loc>
