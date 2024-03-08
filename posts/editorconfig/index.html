@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Editorconfig · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="Intro.Link to headingEditorconfig解决团队在不同编辑器开发同一个项目导致的代码风格不一致的问题。
+通过配置.editorconfig文件，编辑器自动读取配置，实现风格统一。
+在某些编辑器上，不需要安装插件即可读取配置，如Vim、Visual Studio、PyCharm等。
+在某些编辑器上，需要安装插件才能读取配置，如VS Code，Codeblocks等。
+supported wildcardLink to headingSpecial Characters Matching * any string of characters, except path separators (/) ** any string of characters ? any single character, except path separators (/) [seq] any single character in seq [!seq] any single character not in seq {s1,s2,s3} any of the strings given (separated by commas, can be nested) (But {s1} only matches {s1} literally.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Editorconfig"/>
+<meta name="twitter:description" content="Intro.Link to headingEditorconfig解决团队在不同编辑器开发同一个项目导致的代码风格不一致的问题。
+通过配置.editorconfig文件，编辑器自动读取配置，实现风格统一。
+在某些编辑器上，不需要安装插件即可读取配置，如Vim、Visual Studio、PyCharm等。
+在某些编辑器上，需要安装插件才能读取配置，如VS Code，Codeblocks等。
+supported wildcardLink to headingSpecial Characters Matching * any string of characters, except path separators (/) ** any string of characters ? any single character, except path separators (/) [seq] any single character in seq [!seq] any single character not in seq {s1,s2,s3} any of the strings given (separated by commas, can be nested) (But {s1} only matches {s1} literally."/>
+
+<meta property="og:title" content="Editorconfig" />
+<meta property="og:description" content="Intro.Link to headingEditorconfig解决团队在不同编辑器开发同一个项目导致的代码风格不一致的问题。
+通过配置.editorconfig文件，编辑器自动读取配置，实现风格统一。
+在某些编辑器上，不需要安装插件即可读取配置，如Vim、Visual Studio、PyCharm等。
+在某些编辑器上，需要安装插件才能读取配置，如VS Code，Codeblocks等。
+supported wildcardLink to headingSpecial Characters Matching * any string of characters, except path separators (/) ** any string of characters ? any single character, except path separators (/) [seq] any single character in seq [!seq] any single character not in seq {s1,s2,s3} any of the strings given (separated by commas, can be nested) (But {s1} only matches {s1} literally." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/editorconfig/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-08T22:00:56+08:00" />
+<meta property="article:modified_time" content="2024-03-08T22:00:56+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/editorconfig/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/editorconfig/">
+              Editorconfig
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-08T22:00:56&#43;08:00">
+                March 8, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/editorconfig/">editorconfig</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="intro">
+  Intro.
+  <a class="heading-link" href="#intro">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><code>Editorconfig</code>解决<em>团队</em>在<em>不同编辑器</em>开发<em>同一个项目</em>导致的代码风格不一致的问题。</p>
+<p>通过配置<code>.editorconfig</code>文件，编辑器自动读取配置，实现风格统一。</p>
+<p>在某些编辑器上，不需要安装插件即可读取配置，如<code>Vim</code>、<code>Visual Studio</code>、<code>PyCharm</code>等。</p>
+<p>在某些编辑器上，需要安装插件才能读取配置，如<code>VS Code</code>，<code>Codeblocks</code>等。</p>
+<h1 id="supported-wildcard">
+  supported wildcard
+  <a class="heading-link" href="#supported-wildcard">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Special Characters</th>
+<th style="text-align:left">Matching</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>*</code></td>
+<td style="text-align:left">any string of characters, except path separators (<code>/</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>**</code></td>
+<td style="text-align:left">any string of characters</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>?</code></td>
+<td style="text-align:left">any single character, except path separators (<code>/</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[seq]</code></td>
+<td style="text-align:left">any single character in seq</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[!seq]</code></td>
+<td style="text-align:left">any single character not in seq</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>{s1,s2,s3}</code></td>
+<td style="text-align:left">any of the strings given (separated by commas, can be nested) (But <code>{s1}</code> only matches <code>{s1}</code> literally.)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>{num1..num2}</code></td>
+<td style="text-align:left">any integer numbers between <code>num1</code> and <code>num2</code>, where <code>num1</code> and <code>num2</code> can be either positive or negative</td>
+</tr>
+</tbody>
+</table>
+<p>可以使用***反斜杠 \***来对字符进行转义使其不被解释为特殊字符</p>
+<h1 id="supported-pairs">
+  supported pairs
+  <a class="heading-link" href="#supported-pairs">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ul>
+<li>
+<p>除了<code>root</code>这个key之外，其余所有key都必须是以<code>=</code>连接的键值对形式，如<code>indent_style = space</code></p>
+</li>
+<li>
+<p>有一个特殊的value <code>unset</code>，将此值作为右值将使对应的key失效，即使这个key在之前被设置过有效值</p>
+</li>
+<li>
+<p>不区分大小写，被解析后统一为小写形式</p>
+</li>
+<li>
+<p>key的长度小于1024 Bytes，键的长度小于4096 Bytes</p>
+</li>
+<li>
+<p>注释以<code>#</code>或<code>;</code>开始，不允许行内注释</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Key</th>
+<th style="text-align:left">Supported values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>indent_style</code></td>
+<td style="text-align:left">Set to <code>tab</code> or <code>space</code> to use hard tabs or soft tabs respectively. The values are case insensitive.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>indent_size</code></td>
+<td style="text-align:left">Set to a whole number defining the number of columns used for each indentation level and the width of soft tabs (when supported). If this equals <code>tab</code>, the <code>indent_size</code> shall be set to the tab size, which should be <code>tab_width</code> (if specified); else, the tab size set by the editor. The values are case insensitive.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tab_width</code></td>
+<td style="text-align:left">Set to a whole number defining the number of columns used to represent a tab character. This defaults to the value of <code>indent_size</code> and should not usually need to be specified.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>end_of_line</code></td>
+<td style="text-align:left">Set to <code>lf</code>, <code>cr</code>, or <code>crlf</code> to control how line breaks are represented. The values are case insensitive.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>charset</code></td>
+<td style="text-align:left">Set to <code>latin1</code>, <code>utf-8</code>, <code>utf-8-bom</code>, <code>utf-16be</code> or <code>utf-16le</code> to control the character set. Use of <code>utf-8-bom</code> is discouraged.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>spelling_language</code></td>
+<td style="text-align:left">Sets the natural language that should be used for spell checking. Only one language can be specified. There is no default value.The format is <code>ss</code> or <code>ss-TT</code>, where <code>ss</code> is an <a href="https://en.wikipedia.org/wiki/ISO_639"  class="external-link" target="_blank" rel="noopener">ISO 639</a> language code and <code>TT</code> is an <a href="https://en.wikipedia.org/wiki/ISO_3166"  class="external-link" target="_blank" rel="noopener">ISO 3166</a> territory identifier.<strong>Note:</strong> This property does <strong>not</strong> specify the charset to be used. The charset is in separate property <code>charset</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>trim_trailing_whitespace</code></td>
+<td style="text-align:left">Set to <code>true</code> to remove all whitespace characters preceding newline characters in the file and <code>false</code> to ensure it doesn’t.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>insert_final_newline</code></td>
+<td style="text-align:left">Set to <code>true</code> ensure file ends with a newline when saving and <code>false</code> to ensure it doesn’t.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>root</code></td>
+<td style="text-align:left">Must be specified in the preamble. Set to <code>true</code> to stop the <code>.editorconfig</code> file search on the current file. The value is case insensitive.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="example-file">
+  Example file
+  <a class="heading-link" href="#example-file">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># EditorConfig is awesome: https://EditorConfig.org</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># top-most EditorConfig file</span>
+</span></span><span style="display:flex;"><span>root <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Unix-style newlines with a newline ending every file</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[*]</span>
+</span></span><span style="display:flex;"><span>end_of_line <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">lf</span>
+</span></span><span style="display:flex;"><span>insert_final_newline <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Matches multiple files with brace expansion notation</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Set default charset</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[*.{js,py}]</span>
+</span></span><span style="display:flex;"><span>charset <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">utf-8</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># 4 space indentation</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[*.py]</span>
+</span></span><span style="display:flex;"><span>indent_style <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">space</span>
+</span></span><span style="display:flex;"><span>indent_size <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Tab indentation (no size specified)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[Makefile]</span>
+</span></span><span style="display:flex;"><span>indent_style <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">tab</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Indentation override for all JS under lib directory</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[lib/**.js]</span>
+</span></span><span style="display:flex;"><span>indent_style <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">space</span>
+</span></span><span style="display:flex;"><span>indent_size <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Matches the exact files either package.json or .travis.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">[{package.json,.travis.yml}]</span>
+</span></span><span style="display:flex;"><span>indent_style <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">space</span>
+</span></span><span style="display:flex;"><span>indent_size <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">2</span>
+</span></span></code></pre></div><h1 id="related-links">
+  Related links
+  <a class="heading-link" href="#related-links">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><a href="https://spec.editorconfig.org/"  class="external-link" target="_blank" rel="noopener">https://spec.editorconfig.org/</a></p>
+<p><a href="https://editorconfig.org/"  class="external-link" target="_blank" rel="noopener">https://editorconfig.org/</a></p>
+
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

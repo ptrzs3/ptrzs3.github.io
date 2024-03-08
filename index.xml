@@ -6,7 +6,20 @@
     <description>Recent content on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Mar 2024 19:30:53 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Mar 2024 22:00:56 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Editorconfig</title>
+      <link>https://ptrzs3.github.io/posts/editorconfig/</link>
+      <pubDate>Fri, 08 Mar 2024 22:00:56 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/editorconfig/</guid>
+      <description>Intro.Link to headingEditorconfig解决团队在不同编辑器开发同一个项目导致的代码风格不一致的问题。
+通过配置.editorconfig文件，编辑器自动读取配置，实现风格统一。
+在某些编辑器上，不需要安装插件即可读取配置，如Vim、Visual Studio、PyCharm等。
+在某些编辑器上，需要安装插件才能读取配置，如VS Code，Codeblocks等。
+supported wildcardLink to headingSpecial Characters Matching * any string of characters, except path separators (/) ** any string of characters ? any single character, except path separators (/) [seq] any single character in seq [!seq] any single character not in seq {s1,s2,s3} any of the strings given (separated by commas, can be nested) (But {s1} only matches {s1} literally.</description>
+    </item>
+    
     <item>
       <title>Cow相关内容</title>
       <link>https://ptrzs3.github.io/posts/cow/</link>
