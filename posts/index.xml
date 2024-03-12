@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Mar 2024 22:00:56 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 16:10:18 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go包相关</title>
+      <link>https://ptrzs3.github.io/posts/go%E5%8C%85%E7%9B%B8%E5%85%B3/</link>
+      <pubDate>Tue, 12 Mar 2024 16:10:18 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/go%E5%8C%85%E7%9B%B8%E5%85%B3/</guid>
+      <description>Go包相关Link to headingmoduleLink to heading在Go语言中，一个module是许多相关的package的集合，可以用来与其他开发者共享并发布版本号。module本身被module根目录下的一个go.mod文件所定义。
+packageLink to headingpackage是同一个文件夹下go源文件的集合。同一层级的go源文件，不允许有多个package，但是允许子package存在。
+属于同一个package的go源文件，函数、变量等相互可见。不同的package要相互调用函数，需要通过import，且不允许循环import，即A import B，同时B也import A。
+一个go module要编译成二进制文件，必须有main package存在，且main package中必须有main函数，这是程序的入口；否则该module是一个库。
+import的是package而不是module
+Go命名规范Link to headinggo源文件：小写字母+下划线
+package：小写字母+下划线
+变量：camelCase，如遇首个单词为缩写则CamelCase，如URLDecoder
+常量：大写字母+下划线
+接口、结构体、函数：若仅在package之内使用，则camelCase；如若需要对package之外公开，则CamelCase。这种方式相当于private和public的用法。</description>
+    </item>
+    
     <item>
       <title>Editorconfig</title>
       <link>https://ptrzs3.github.io/posts/editorconfig/</link>
