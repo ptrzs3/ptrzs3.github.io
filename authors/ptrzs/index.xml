@@ -6,7 +6,34 @@
     <description>Recent content in ptrzs on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 12 Mar 2024 16:10:18 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 19:20:44 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/authors/ptrzs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rc and Arc in Rust</title>
+      <link>https://ptrzs3.github.io/posts/rc-and-arc-in-rust/</link>
+      <pubDate>Tue, 12 Mar 2024 19:20:44 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/rc-and-arc-in-rust/</guid>
+      <description>解决的问题Link to headingRc即Reference Counter，引用计数器，Arc即Atomic Reference Counter，两者唯一的区别是Arc可以在线程之间安全地进行传递（有性能代价）。
+对于程序中的某个值，它最完美的被释放时机就是用完之后立即释放内存，也就是只需要存续到每个人都用完它就好。Rc就做这样的事情：确保引用在所有人都用完之后释放它，而且使用者不需要担心出现无法被追踪的引用或者忘记引用计数，这些都交给Rc来处理。
+用例Link to headinguse std::rc::Rc; fn main() { let S = String::from(&amp;#34;Hello&amp;#34;); let mut rc = Rc::new(S); // 创建rc let p = rc.clone(); // 克隆一个引用 println!(&amp;#34;ref counter = {:?}&amp;#34;, Rc::strong_count(&amp;amp;rc)); // ref counter = 2 // rc指针拥有的值是不可变的，因此不可直接调用String的可变方法 // 通过全局方法获取rc的可变引用并解引用重新赋值，前提是ref counter == 1 // 若p存在，则下面方法会panic *Rc::get_mut(&amp;amp;mut rc).unwrap() = String::from(&amp;#34;World&amp;#34;); println!(&amp;#34;{:?}&amp;#34;, rc); // rc包裹的值为&amp;#34;World&amp;#34; } </description>
+    </item>
+    
+    <item>
+      <title>Cell and RefCell in Rust</title>
+      <link>https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/</link>
+      <pubDate>Tue, 12 Mar 2024 17:15:34 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/</guid>
+      <description>参考文档：《Rust语言圣经》，《Rust程序设计（第2版）》
+Cell和RefCell要解决的问题Link to heading对于Cell和RefCell所要解决的问题，上述两本资料解释不同，但含义相同：前者说 ”Rust 提供了 Cell 和 RefCell 用于内部可变性，简而言之，可以在拥有不可变引用的同时修改目标数据“；后者说”我们需要一个不可变值中的一丁点儿可变数据。……。Rust提供了多种可选方案，本节将讨论最直观的类型，即Cell&amp;lt;T&amp;gt;和RefCell&amp;lt;T&amp;gt;，……“。
+我认为后者的解释更形象一点：对于某个大型的结构体，在运行时不需要对其做非常多的改动，只是需要偶尔改动其某个字段，并且无法将此结构体声明为mut类型，而只是拥有该结构体的不可变引用。在这种场景下，若需要对该结构体的不可变引用进行可变，则可以用Cell或RefCell解决。
+需要注意的是，Cell和RefCell包裹的数据具有内部可变性，但这并不说明不可变引用和可变引用同时存在，也就是说并不能绕过Rust的所有权规则，尽管在编译时不会报错，但在运行时肯定会panic。
+Cell和RefCell的异同Link to headingCell包裹的数据必须实现Copy trait，而RefCell并没有此限制。
+Cell的get方法可以返回数据的拷贝，而RefCell的borrow方法返回数据的引用
+// Cell，Cell包裹的数据都实现了Copy trait pub fn get(&amp;amp;self) -&amp;gt; T // RefCell，其中的Ref也暗示了返回引用 pub fn borrow(&amp;amp;self) -&amp;gt; Ref&amp;lt;&amp;#39;_, T&amp;gt; Cell不会panic，而RefCell会
+用例Link to headinguse std::cell::Cell; pub struct Controller { …… counter: Cell&amp;lt;u32&amp;gt;, …… } impl Controller { …… fn counter_up(&amp;amp;self) { // 传入参数是不可变引用，而可通过Cell的特性实现可变 let n = self.counter.get(); self.counter.set(n + 1); } …… } use std::cell::RefCell; pub struct Library { …… log: RefCell&amp;lt;File&amp;gt;, …… } impl Library { …… fn logger(&amp;amp;self, msg: &amp;amp;str) { let mut log_file = self.</description>
+    </item>
+    
     <item>
       <title>Go包相关</title>
       <link>https://ptrzs3.github.io/posts/go%E5%8C%85%E7%9B%B8%E5%85%B3/</link>

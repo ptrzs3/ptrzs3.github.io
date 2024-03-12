@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Cell and RefCell in Rust · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="参考文档：《Rust语言圣经》，《Rust程序设计（第2版）》
+Cell和RefCell要解决的问题Link to heading对于Cell和RefCell所要解决的问题，上述两本资料解释不同，但含义相同：前者说 ”Rust 提供了 Cell 和 RefCell 用于内部可变性，简而言之，可以在拥有不可变引用的同时修改目标数据“；后者说”我们需要一个不可变值中的一丁点儿可变数据。……。Rust提供了多种可选方案，本节将讨论最直观的类型，即Cell&lt;T&gt;和RefCell&lt;T&gt;，……“。
+我认为后者的解释更形象一点：对于某个大型的结构体，在运行时不需要对其做非常多的改动，只是需要偶尔改动其某个字段，并且无法将此结构体声明为mut类型，而只是拥有该结构体的不可变引用。在这种场景下，若需要对该结构体的不可变引用进行可变，则可以用Cell或RefCell解决。
+需要注意的是，Cell和RefCell包裹的数据具有内部可变性，但这并不说明不可变引用和可变引用同时存在，也就是说并不能绕过Rust的所有权规则，尽管在编译时不会报错，但在运行时肯定会panic。
+Cell和RefCell的异同Link to headingCell包裹的数据必须实现Copy trait，而RefCell并没有此限制。
+Cell的get方法可以返回数据的拷贝，而RefCell的borrow方法返回数据的引用
+// Cell，Cell包裹的数据都实现了Copy trait pub fn get(&amp;self) -&gt; T // RefCell，其中的Ref也暗示了返回引用 pub fn borrow(&amp;self) -&gt; Ref&lt;&#39;_, T&gt; Cell不会panic，而RefCell会
+用例Link to headinguse std::cell::Cell; pub struct Controller { …… counter: Cell&lt;u32&gt;, …… } impl Controller { …… fn counter_up(&amp;self) { // 传入参数是不可变引用，而可通过Cell的特性实现可变 let n = self.counter.get(); self.counter.set(n &#43; 1); } …… } use std::cell::RefCell; pub struct Library { …… log: RefCell&lt;File&gt;, …… } impl Library { …… fn logger(&amp;self, msg: &amp;str) { let mut log_file = self.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cell and RefCell in Rust"/>
+<meta name="twitter:description" content="参考文档：《Rust语言圣经》，《Rust程序设计（第2版）》
+Cell和RefCell要解决的问题Link to heading对于Cell和RefCell所要解决的问题，上述两本资料解释不同，但含义相同：前者说 ”Rust 提供了 Cell 和 RefCell 用于内部可变性，简而言之，可以在拥有不可变引用的同时修改目标数据“；后者说”我们需要一个不可变值中的一丁点儿可变数据。……。Rust提供了多种可选方案，本节将讨论最直观的类型，即Cell&lt;T&gt;和RefCell&lt;T&gt;，……“。
+我认为后者的解释更形象一点：对于某个大型的结构体，在运行时不需要对其做非常多的改动，只是需要偶尔改动其某个字段，并且无法将此结构体声明为mut类型，而只是拥有该结构体的不可变引用。在这种场景下，若需要对该结构体的不可变引用进行可变，则可以用Cell或RefCell解决。
+需要注意的是，Cell和RefCell包裹的数据具有内部可变性，但这并不说明不可变引用和可变引用同时存在，也就是说并不能绕过Rust的所有权规则，尽管在编译时不会报错，但在运行时肯定会panic。
+Cell和RefCell的异同Link to headingCell包裹的数据必须实现Copy trait，而RefCell并没有此限制。
+Cell的get方法可以返回数据的拷贝，而RefCell的borrow方法返回数据的引用
+// Cell，Cell包裹的数据都实现了Copy trait pub fn get(&amp;self) -&gt; T // RefCell，其中的Ref也暗示了返回引用 pub fn borrow(&amp;self) -&gt; Ref&lt;&#39;_, T&gt; Cell不会panic，而RefCell会
+用例Link to headinguse std::cell::Cell; pub struct Controller { …… counter: Cell&lt;u32&gt;, …… } impl Controller { …… fn counter_up(&amp;self) { // 传入参数是不可变引用，而可通过Cell的特性实现可变 let n = self.counter.get(); self.counter.set(n &#43; 1); } …… } use std::cell::RefCell; pub struct Library { …… log: RefCell&lt;File&gt;, …… } impl Library { …… fn logger(&amp;self, msg: &amp;str) { let mut log_file = self."/>
+
+<meta property="og:title" content="Cell and RefCell in Rust" />
+<meta property="og:description" content="参考文档：《Rust语言圣经》，《Rust程序设计（第2版）》
+Cell和RefCell要解决的问题Link to heading对于Cell和RefCell所要解决的问题，上述两本资料解释不同，但含义相同：前者说 ”Rust 提供了 Cell 和 RefCell 用于内部可变性，简而言之，可以在拥有不可变引用的同时修改目标数据“；后者说”我们需要一个不可变值中的一丁点儿可变数据。……。Rust提供了多种可选方案，本节将讨论最直观的类型，即Cell&lt;T&gt;和RefCell&lt;T&gt;，……“。
+我认为后者的解释更形象一点：对于某个大型的结构体，在运行时不需要对其做非常多的改动，只是需要偶尔改动其某个字段，并且无法将此结构体声明为mut类型，而只是拥有该结构体的不可变引用。在这种场景下，若需要对该结构体的不可变引用进行可变，则可以用Cell或RefCell解决。
+需要注意的是，Cell和RefCell包裹的数据具有内部可变性，但这并不说明不可变引用和可变引用同时存在，也就是说并不能绕过Rust的所有权规则，尽管在编译时不会报错，但在运行时肯定会panic。
+Cell和RefCell的异同Link to headingCell包裹的数据必须实现Copy trait，而RefCell并没有此限制。
+Cell的get方法可以返回数据的拷贝，而RefCell的borrow方法返回数据的引用
+// Cell，Cell包裹的数据都实现了Copy trait pub fn get(&amp;self) -&gt; T // RefCell，其中的Ref也暗示了返回引用 pub fn borrow(&amp;self) -&gt; Ref&lt;&#39;_, T&gt; Cell不会panic，而RefCell会
+用例Link to headinguse std::cell::Cell; pub struct Controller { …… counter: Cell&lt;u32&gt;, …… } impl Controller { …… fn counter_up(&amp;self) { // 传入参数是不可变引用，而可通过Cell的特性实现可变 let n = self.counter.get(); self.counter.set(n &#43; 1); } …… } use std::cell::RefCell; pub struct Library { …… log: RefCell&lt;File&gt;, …… } impl Library { …… fn logger(&amp;self, msg: &amp;str) { let mut log_file = self." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-12T17:15:34+08:00" />
+<meta property="article:modified_time" content="2024-03-12T17:15:34+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/">
+              Cell and RefCell in Rust
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-12T17:15:34&#43;08:00">
+                March 12, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/rust/">Rust</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/cell/">Cell</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/refcell/">RefCell</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>参考文档：《<a href="https://course.rs/advance/smart-pointer/cell-refcell.html"  class="external-link" target="_blank" rel="noopener">Rust语言圣经</a>》，《Rust程序设计（第2版）》</p>
+<h1 id="cell和refcell要解决的问题">
+  Cell和RefCell要解决的问题
+  <a class="heading-link" href="#cell%e5%92%8crefcell%e8%a6%81%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>对于<code>Cell</code>和<code>RefCell</code>所要解决的问题，上述两本资料解释不同，但含义相同：前者说 ”<em>Rust 提供了 <code>Cell</code> 和 <code>RefCell</code> 用于内部可变性，简而言之，可以在拥有不可变引用的同时修改目标数据</em>“；后者说”<em>我们需要一个不可变值中的<strong>一丁点儿</strong>可变数据。……。Rust提供了多种可选方案，本节将讨论最直观的类型，即<code>Cell&lt;T&gt;</code>和<code>RefCell&lt;T&gt;</code>，……</em>“。</p>
+<p>我认为后者的解释更形象一点：对于某个大型的结构体，在运行时不需要对其做非常多的改动，只是需要偶尔改动其某个字段，并且无法将此结构体声明为<code>mut</code>类型，而只是拥有该结构体的不可变引用。在这种场景下，若需要对该结构体的不可变引用进行可变，则可以用<code>Cell</code>或<code>RefCell</code>解决。</p>
+<p>需要注意的是，<code>Cell</code>和<code>RefCell</code>包裹的数据具有内部可变性，但这并不说明不可变引用和可变引用同时存在，也就是说并不能绕过Rust的所有权规则，尽管在编译时不会报错，但在运行时肯定会panic。</p>
+<h1 id="cell和refcell的异同">
+  Cell和RefCell的异同
+  <a class="heading-link" href="#cell%e5%92%8crefcell%e7%9a%84%e5%bc%82%e5%90%8c">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ul>
+<li>
+<p><code>Cell</code>包裹的数据必须实现<code>Copy</code> trait，而<code>RefCell</code>并没有此限制。</p>
+</li>
+<li>
+<p><code>Cell</code>的<code>get</code>方法可以返回数据的拷贝，而<code>RefCell</code>的<code>borrow</code>方法返回数据的引用</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Cell，Cell包裹的数据都实现了Copy trait
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">get</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">T</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#8b949e;font-style:italic">// RefCell，其中的Ref也暗示了返回引用
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">borrow</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>-&gt; <span style="color:#f0883e;font-weight:bold">Ref</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>&#39;_,<span style="color:#6e7681"> </span>T<span style="color:#ff7b72;font-weight:bold">&gt;</span><span style="color:#6e7681">
+</span></span></span></code></pre></div></li>
+<li>
+<p><code>Cell</code>不会panic，而<code>RefCell</code>会</p>
+</li>
+</ul>
+<h1 id="用例">
+  用例
+  <a class="heading-link" href="#%e7%94%a8%e4%be%8b">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">use</span><span style="color:#6e7681"> </span>std::cell::Cell;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">Controller</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>counter: <span style="color:#f0883e;font-weight:bold">Cell</span><span style="color:#ff7b72;font-weight:bold">&lt;</span><span style="color:#ff7b72">u32</span><span style="color:#ff7b72;font-weight:bold">&gt;</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>Controller<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">counter_up</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self)<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#8b949e;font-style:italic">// 传入参数是不可变引用，而可通过Cell的特性实现可变
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">    	</span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span>n<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>self.counter.get();<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    	</span>self.counter.set(n<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#6e7681"> </span><span style="color:#a5d6ff">1</span>);<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">	</span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#ff7b72">use</span><span style="color:#6e7681"> </span>std::cell::RefCell;<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">pub</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">struct</span> <span style="color:#f0883e;font-weight:bold">Library</span><span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>log: <span style="color:#f0883e;font-weight:bold">RefCell</span><span style="color:#ff7b72;font-weight:bold">&lt;</span>File<span style="color:#ff7b72;font-weight:bold">&gt;</span>,<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span><span style="color:#ff7b72">impl</span><span style="color:#6e7681"> </span>Library<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#ff7b72">fn</span> <span style="color:#d2a8ff;font-weight:bold">logger</span>(<span style="color:#ff7b72;font-weight:bold">&amp;</span>self,<span style="color:#6e7681"> </span>msg: <span style="color:#79c0ff">&amp;</span><span style="color:#ff7b72">str</span>)<span style="color:#6e7681"> </span>{<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#ff7b72">let</span><span style="color:#6e7681"> </span><span style="color:#ff7b72">mut</span><span style="color:#6e7681"> </span>log_file<span style="color:#6e7681"> </span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#6e7681"> </span>self.log.borrow_mut();<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">        </span><span style="color:#8b949e;font-style:italic">// 如果此时使用borrow()方法，则在运行时会panic
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">        </span><span style="color:#8b949e;font-style:italic">// 因为所有权规则不允许可变引用和不可变引用同时存在
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#6e7681">        </span>writeln!(log_file,<span style="color:#6e7681"> </span><span style="color:#a5d6ff">&#34;{}&#34;</span>,<span style="color:#6e7681"> </span>msg).unwrap();<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span>}<span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681">    </span><span style="color:#f85149">……</span><span style="color:#6e7681">
+</span></span></span><span style="display:flex;"><span><span style="color:#6e7681"></span>}<span style="color:#6e7681">
+</span></span></span></code></pre></div>
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
