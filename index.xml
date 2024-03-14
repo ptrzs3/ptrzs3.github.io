@@ -8,13 +8,16 @@
     <language>en</language>
     <lastBuildDate>Wed, 13 Mar 2024 10:52:03 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Makefile</title>
+      <title>Makefile基础</title>
       <link>https://ptrzs3.github.io/posts/makefile/</link>
       <pubDate>Wed, 13 Mar 2024 10:52:03 +0800</pubDate>
       
       <guid>https://ptrzs3.github.io/posts/makefile/</guid>
-      <description>目标
-默认是第一个目标</description>
+      <description>参考文章：https://www.cnblogs.com/paul-617/p/15501875.html、《Go语言学习指南》、https://makefiletutorial.com/
+makefile的作用Link to heading实现可重复的、自动化的构建，以便任何人都可以随时随地运行（摘自《Go语言学习指南》）
+makefile基本格式Link to heading# 可以有多个dependency，以white space分隔 # makefile使用TAB进行缩进 &amp;lt;TASK&amp;gt;: &amp;lt;PREREQUISITES&amp;gt; &amp;lt;COMMAND&amp;gt; ... 对于TASK，有的文章称之为target，而《Go语言学习指南》则使用goal来称呼
+基本示例Link to headingall: main.o foo.o echo &amp;#34;running all&amp;#34; gcc -o simple main.o foo.o main.o: main.c echo &amp;#34;running main.o&amp;#34; gcc -o main.o -c main.c foo.o: foo.c echo &amp;#34;running foo.o&amp;#34; gcc -o foo.o -c foo.c clean: rm simple main.o foo.o make的原理Link to heading执行顺序Link to heading如上示例，定义了4个task，现就all进行讲解。
+all是makefile的第一个task，也就是make的默认task，当在命令行执行make时会默认执行第一个任务。</description>
     </item>
     
     <item>
