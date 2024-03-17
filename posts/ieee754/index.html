@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+  Ieee754 · Galaxy
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="ptrzs">
+<meta name="description" content="参考资料：https://zh.wikipedia.org/wiki/IEEE_754
+介绍Link to headingIEEE 754标准定义了浮点数如何在计算机中存储
+浮点数分为单精度浮点数（32位）和双精度浮点数（64位），还有延伸单精度（43位以上）与延伸双精度（79位以上），后两种很少使用。
+规格化后的指数在[-127, 128]范围内可用单精度浮点数表示。
+浮点数的组成Link to heading浮点数由符号位（sign）、阶码（exponent，用移码表示）和尾数（fractions，用原码表示）
+单精度浮点数Link to heading双精度浮点数Link to heading示例Link to heading转换为二进制表示：对于25.47(10)，其二进制表示为11001.011101(2)。
+规格化：11001.011101(2) = 1.1001011101 x 24。规格化后的小数点左侧的1为隐藏位，尾数为小数点右侧的部分：1001011101(2)，指数为4(10)
+阶码偏置：IEEE754规定：阶码用移码表示，单精度偏移&#43;127(10)，双精度偏移&#43;1023(10)，所以单精度浮点数阶码为4&#43;127 = 131(10) = 10000011(2)
+单精度表示为0_10000011_10010111010000000000000
+Q&amp;ALink to headingQ：为什么需要隐藏位？
+A：IEEE754规定规格化后的数，小数点左侧总是为1，因此不必存储此位，而是让出一位内存空间用来表示更大的数值范围
+Q：精度损失问题？
+A：对于一个十进制小数，如果它的小数部分最低位不是5，则这个十进制小数转换为二进制后一定是无限长的，而计算机不可能用无限长的内存来存储这个二进制数，这就导致了从存储的时候就不精确，所以运算的时候肯定也是不精确的，就会发生精度损失，类似与0.1&#43;0.2 != 0.3">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ieee754"/>
+<meta name="twitter:description" content="参考资料：https://zh.wikipedia.org/wiki/IEEE_754
+介绍Link to headingIEEE 754标准定义了浮点数如何在计算机中存储
+浮点数分为单精度浮点数（32位）和双精度浮点数（64位），还有延伸单精度（43位以上）与延伸双精度（79位以上），后两种很少使用。
+规格化后的指数在[-127, 128]范围内可用单精度浮点数表示。
+浮点数的组成Link to heading浮点数由符号位（sign）、阶码（exponent，用移码表示）和尾数（fractions，用原码表示）
+单精度浮点数Link to heading双精度浮点数Link to heading示例Link to heading转换为二进制表示：对于25.47(10)，其二进制表示为11001.011101(2)。
+规格化：11001.011101(2) = 1.1001011101 x 24。规格化后的小数点左侧的1为隐藏位，尾数为小数点右侧的部分：1001011101(2)，指数为4(10)
+阶码偏置：IEEE754规定：阶码用移码表示，单精度偏移&#43;127(10)，双精度偏移&#43;1023(10)，所以单精度浮点数阶码为4&#43;127 = 131(10) = 10000011(2)
+单精度表示为0_10000011_10010111010000000000000
+Q&amp;ALink to headingQ：为什么需要隐藏位？
+A：IEEE754规定规格化后的数，小数点左侧总是为1，因此不必存储此位，而是让出一位内存空间用来表示更大的数值范围
+Q：精度损失问题？
+A：对于一个十进制小数，如果它的小数部分最低位不是5，则这个十进制小数转换为二进制后一定是无限长的，而计算机不可能用无限长的内存来存储这个二进制数，这就导致了从存储的时候就不精确，所以运算的时候肯定也是不精确的，就会发生精度损失，类似与0.1&#43;0.2 != 0.3"/>
+
+<meta property="og:title" content="Ieee754" />
+<meta property="og:description" content="参考资料：https://zh.wikipedia.org/wiki/IEEE_754
+介绍Link to headingIEEE 754标准定义了浮点数如何在计算机中存储
+浮点数分为单精度浮点数（32位）和双精度浮点数（64位），还有延伸单精度（43位以上）与延伸双精度（79位以上），后两种很少使用。
+规格化后的指数在[-127, 128]范围内可用单精度浮点数表示。
+浮点数的组成Link to heading浮点数由符号位（sign）、阶码（exponent，用移码表示）和尾数（fractions，用原码表示）
+单精度浮点数Link to heading双精度浮点数Link to heading示例Link to heading转换为二进制表示：对于25.47(10)，其二进制表示为11001.011101(2)。
+规格化：11001.011101(2) = 1.1001011101 x 24。规格化后的小数点左侧的1为隐藏位，尾数为小数点右侧的部分：1001011101(2)，指数为4(10)
+阶码偏置：IEEE754规定：阶码用移码表示，单精度偏移&#43;127(10)，双精度偏移&#43;1023(10)，所以单精度浮点数阶码为4&#43;127 = 131(10) = 10000011(2)
+单精度表示为0_10000011_10010111010000000000000
+Q&amp;ALink to headingQ：为什么需要隐藏位？
+A：IEEE754规定规格化后的数，小数点左侧总是为1，因此不必存储此位，而是让出一位内存空间用来表示更大的数值范围
+Q：精度损失问题？
+A：对于一个十进制小数，如果它的小数部分最低位不是5，则这个十进制小数转换为二进制后一定是无限长的，而计算机不可能用无限长的内存来存储这个二进制数，这就导致了从存储的时候就不精确，所以运算的时候肯定也是不精确的，就会发生精度损失，类似与0.1&#43;0.2 != 0.3" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ptrzs3.github.io/posts/ieee754/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-14T16:14:23+08:00" />
+<meta property="article:modified_time" content="2024-03-14T16:14:23+08:00" />
+
+
+
+
+<link rel="canonical" href="https://ptrzs3.github.io/posts/ieee754/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.135e22c97ff685fe983fc60048e309ced8f00d8d38f536aa67dba8a13a03dfa4.css" integrity="sha256-E14iyX/2hf6YP8YASOMJztjwDY049TaqZ9uooToD36Q=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css" integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-dark">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Galaxy
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://ptrzs3.github.io/posts/ieee754/">
+              Ieee754
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2024-03-14T16:14:23&#43;08:00">
+                March 14, 2024
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/ptrzs/">ptrzs</a></div>
+
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/ieee754/">ieee754</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/%E6%B5%AE%E7%82%B9%E6%95%B0/">浮点数</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>参考资料：https://zh.wikipedia.org/wiki/IEEE_754</p>
+<h1 id="介绍">
+  介绍
+  <a class="heading-link" href="#%e4%bb%8b%e7%bb%8d">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>IEEE 754标准定义了浮点数如何在计算机中存储</p>
+<p>浮点数分为单精度浮点数（32位）和双精度浮点数（64位），还有延伸单精度（43位以上）与延伸双精度（79位以上），后两种很少使用。</p>
+<p>规格化后的指数在[-127, 128]范围内可用单精度浮点数表示。</p>
+<h1 id="浮点数的组成">
+  浮点数的组成
+  <a class="heading-link" href="#%e6%b5%ae%e7%82%b9%e6%95%b0%e7%9a%84%e7%bb%84%e6%88%90">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>浮点数由符号位（sign）、阶码（exponent，用移码表示）和尾数（fractions，用原码表示）</p>
+<h2 id="单精度浮点数">
+  单精度浮点数
+  <a class="heading-link" href="#%e5%8d%95%e7%b2%be%e5%ba%a6%e6%b5%ae%e7%82%b9%e6%95%b0">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/float.png" alt="float"></p>
+<h2 id="双精度浮点数">
+  双精度浮点数
+  <a class="heading-link" href="#%e5%8f%8c%e7%b2%be%e5%ba%a6%e6%b5%ae%e7%82%b9%e6%95%b0">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/double.png" alt="double"></p>
+<h1 id="示例">
+  示例
+  <a class="heading-link" href="#%e7%a4%ba%e4%be%8b">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<ol>
+<li>
+<p>转换为二进制表示：对于25.47<!-- raw HTML omitted -->(10)<!-- raw HTML omitted -->，其二进制表示为11001.011101<!-- raw HTML omitted -->(2)<!-- raw HTML omitted -->。</p>
+</li>
+<li>
+<p>规格化：11001.011101<!-- raw HTML omitted -->(2)<!-- raw HTML omitted --> = 1.1001011101 x 2<!-- raw HTML omitted -->4<!-- raw HTML omitted -->。规格化后的小数点左侧的1为隐藏位，尾数为小数点右侧的部分：1001011101<!-- raw HTML omitted -->(2)<!-- raw HTML omitted -->，指数为4<!-- raw HTML omitted -->(10)<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p>阶码偏置：IEEE754规定：阶码用移码表示，单精度偏移+127<!-- raw HTML omitted -->(10)<!-- raw HTML omitted -->，双精度偏移+1023<!-- raw HTML omitted -->(10)<!-- raw HTML omitted -->，所以单精度浮点数阶码为4+127 = 131<!-- raw HTML omitted -->(10)<!-- raw HTML omitted --> = 10000011<!-- raw HTML omitted -->(2)<!-- raw HTML omitted --></p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240316214236719.png" alt="image-20240316214236719"></p>
+</li>
+<li>
+<p>单精度表示为0_10000011_10010111010000000000000</p>
+</li>
+</ol>
+<h1 id="qa">
+  Q&amp;A
+  <a class="heading-link" href="#qa">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p>Q：为什么需要隐藏位？</p>
+<p>A：IEEE754规定规格化后的数，小数点左侧<strong>总是</strong>为1，因此不必存储此位，而是让出一位内存空间用来表示更大的数值范围</p>
+<p>Q：精度损失问题？</p>
+<p>A：对于一个十进制小数，如果它的小数部分最低位不是5，则这个十进制小数转换为二进制后一定是无限长的，而计算机不可能用无限长的内存来存储这个二进制数，这就导致了从存储的时候就不精确，所以运算的时候肯定也是不精确的，就会发生精度损失，类似与0.1+0.2 != 0.3</p>
+<p><img src="https://pics-1300084735.cos.ap-nanjing.myqcloud.com/image-20240317141050995.png" alt="image-20240317141050995"></p>
+
+        <hr>
+      </div>
+      <footer>
+        
+
+
+        <div class="comments">
+    <script>
+  
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+  
+    getTheme = getTheme == null ? 'dark_tritanopia' : getTheme;
+    
+    let s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.setAttribute('data-repo', 'ptrzs3\/ptrzs3.github.io');
+    s.setAttribute('data-repo-id', 'R_kgDOKfzRbg');
+    s.setAttribute('data-category', 'Announcements');
+    s.setAttribute('data-category-id', 'DIC_kwDOKfzRbs4CaQex');
+    s.setAttribute('data-mapping', 'pathname');
+    s.setAttribute('data-term', '');
+    s.setAttribute('data-strict', '0');
+    s.setAttribute('data-reactions-enabled', '1');
+    s.setAttribute('data-emit-metadata', '0');
+    s.setAttribute('data-input-position', 'bottom');
+    s.setAttribute('data-theme', getTheme);
+    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-loading', '');
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+  
+    </script>
+    </div>
+        
+        
+        
+      </footer>    </article>
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

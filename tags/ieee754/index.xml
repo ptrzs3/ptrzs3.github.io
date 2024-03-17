@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ieee754 on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/ieee754/</link>
+    <description>Recent content in ieee754 on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 14 Mar 2024 16:14:23 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/ieee754/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ieee754</title>
+      <link>https://ptrzs3.github.io/posts/ieee754/</link>
+      <pubDate>Thu, 14 Mar 2024 16:14:23 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/ieee754/</guid>
+      <description>参考资料：https://zh.wikipedia.org/wiki/IEEE_754
+介绍Link to headingIEEE 754标准定义了浮点数如何在计算机中存储
+浮点数分为单精度浮点数（32位）和双精度浮点数（64位），还有延伸单精度（43位以上）与延伸双精度（79位以上），后两种很少使用。
+规格化后的指数在[-127, 128]范围内可用单精度浮点数表示。
+浮点数的组成Link to heading浮点数由符号位（sign）、阶码（exponent，用移码表示）和尾数（fractions，用原码表示）
+单精度浮点数Link to heading双精度浮点数Link to heading示例Link to heading转换为二进制表示：对于25.47(10)，其二进制表示为11001.011101(2)。
+规格化：11001.011101(2) = 1.1001011101 x 24。规格化后的小数点左侧的1为隐藏位，尾数为小数点右侧的部分：1001011101(2)，指数为4(10)
+阶码偏置：IEEE754规定：阶码用移码表示，单精度偏移+127(10)，双精度偏移+1023(10)，所以单精度浮点数阶码为4+127 = 131(10) = 10000011(2)
+单精度表示为0_10000011_10010111010000000000000
+Q&amp;amp;ALink to headingQ：为什么需要隐藏位？
+A：IEEE754规定规格化后的数，小数点左侧总是为1，因此不必存储此位，而是让出一位内存空间用来表示更大的数值范围
+Q：精度损失问题？
+A：对于一个十进制小数，如果它的小数部分最低位不是5，则这个十进制小数转换为二进制后一定是无限长的，而计算机不可能用无限长的内存来存储这个二进制数，这就导致了从存储的时候就不精确，所以运算的时候肯定也是不精确的，就会发生精度损失，类似与0.1+0.2 != 0.3</description>
+    </item>
+    
+  </channel>
+</rss>

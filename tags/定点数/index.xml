@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>定点数 on Galaxy</title>
+    <link>https://ptrzs3.github.io/tags/%E5%AE%9A%E7%82%B9%E6%95%B0/</link>
+    <description>Recent content in 定点数 on Galaxy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 17 Mar 2024 09:58:08 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/%E5%AE%9A%E7%82%B9%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>计算机数值表示</title>
+      <link>https://ptrzs3.github.io/posts/%E5%8E%9F%E7%A0%81/</link>
+      <pubDate>Sun, 17 Mar 2024 09:58:08 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/%E5%8E%9F%E7%A0%81/</guid>
+      <description>概述Link to heading计算机中只有加法器，而没有减法器，为了进行减法运算，需要将减法转换为加法。解决运算转换的问题，需要用到补码。
+计算机中表示带符号整数，有原码、补码、反码三种方式
+计算机内数值表示Link to heading可以用定点数和浮点数来表示；
+定点数
+数值的小数点的位置是固定的，但是并不占用存储空间。
+对于纯整数，小数点位于最低位之后；
+对于纯小数，最高位是符号位，小数点位于符号位右侧；
+对于整数+小数，通常需要事先约定好小数点所在的位置，但是这样存在表示范围和表示精度相互矛盾的问题：小数点太靠左，则表示的数值范围就缩小；小数点太靠右，则小数的精度就会有损失。所以，小数通常用浮点数来表示，定点数通常用来表示整数。
+浮点数
+带符号整数的表示方式Link to heading以+13和-19举例，8 bit存储：
+原码：最高位为符号位，8 bit存储范围为1000_0000 ~0111_1111，即-128~+127
++13(10) = 0000_1101(2)
+-19(10) = 1001_0011(2)
+反码：正数的反码与原码相同，负数的反码符号位不变，数值位取反
++13(10) = 0000_1101(2)
+-19(10) = 1110_1100(2)
+补码：正数的补码与原码相同，负数的补码在反码的基础上+1
++13(10) = 0000_1101(2)
+-19(10) = 1110_1101(2)
+计算机内的数值计算Link to heading计算机内的数值计算都是以补码方式进行
+加法Link to heading补码相加，得到补码形式的结果，再转换为原码
+13 +（-19） = 0000_1101(2) + 1110_1101(2) = 1111_1010(2-补码) = 1111_1001(2-反码) = 1000_0110(2-原码) = -6(10)</description>
+    </item>
+    
+  </channel>
+</rss>

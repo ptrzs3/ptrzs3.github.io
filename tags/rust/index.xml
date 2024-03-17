@@ -6,7 +6,18 @@
     <description>Recent content in Rust on Galaxy</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 12 Mar 2024 17:15:34 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Mar 2024 19:20:44 +0800</lastBuildDate><atom:link href="https://ptrzs3.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rc and Arc in Rust</title>
+      <link>https://ptrzs3.github.io/posts/rc-and-arc-in-rust/</link>
+      <pubDate>Tue, 12 Mar 2024 19:20:44 +0800</pubDate>
+      
+      <guid>https://ptrzs3.github.io/posts/rc-and-arc-in-rust/</guid>
+      <description>解决的问题Link to headingRc即Reference Counter，引用计数器，Arc即Atomic Reference Counter，两者唯一的区别是Arc可以在线程之间安全地进行传递（有性能代价）。
+对于程序中的某个值，它最完美的被释放时机就是用完之后立即释放内存，也就是只需要存续到每个人都用完它就好。Rc就做这样的事情：确保引用在所有人都用完之后释放它，而且使用者不需要担心出现无法被追踪的引用或者忘记引用计数，这些都交给Rc来处理。
+用例Link to headinguse std::rc::Rc; fn main() { let S = String::from(&amp;#34;Hello&amp;#34;); let mut rc = Rc::new(S); // 创建rc let p = rc.clone(); // 克隆一个引用 println!(&amp;#34;ref counter = {:?}&amp;#34;, Rc::strong_count(&amp;amp;rc)); // ref counter = 2 // rc指针拥有的值是不可变的，因此不可直接调用String的可变方法 // 通过全局方法获取rc的可变引用并解引用重新赋值，前提是ref counter == 1 // 若p存在，则下面方法会panic *Rc::get_mut(&amp;amp;mut rc).unwrap() = String::from(&amp;#34;World&amp;#34;); println!(&amp;#34;{:?}&amp;#34;, rc); // rc包裹的值为&amp;#34;World&amp;#34; } </description>
+    </item>
+    
     <item>
       <title>Cell and RefCell in Rust</title>
       <link>https://ptrzs3.github.io/posts/cell-and-refcell-in-rust/</link>
